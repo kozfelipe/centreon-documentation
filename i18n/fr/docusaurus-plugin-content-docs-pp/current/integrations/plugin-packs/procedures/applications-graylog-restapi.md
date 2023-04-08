@@ -6,170 +6,314 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 
-## Vue d'ensemble
+## Contenu du Pack
 
-Graylog est une solution de gestion de log permettant stocker ces derniers et de
-les analyser en temps réél. 
+### Modèles
 
-Le Plugin-Pack Centreon *Graylog* permet (par l'interrogation de l'API Rest)
-de récupérer le nombre de notifications système par sévérité ainsi que le nombre
-de résultats obtenu suite à une requête Lucène.
+Le Plugin Pack Centreon **Graylog** apporte un modèle d'hôte :
 
-## Contenu du Plugin-Pack
+* App-Graylog-Restapi-custom-custom
 
-### Objets supervisés
+Il apporte les modèles de service suivants :
 
-* Requêtes Lucène
-* Notifications système
+| Alias                | Modèle de service                 | Description | Défaut |
+|:---------------------|:----------------------------------|:------------|:-------|
+| System-Notifications | App-Graylog-Notifications-Restapi | ContrÃ      | X      |
+| Query                | App-Graylog-Query-Restapi         | ContrÃ      |        |
 
-### Métriques collectées
+
+> Les services par **Défaut** sont créés automatiquement lorsque le modèle d'hôte est appliqué.
+
+### Métriques & statuts collectés
 
 <Tabs groupId="sync">
 <TabItem value="Query" label="Query">
 
-| Metric name                | Description               | Unit   |
-| :------------------------- | :------------------------ | :----- |
-| graylog.query.match.count  | Number of query matches   | Count  |
+| Métrique                  | Unité |
+|:--------------------------|:------|
+| graylog.query.match.count | count |
 
 </TabItem>
 <TabItem value="System-Notifications" label="System-Notifications">
 
-| Metric name                                 | Description                                       | Unit   |
-| :------------------------------------------ | :------------------------------------------------ | :----- |
-| graylog.system.notifications.total.count    | Total number of system notifications              | Count  |
-| graylog.system.notifications.normal.count   | Number of system notifications (normal severity)  | Count  | 
-| graylog.system.notifications.urgent.count   | Number of system notifications (urgent severity)  | Count  |
+| Métrique                                  | Unité |
+|:------------------------------------------|:------|
+| graylog.system.notifications.total.count  | count |
+| graylog.system.notifications.normal.count | count |
+| graylog.system.notifications.urgent.count | count |
 
 </TabItem>
 </Tabs>
 
-## Prerequis
+## Prérequis
 
-Un compte de service est requis pour interroger l'API Rest Graylog:
-le rôle "Reader" est suffisant pour obtenir les métriques sur les
-notifications systèmes. Cependant, un compte avec le rôle "admin" est nécessaire
-pour effectuer les requêtes Lucène sur le serveur Graylog.
-
-Plus d'informations sur le site officiel de Graylog : 
-https://docs.graylog.org/en/latest/pages/configuration/rest_api.
+*Specify prerequisites that are relevant. You may want to just provide a link
+to the manufacturer official documentation BUT you should try to be as complete
+as possible here as it will save time to everybody.*
 
 ## Installation
 
-<Tabs groupId="sync">
-<TabItem value="Online License" label="Online License">
+### Pack de supervision
 
-1. Installer le Plugin sur l'ensemble des collecteurs Centreon supervisant un serveur Graylog :
+Si la plateforme est configurée avec une licence *online*, l'installation d'un paquet
+n'est pas requise pour voir apparaître le pack dans le menu **Configuration > Plugin Packs > Gestionnaire**.
+
+Au contraire, si la plateforme utilise une licence *offline*, installez le paquet
+sur le **serveur central** via la commande correspondant au gestionnaire de paquet
+associé à sa distribution :
+
+<Tabs groupId="sync">
+<TabItem value="Alma / RHEL / Oracle Linux 9" label="Alma / RHEL / Oracle Linux 9">
 
 ```bash
-yum install centreon-plugin-Applications-Graylog-Restapi
+dnf install centreon-pack-applications-graylog-restapi
 ```
-
-2. Depuis l'interface Web de Centreon, installer le Plugin-Pack *Graylog* depuis la page "Configuration > Packs de plugins > Manager" 
 
 </TabItem>
-<TabItem value="Offline License" label="Offline License">
-
-1. Installer le Plugin sur l'ensemble des collecteurs Centreon supervisant un serveur Graylog :
+<TabItem value="Alma / RHEL / Oracle Linux 8" label="Alma / RHEL / Oracle Linux 8">
 
 ```bash
-yum install centreon-plugin-Applications-Graylog-Restapi
+dnf install centreon-pack-applications-graylog-restapi
 ```
 
-2. Sur le serveur Central Centreon, installer le RPM du Plugin-Pack *Graylog* :
+</TabItem>
+<TabItem value="CentOS 7" label="CentOS 7">
 
 ```bash
 yum install centreon-pack-applications-graylog-restapi
 ```
 
-3. Depuis l'interface Web de Centreon, installer le Plugin-Pack *Graylog* depuis la page "Configuration > Packs de plugins > Manager" 
+</TabItem>
+<TabItem value="Debian 11" label="Debian 11">
+
+```bash
+apt install centreon-pack-applications-graylog-restapi
+```
+
+</TabItem>
+</Tabs>
+
+Quel que soit le type de la licence (*online* ou *offline*), installez le Pack **Graylog**
+depuis l'interface web et le menu **Configuration > Plugin Packs > Gestionnaire**.
+
+### Plugin
+
+À partir de Centreon 22.04, il est possible de demander le déploiement automatique
+du plugin lors de l'utilisation d'un pack. Si cette fonctionnalité est activée, et
+que vous ne souhaitez pas découvrir des éléments pour la première fois, alors cette
+étape n'est pas requise.
+
+> Plus d'informations dans la section [Installer le plugin](/docs/monitoring/pluginpacks/#installer-le-plugin).
+
+Utilisez les commandes ci-dessous en fonction du gestionnaire de paquets de votre système d'exploitation :
+
+<Tabs groupId="sync">
+<TabItem value="Alma / RHEL / Oracle Linux 9" label="Alma / RHEL / Oracle Linux 9">
+
+```bash
+dnf install centreon-plugin-Applications-Graylog-Restapi
+```
+
+</TabItem>
+<TabItem value="Alma / RHEL / Oracle Linux 8" label="Alma / RHEL / Oracle Linux 8">
+
+```bash
+dnf install centreon-plugin-Applications-Graylog-Restapi
+```
+
+</TabItem>
+<TabItem value="CentOS 7" label="CentOS 7">
+
+```bash
+yum install centreon-plugin-Applications-Graylog-Restapi
+```
+
+</TabItem>
+<TabItem value="Debian 11" label="Debian 11">
+
+```bash
+apt install centreon-plugin-applications-graylog-restapi
+```
 
 </TabItem>
 </Tabs>
 
 ## Configuration
 
-Lors de la création de votre Hôte dans Centreon, choisissez le modèle
-*App-Graylog-Restapi-custom*. Une fois celui-ci appliqué, 
-certaines Macros liées à l'Hôte doivent être renseignées :
+### Hôte
 
-| Mandatory | Name         | Description                                                                              |
-| :-------- | :----------- | :--------------------------------------------------------------------------------------- |
-| X         | USERNAME     | Username for authentication                                                              |
-| X         | PASSWORD     | Password for authentication                                                              | 
-|           | PROTOCOL     | Protocol (default: 'http')                                                               |
-|           | PORT         | API port (default: '9000)                                                                |
-|           | EXTRAOPTIONS | Any extra option you may want to add to the command (eg. a --verbose flag or any header) |
+1. Ajoutez un hôte à Centreon depuis la page **Configuration > Hôtes**.
+2. Complétez les champs **Nom**, **Alias** & **IP Address/DNS** correspondant à votre ressource.
+3. Appliquez le modèle d'hôte **App-Graylog-Restapi-custom-custom**.
+4. Une fois le modèle appliqué, les macros ci-dessous indiquées comme requises (**Obligatoire**) doivent être renseignées.
 
-Une fois l'Hôte créé, il est également possible de paramétrer un ensemble de
-Macros de Service selon la configuration souhaitée :
+| Obligatoire    | Macro        | Description                                                                       | Défaut  |
+|:---------------|:-------------|:----------------------------------------------------------------------------------|:--------|
+|                | APIPASSWORD  |                                                                                   |         |
+|                | APIPORT      | API port                                                                          | 9000    |
+|                | APIPROTOCOL  | Specify https if needed                                                           | http    |
+|                | APIUSERNAME  |                                                                                   |         |
+|                | EXTRAOPTIONS | Any extra option you may want to add to every command line (eg. a --verbose flag) |         |
 
-| Mandatory | Name           | Description                      |
-| :-------- | :------------- | :------------------------------- |
-|           | FILTERNODE     | Filter by notification severity  |
-|           | FILTERSEVERITY | Filter by node                   |
+## Comment puis-je tester le plugin et que signifient les options des commandes ?
 
-## FAQ
-
-### Comment tester le Plugin en ligne de commande et que signifient les options principales ?
-
-Une fois le Plugin installé, vous pouvez tester directement celui-ci en ligne de
-commande depuis votre collecteur Centreon avec l'utilisateur *centreon-engine* :
+Une fois le plugin installé, vous pouvez tester celui-ci directement en ligne
+de commande depuis votre collecteur Centreon en vous connectant avec
+l'utilisateur **centreon-engine** (`su - centreon-engine`) :
 
 ```bash
 /usr/lib/centreon/plugins//centreon_graylog_restapi.pl \
-  --plugin=apps::graylog::restapi::plugin \
-  --mode=query \
-  --hostname=10.0.0.1 \
-  --username='username' \
-  --password='password' \
-  --query='centreon'
+	--plugin=apps::graylog::restapi::plugin \
+	--mode=notifications \
+	--hostname='10.0.0.1' \
+	--api-username='' \
+	--api-password='' \
+	--port='' \
+	--proto=''  \
+	--filter-severity='' \
+	--filter-node='' \
+	--warning-notifications-total='' \
+	--critical-notifications-total='' \
+	--warning-notifications-normal='' \
+	--critical-notifications-normal='' \
+	--warning-notifications-urgent='' \
+	--critical-notifications-urgent='' \
+	
 ```
 
-Résultat attendu :
+La commande devrait retourner un message de sortie similaire à :
 
 ```bash
-OK: current queue messages : 10 | 'graylog.query.match.count'=10;;;0;
+OK:    | 'graylog.system.notifications.total.count'=50;;;0 ; 'graylog.system.notifications.normal.count'=43;;;0 ; 'graylog.system.notifications.urgent.count'=52;;;0 ; 
 ```
 
-Les options des différents modes sont consultables via le paramètre ```--help```
-du mode :
+### Modes disponibles
+
+Tous les modes disponibles peuvent être affichés en ajoutant le paramètre
+`--list-mode` à la commande :
 
 ```bash
 /usr/lib/centreon/plugins//centreon_graylog_restapi.pl \
-  --plugin=apps::graylog::restapi::plugin \
-  --mode=query \
-  --query='centreon'
-  --help
+	--plugin=apps::graylog::restapi::plugin \
+    --list-mode
 ```
 
-Tous les modes disponibles dans le Plugin peuvent être listés via la commande
-suivante :
+Le plugin apporte les modes suivants :
+
+| Mode          | Modèle                            |
+|:--------------|:----------------------------------|
+| notifications | App-Graylog-Notifications-Restapi |
+| query         | App-Graylog-Query-Restapi         |
+
+
+
+### Options complémentaires
+
+#### Options globales
+
+Les options globales aux modes sont listées ci-dessus :
+
+| Option                                     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Type         |
+|:-------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------|
+| --mode                                     | Choose a mode.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Global       |
+| --dyn-mode                                 | Specify a mode with the path (separated by '::').                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Global       |
+| --list-mode                                | List available modes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Global       |
+| --mode-version                             | Check minimal version of mode. If not, unknown error.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Global       |
+| --version                                  | Display plugin version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Global       |
+| --custommode                               | Choose a custom mode.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Global       |
+| --list-custommode                          | List available custom modes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Global       |
+| --multiple                                 | Multiple custom mode objects (required by some specific modes)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Global       |
+| --pass-manager                             | Use a password manager.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Global       |
+| --verbose                                  | Display long output.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Output       |
+| --debug                                    | Display also debug messages.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Output       |
+| --filter-perfdata                          | Filter perfdata that match the regexp.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Output       |
+| --filter-perfdata-adv                      | Advanced perfdata filter.  Eg: --filter-perfdata-adv='not (%(value) == 0 and %(max) eq "")'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Output       |
+| --explode-perfdata-max                     | Put max perfdata (if it exist) in a specific perfdata (without values: same with '\_max' suffix) (Multiple options)                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Output       |
+| --change-perfdata --extend-perfdata        | Change or extend perfdata. Syntax: --extend-perfdata=searchlabel,newlabel,target\[,\[newuom\],\[min\],\[m ax\]\]  Common examples:      Change storage free perfdata in used:     --change-perfdata=free,used,invert()      Change storage free perfdata in used:     --change-perfdata=used,free,invert()      Scale traffic values automaticaly:     --change-perfdata=traffic,,scale(auto)      Scale traffic values in Mbps:     --change-perfdata=traffic\_in,,scale(Mbps),mbps      Change traffic values in percent:     --change-perfdata=traffic\_in,,percent()   | Output       |
+| --extend-perfdata-group                    | Extend perfdata from multiple perfdatas (methods in target are: min, max, average, sum) Syntax: --extend-perfdata-group=searchlabel,newlabel,target\[,\[newuom\],\[m in\],\[max\]\]  Common examples:      Sum wrong packets from all interfaces (with interface need     --units-errors=absolute):     --extend-perfdata-group=',packets\_wrong,sum(packets\_(discard     \|error)\_(in\|out))'      Sum traffic by interface:     --extend-perfdata-group='traffic\_in\_(.*),traffic\_$1,sum(traf     fic\_(in\|out)\_$1)'                                               | Output       |
+| --change-short-output --change-long-output | Change short/long output display: --change-short-output=pattern~replace~modifier                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Output       |
+| --change-exit                              | Change exit code: --change-exit=unknown=critical                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Output       |
+| --range-perfdata                           | Change perfdata range thresholds display: 1 = start value equals to '0' is removed, 2 = threshold range is not display.                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Output       |
+| --filter-uom                               | Filter UOM that match the regexp.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Output       |
+| --opt-exit                                 | Optional exit code for an execution error (i.e. wrong option provided, SSH connection refused, timeout, etc) (Default: unknown).                                                                                                                                                                                                                                                                                                                                                                                                                                           | Output       |
+| --output-ignore-perfdata                   | Remove perfdata from output.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Output       |
+| --output-ignore-label                      | Remove label status from output.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Output       |
+| --output-xml                               | Display output in XML format.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Output       |
+| --output-json                              | Display output in JSON format.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Output       |
+| --output-openmetrics                       | Display metrics in OpenMetrics format.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Output       |
+| --output-file                              | Write output in file (can be used with json and xml options)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Output       |
+| --disco-format                             | Display discovery arguments (if the mode manages it).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Output       |
+| --disco-show                               | Display discovery values (if the mode manages it).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Output       |
+| --float-precision                          | Set the float precision for thresholds (Default: 8).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Output       |
+| --source-encoding                          | Set encoding of monitoring sources (In some case. Default: 'UTF-8').      Graylog Rest API                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Output       |
+| --hostname                                 | Graylog hostname.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Api          |
+| --url-path                                 | API url path (Default: '/api/')                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Api          |
+| --port                                     | API port (Default: 9000)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Api          |
+| --proto                                    | Specify https if needed (Default: 'http')                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | Api          |
+| --username                                 | Specify username for authentication (Mandatory if --credentials is specified)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Api          |
+| --password                                 | Specify password for authentication (Mandatory if --credentials is specified)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Api          |
+| --timeout                                  | Set HTTP timeout                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Api          |
+| --requested-by                             | Set request HTTP header (Default: 'cli')                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Api          |
+| --http-peer-addr                           | Set the address you want to connect (Useful if hostname is only a vhost. no ip resolve)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Http global  |
+| --proxyurl                                 | Proxy URL                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | Http global  |
+| --proxypac                                 | Proxy pac file (can be an url or local file)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Http global  |
+| --insecure                                 | Insecure SSL connections.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | Http global  |
+| --http-backend                             | Set the backend used (Default: 'lwp') For curl: --http-backend=curl                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Http global  |
+| --ssl-opt                                  | Set SSL Options (--ssl-opt="SSL\_version =\> TLSv1" --ssl-opt="SSL\_verify\_mode =\> SSL\_VERIFY\_NONE").                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | Backend lwp  |
+| --ssl                                      | Set SSL version (=TLSv1).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | Backend lwp  |
+| --curl-opt                                 | Set CURL Options (--curl-opt="CURLOPT\_SSL\_VERIFYPEER =\> 0" --curl-opt="CURLOPT\_SSLVERSION =\> CURL\_SSLVERSION\_TLSv1\_1" ).                                                                                                                                                                                                                                                                                                                                                                                                                                           | Backend curl |
+| --memcached                                | Memcached server to use (only one server).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Retention    |
+| --redis-server                             | Redis server to use (only one server). SYntax: address\[:port\]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Retention    |
+| --redis-attribute                          | Set Redis Options (--redis-attribute="cnx\_timeout=5").                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Retention    |
+| --redis-db                                 | Set Redis database index.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | Retention    |
+| --failback-file                            | Failback on a local file if redis connection failed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Retention    |
+| --memexpiration                            | Time to keep data in seconds (Default: 86400).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Retention    |
+| --statefile-dir                            | Directory for statefile (Default: '/var/lib/centreon/centplugins').                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Retention    |
+| --statefile-suffix                         | Add a suffix for the statefile name (Default: '').                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Retention    |
+| --statefile-concat-cwd                     | Concat current working directory with option '--statefile-dir'. Useful on Windows when plugin is compiled.                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Retention    |
+| --statefile-format                         | Format used to store cache (can be: 'dumper', 'storable', 'json').                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Retention    |
+| --statefile-key                            | Key to encrypt/decrypt cache.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Retention    |
+| --statefile-cipher                         | Cipher to encrypt cache (Default: 'AES').                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | Retention    |
+
+
+#### Options des modes
+
+Les options spécifiques aux modes sont listées ci-dessus :
+
+<Tabs groupId="sync">
+<TabItem value="Query" label="Query">
+
+| Option                                           | Description                                                     | Type |
+|:-------------------------------------------------|:----------------------------------------------------------------|:-----|
+| --query                                          | Set a Lucene query.                                             | Mode |
+| --timeframe                                      | Set timeframe in seconds (E.g '300' to check last 5 minutes).   | Mode |
+| --warning-query-matches --critical-query-matches | Threshold on the number of results.                             | Mode |
+
+</TabItem>
+<TabItem value="System-Notifications" label="System-Notifications">
+
+| Option                     | Description                                                                                                     | Type |
+|:---------------------------|:----------------------------------------------------------------------------------------------------------------|:-----|
+| --filter-severity          | Filter on specific notification severity. Can be 'normal' or 'urgent'. (Default: both severities shown).        | Mode |
+| --filter-node              | Filter notifications by node ID. (Default: all notifications shown).                                            | Mode |
+| --warning-notifications-*  | Set warning threshold for notifications count (Default: '') where '*' can be 'total', 'normal' or 'urgent'.     | Mode |
+| --critical-notifications-* | Set critical threshold for notifications count (Default: '') where '*' can be 'total', 'normal' or 'urgent'.    | Mode |
+
+</TabItem>
+</Tabs>
+
+
+Pour un mode, la liste de toutes les options complémentaires et leur signification peut être
+affichée en ajoutant le paramètre `--help` à la commande :
 
 ```bash
 /usr/lib/centreon/plugins//centreon_graylog_restapi.pl \
-  --plugin=apps::graylog::restapi::plugin \
-  --list-mode
+	--plugin=apps::graylog::restapi::plugin \
+	--mode=notifications \
+    --help
 ```
-### J'obtiens le message d'erreur suivant:
 
-#### ```UNKNOWN: 403 Forbidden```
+### Diagnostic des erreurs communes
 
-Le compte utilisé par le Plugin Centreon ne dispose pas des droits nécessaires
-pour effectuer la requête via l'API.
-
-#### ```UNKNOWN: 500 Can't connect to ...:443```
-
-Cette erreur signifie que le Plugin Centreon n'a pas pu se connecter à l'API Rest
-Graylog. Vérifiez que la requête n'a pas bloquée par un outil externe
-(un pare-feu par exemple). Si vous utilisez un proxy, renseignez son URL dans 
-les macros *EXTRAOPTIONS* des services correspondants ou directement dans la 
-commande avec l'option ```--proxyurl```.
-
-#### ```UNKNOWN: 501 Protocol scheme 'connect' is not supported |```
-
-Dans certains cas, et plus spécifiquement lors de l'usage d'un proxy
-d'entreprise, le protocole de connexion n'est pas supporté par la libraire *lwp*
-utlisée par défaut par le Plugin Centreon.
-
-Cette erreur peut être résolue en utilisant le backend HTTP *curl*.
-Pour ce faire, ajoutez l'option ```--http-backend='curl'``` à la commande.
+Rendez-vous sur la [documentation dédiée](../getting-started/how-to-guides/troubleshooting-plugins.md#http-and-api-checks)
+des plugins basés sur HTTP/API.

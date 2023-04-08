@@ -11,7 +11,8 @@ import TabItem from '@theme/TabItem';
 ### Templates
 
 The Centreon Plugin Pack **AWS Lambda** brings a host template:
-* Cloud-Aws-Lambda-custom
+
+* Cloud-Aws-Lambda-custom-custom
 
 It brings the following service template:
 
@@ -20,9 +21,11 @@ It brings the following service template:
 | Lambda-Invocations | Cloud-Aws-Lambda-Invocations-Api | Check Memcached performances | X       |
 
 
+> **Default** services are automatically created when the host template is applied.
+
 ### Discovery rules
 
-The pack provides a discovery rule to automatically discover Lambda resources:
+The pack provides a discovery rule to automatically discover AWS Lambda resources:
 
 ![image](../../../assets/integrations/plugin-packs/procedures/cloud-aws-lambda-provider.png)
 
@@ -35,12 +38,12 @@ More information about the Host Discovery module is available in the Centreon do
 
 | Metric Name                              | Unit  |
 |:-----------------------------------------|:------|
-| lambda.function.duration.milliseconds    | ms    |
+| lambda.function.duration.milliseconds    |       |
 | lambda.function.invocations.count        | count |
 | lambda.function.errors.count             | count |
 | lambda.function.deadlettererrors.count   | count |
 | lambda.function.throttles.count          | count |
-| lambda.function.iteratorage.milliseconds | count |
+| lambda.function.iteratorage.milliseconds |       |
 
 </TabItem>
 </Tabs>
@@ -52,20 +55,20 @@ More information about the Host Discovery module is available in the Centreon do
 Configure a service account (access/secret key combo) for which the following privileges have to be granted:
 
 | AWS Privilege                  | Description                                                     |
-| :------------------------------| :-------------------------------------------------------------- |
-| lamdba:ListFunctions           | Get a list of Lambda function                                   |
+| :----------------------------- | :-------------------------------------------------------------- |
+| XXXXX:XXXXXXXXXXXXXXXX         | Get XXXXX.                                                      |
 | cloudwatch:getMetricStatistics | Get metrics from the AWS/EC2 namespace on Cloudwatch.           |
 
 ### Plugin dependencies
 
-To interact with Amazon APIs, you can use either use the *awscli* binary provided by Amazon or *paws*, a Perl AWS SDK (recommended). You must install it on every poller expected to monitor AWS resources. 
+To interact with Amazon APIs, you can use either use the *awscli* binary provided by Amazon or *paws*, a Perl AWS SDK (recommended). You must install it on every poller expected to monitor AWS resources.
 
-> For now, it is not possible to use *paws* if you are using a proxy to reach AWS Cloudwatch APIs. 
+> For now, it is not possible to use *paws* if you are using a proxy to reach AWS Cloudwatch APIs.
 
 <Tabs groupId="sync">
 <TabItem value="perl-Paws-installation" label="perl-Paws-installation">
 
-```bash
+```bashn
 yum install perl-Paws
 ```
 
@@ -83,33 +86,88 @@ sudo ./aws/install
 
 ## Setup
 
-<Tabs groupId="sync">
-<TabItem value="Online License" label="Online License">
+### Monitoring Pack
 
-1. Install the plugin package on every Centreon poller expected to monitor **AWS Lambda** resources:
+If the platform uses an *online* license, you can skip the package installation
+instruction below as it is not required to have the pack displayed within the
+**Configuration > Plugin Packs > Manager** menu.
+If the platform uses an *offline* license, install the package on the **central server**
+with the command corresponding to the operating system's package manager:
+
+<Tabs groupId="sync">
+<TabItem value="Alma / RHEL / Oracle Linux 9" label="Alma / RHEL / Oracle Linux 9">
 
 ```bash
-yum install centreon-plugin-Cloud-Aws-Lambda-Api
+dnf install centreon-pack-cloud-aws-lambda
 ```
-
-2. On the Centreon web interface, on page **Configuration > Plugin Packs**, install the **AWS Lambda** Centreon Plugin Pack.
 
 </TabItem>
-<TabItem value="Offline License" label="Offline License">
-
-1. Install the plugin package on every Centreon poller expected to monitor **AWS Lambda** resources:
+<TabItem value="Alma / RHEL / Oracle Linux 8" label="Alma / RHEL / Oracle Linux 8">
 
 ```bash
-yum install centreon-plugin-Cloud-Aws-Lambda-Api
+dnf install centreon-pack-cloud-aws-lambda
 ```
 
-2. Install the **AWS Lambda** Centreon Plugin Pack RPM on the Centreon central server:
+</TabItem>
+<TabItem value="CentOS 7" label="CentOS 7">
 
 ```bash
 yum install centreon-pack-cloud-aws-lambda
 ```
 
-3. On the Centreon web interface, on page **Configuration > Plugin Packs**, install the **AWS Lambda** Centreon Plugin Pack.
+</TabItem>
+<TabItem value="Debian 11" label="Debian 11">
+
+```bash
+apt install centreon-pack-cloud-aws-lambda
+```
+
+</TabItem>
+</Tabs>
+
+Whatever the license type (*online* or *offline*), install the **AWS Lambda** Pack through
+the **Configuration > Plugin Packs > Manager** menu.
+
+### Plugin
+
+Since Centreon 22.04, you can benefit from the 'Automatic plugin installation' feature.
+When this feature is enabled, you can skip the installation part below.
+
+You still have to manually install the plugin on the poller(s) when:
+- Automatic plugin installation is turned off
+- You want to run a discovery job from a poller that doesn't monitor any resource of this kind yet
+
+> More information in the [Installing the plugin](/docs/monitoring/pluginpacks/#installing-the-plugin) section.
+
+Use the commands below according to your operating system's package manager:
+
+<Tabs groupId="sync">
+<TabItem value="Alma / RHEL / Oracle Linux 9" label="Alma / RHEL / Oracle Linux 9">
+
+```bash
+dnf install centreon-plugin-Cloud-Aws-Lambda-Api
+```
+
+</TabItem>
+<TabItem value="Alma / RHEL / Oracle Linux 8" label="Alma / RHEL / Oracle Linux 8">
+
+```bash
+dnf install centreon-plugin-Cloud-Aws-Lambda-Api
+```
+
+</TabItem>
+<TabItem value="CentOS 7" label="CentOS 7">
+
+```bash
+yum install centreon-plugin-Cloud-Aws-Lambda-Api
+```
+
+</TabItem>
+<TabItem value="Debian 11" label="Debian 11">
+
+```bash
+apt install centreon-plugin-cloud-aws-lambda-api
+```
 
 </TabItem>
 </Tabs>
@@ -118,22 +176,21 @@ yum install centreon-pack-cloud-aws-lambda
 
 ### Host
 
-* Log into Centreon and add a new host through **Configuration > Hosts**.
-* In the **IP Address/DNS** field, set the following IP address: **127.0.0.1**.
-* Aplly the **Cloud-Aws-Lambda-custom** template to the host.
-* Once the template is applied, fill in the corresponding macros. Some macros are mandatory.
+1. Log into Centreon and add a new host through **Configuration > Hosts**.
+2. Fill the **Name**, **Alias** & **IP Address/DNS** fields according to your ressource settings.
+3. Apply the **Cloud-Aws-Lambda-custom-custom** template to the host
+4. Once the template is applied, fill in the corresponding macros. Some macros are mandatory.
 
-| Mandatory   | Nom             | Description                                                                                 |
-| :---------- | :-------------- | :------------------------------------------------------------------------------------------ |
-| X           | AWSSECRETKEY    | AWS Secret key of your IAM role. Password checkbox must be checked                          |
-| X           | AWSACESSKEY     | AWS Access key of your IAM role. Password checkbox must be checked                          |
-| X           | AWSREGION       | Region where the instance is running                                                        |
-| X           | AWSCUSTOMMODE   | Custom mode to get metrics, 'awscli' is the default, you can also use 'paws' perl library   |
-|             | PROXYURL        | Configure proxy URL                                                                         |
-|             | FUNCTIONNAME    | Function name (Default : '.*')                                                              |
-|             | EXTRAOPTIONS    | Any extra option you may want to add to every command line (eg. a --verbose flag)           |
-|             | DUMMYSTATUS     | Host state. Default is OK, do not modify it unless you know what you are doing              |
-|             | DUMMYOUTPUT     | Host check output. Default is 'This is a dummy check'. Customize it with your own if needed |
+| Mandatory      | Macro         | Description                                                                       | Default |
+|:---------------|:--------------|:----------------------------------------------------------------------------------|:--------|
+|                | AWSACCESSKEY  | Set AWS access key                                                                |         |
+|                | AWSASSUMEROLE | Set arn of the role to be assumed                                                 |         |
+|                | AWSCUSTOMMODE | Choose a custom mode                                                              | awscli  |
+|                | AWSREGION     | Set the region name                                                               |         |
+|                | AWSSECRETKEY  | Set AWS secret key                                                                |         |
+|                | EXTRAOPTIONS  | Any extra option you may want to add to every command line (eg. a --verbose flag) |         |
+|                | FUNCTIONNAME  | Set the function name                                                             | .*      |
+|                | PROXYURL      | Proxy URL if any                                                                  |         |
 
 ## How to check in the CLI that the configuration is OK and what are the main options for?
 
@@ -143,47 +200,183 @@ running the following command:
 
 ```bash
 /usr/lib/centreon/plugins//centreon_aws_lambda_api.pl \
-    --plugin=cloud::aws::lambda::plugin \
-    --mode=invocations \
-    --custommode='awscli' \
-    --aws-secret-key='' \
-    --aws-access-key='' \
-    --region='eu-west-1' \
-    --proxyurl='' \
-    --filter-metric='' \
-    --timeframe='600' \
-    --period='60' \
-    --name='myfunctions' \
-    --zeroed \
-    --verbose
+	--plugin=cloud::aws::lambda::plugin \
+	--mode=invocations \
+	--custommode='' \
+	--aws-secret-key='' \
+	--aws-access-key='' \
+	--aws-role-arn='' \
+	--region='' \
+	--proxyurl=''  \
+	--filter-metric='' \
+	--statistic='' \
+	--timeframe='' \
+	--period='' \
+	--name='' \
+	--warning-throttles='' \
+	--critical-throttles='' \
+	--warning-errors='' \
+	--critical-errors='' \
+	--warning-iteratorage='' \
+	--critical-iteratorage='' \
+	--warning-invocations='' \
+	--critical-invocations='' \
+	--warning-deadlettererrors='' \
+	--critical-deadlettererrors='' \
+	--warning-duration='' \
+	--critical-duration='' \
+	
 ```
 
 The expected command output is shown below:
 
 ```bash
-OK: Function 'myfunctions' All metrics are ok | 'myfunctions~average#lambda.function.throttles.count'=0.00;;;; 'myfunctions~average#lambda.function.errors.count'=0.00;;;; 'myfunctions~average#lambda.function.iteratorage.milliseconds'=0.00;;;; 'myfunctions~average#lambda.function.invocations.count'=0.00;;;; 'myfunctions~average#lambda.function.deadlettererrors.count'=0.00;;;; 'myfunctions~average#lambda.function.duration.milliseconds'=0.00;;;; 'myfunctions~sum#lambda.function.throttles.count'=0.00;;;; 'myfunctions~sum#lambda.function.errors.count'=0.00;;;; 'myfunctions~sum#lambda.function.iteratorage.milliseconds'=0.00;;;; 'myfunctions~sum#lambda.function.invocations.count'=0.00;;;; 'myfunctions~sum#lambda.function.deadlettererrors.count'=0.00;;;; 'myfunctions~sum#lambda.function.duration.milliseconds'=0.00;;;;
-Checking Function 'myfunctions'
-    Statistic 'Average' Metrics Throttles: 0.00, Errors: 0.00, Iterator Age: 0.00, Invocations: 0.00, Dead Letter Errors: 0.00, Duration: 0.00
-    Statistic 'Sum' Metrics Throttles: 0.00, Errors: 0.00, Iterator Age: 0.00, Invocations: 0.00, Dead Letter Errors: 0.00, Duration: 0.00
+OK: Duration Invocations Errors Dead Letter Errors Throttles Iterator Age | 'lambda.function.duration.milliseconds'=18;;;; 'lambda.function.invocations.count'=8;;;; 'lambda.function.errors.count'=70;;;; 'lambda.function.deadlettererrors.count'=5;;;; 'lambda.function.throttles.count'=77;;;; 'lambda.function.iteratorage.milliseconds'=27;;;; 
 ```
 
-All available options for a given mode can be displayed by adding the
-`--help` parameter to the command:
+### Available custom modes
+
+All available custom modes can be displayed by adding the `--list-custommode` parameter to
+the command:
 
 ```bash
 /usr/lib/centreon/plugins//centreon_aws_lambda_api.pl \
-    --plugin=cloud::aws::lambda::plugin \
-    --mode=invocations \
-    --help
+	--plugin=cloud::aws::lambda::plugin \
+    --list-custommode
 ```
+
+The plugin brings the following custom modes:
+
+* paws
+* awscli
+
+### Available modes
 
 All available modes can be displayed by adding the `--list-mode` parameter to
 the command:
 
 ```bash
 /usr/lib/centreon/plugins//centreon_aws_lambda_api.pl \
-    --plugin=cloud::aws::lambda::plugin \
+	--plugin=cloud::aws::lambda::plugin \
     --list-mode
+```
+
+The plugin brings the following modes:
+
+| Mode        | Template                         |
+|:------------|:---------------------------------|
+| discovery   | Not used in this Plugin Pack     |
+| invocations | Cloud-Aws-Lambda-Invocations-Api |
+
+
+
+### Available options
+
+#### Custom modes options
+
+All custom modes specific options are listed here:
+
+<Tabs groupId="sync">
+<TabItem value="awscli" label="awscli">
+
+| Option              | Description                                                                                                                                                                                                                           | Type   |
+|:--------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------|
+| --aws-secret-key    | Set AWS secret key.                                                                                                                                                                                                                   | Awscli |
+| --aws-access-key    | Set AWS access key.                                                                                                                                                                                                                   | Awscli |
+| --aws-session-token | Set AWS session token.                                                                                                                                                                                                                | Awscli |
+| --aws-role-arn      | Set arn of the role to be assumed.                                                                                                                                                                                                    | Awscli |
+| --aws-profile       | Set AWS profile.                                                                                                                                                                                                                      | Awscli |
+| --endpoint-url      | Override AWS service endpoint URL if necessary.                                                                                                                                                                                       | Awscli |
+| --region            | Set the region name (Required).                                                                                                                                                                                                       | Awscli |
+| --period            | Set period in seconds.                                                                                                                                                                                                                | Awscli |
+| --timeframe         | Set timeframe in seconds.                                                                                                                                                                                                             | Awscli |
+| --statistic         | Set cloudwatch statistics (Can be: 'minimum', 'maximum', 'average', 'sum').                                                                                                                                                           | Awscli |
+| --zeroed            | Set metrics value to 0 if none. Usefull when CloudWatch does not return value when not defined.                                                                                                                                       | Awscli |
+| --timeout           | Set timeout in seconds (Default: 50).                                                                                                                                                                                                 | Awscli |
+| --sudo              | Use 'sudo' to execute the command.                                                                                                                                                                                                    | Awscli |
+| --command           | Command to get information (Default: 'aws'). Can be changed if you have output in a file.                                                                                                                                             | Awscli |
+| --command-path      | Command path (Default: none).                                                                                                                                                                                                         | Awscli |
+| --command-options   | Command options (Default: none). Only use for testing purpose, when you want to set ALL parameters of a command by yourself.                                                                                                          | Awscli |
+| --proxyurl          | Proxy URL if any                                                                                                                                                                                                                      | Awscli |
+| --skip-ssl-check    | Avoid certificate issuer verification. Useful when AWS resources are hosted by a third-party.  Note that it strips all stderr from the command result. Will be enhanced someday. Debug will only display CLI instead of evreything.   | Awscli |
+
+</TabItem>
+<TabItem value="paws" label="paws">
+
+| Option              | Description                                                                                       | Type |
+|:--------------------|:--------------------------------------------------------------------------------------------------|:-----|
+| --aws-secret-key    | Set AWS secret key.                                                                               | Paws |
+| --aws-access-key    | Set AWS access key.                                                                               | Paws |
+| --aws-session-token | Set AWS session token.                                                                            | Paws |
+| --aws-role-arn      | Set arn of the role to be assumed.                                                                | Paws |
+| --region            | Set the region name (Required).                                                                   | Paws |
+| --period            | Set period in seconds.                                                                            | Paws |
+| --timeframe         | Set timeframe in seconds.                                                                         | Paws |
+| --statistic         | Set cloudwatch statistics (Can be: 'minimum', 'maximum', 'average', 'sum').                       | Paws |
+| --zeroed            | Set metrics value to 0 if none. Usefull when CloudWatch does not return value when not defined.   | Paws |
+| --proxyurl          | Proxy URL if any                                                                                  | Paws |
+
+</TabItem>
+</Tabs>
+
+#### Modes options
+
+All  modes specific options are listed here:
+
+<Tabs groupId="sync">
+<TabItem value="Lambda-Invocations" label="Lambda-Invocations">
+
+| Option                                     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Type   |
+|:-------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------|
+| --mode                                     | Choose a mode.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Global |
+| --dyn-mode                                 | Specify a mode with the path (separated by '::').                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Global |
+| --list-mode                                | List available modes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Global |
+| --mode-version                             | Check minimal version of mode. If not, unknown error.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Global |
+| --version                                  | Display plugin version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Global |
+| --custommode                               | Choose a custom mode.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Global |
+| --list-custommode                          | List available custom modes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Global |
+| --multiple                                 | Multiple custom mode objects (required by some specific modes)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Global |
+| --pass-manager                             | Use a password manager.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Global |
+| --verbose                                  | Display long output.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Output |
+| --debug                                    | Display also debug messages.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Output |
+| --filter-perfdata                          | Filter perfdata that match the regexp.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Output |
+| --filter-perfdata-adv                      | Advanced perfdata filter.  Eg: --filter-perfdata-adv='not (%(value) == 0 and %(max) eq "")'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Output |
+| --explode-perfdata-max                     | Put max perfdata (if it exist) in a specific perfdata (without values: same with '\_max' suffix) (Multiple options)                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Output |
+| --change-perfdata --extend-perfdata        | Change or extend perfdata. Syntax: --extend-perfdata=searchlabel,newlabel,target\[,\[newuom\],\[min\],\[m ax\]\]  Common examples:      Change storage free perfdata in used:     --change-perfdata=free,used,invert()      Change storage free perfdata in used:     --change-perfdata=used,free,invert()      Scale traffic values automaticaly:     --change-perfdata=traffic,,scale(auto)      Scale traffic values in Mbps:     --change-perfdata=traffic\_in,,scale(Mbps),mbps      Change traffic values in percent:     --change-perfdata=traffic\_in,,percent()   | Output |
+| --extend-perfdata-group                    | Extend perfdata from multiple perfdatas (methods in target are: min, max, average, sum) Syntax: --extend-perfdata-group=searchlabel,newlabel,target\[,\[newuom\],\[m in\],\[max\]\]  Common examples:      Sum wrong packets from all interfaces (with interface need     --units-errors=absolute):     --extend-perfdata-group=',packets\_wrong,sum(packets\_(discard     \|error)\_(in\|out))'      Sum traffic by interface:     --extend-perfdata-group='traffic\_in\_(.*),traffic\_$1,sum(traf     fic\_(in\|out)\_$1)'                                               | Output |
+| --change-short-output --change-long-output | Change short/long output display: --change-short-output=pattern~replace~modifier                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Output |
+| --change-exit                              | Change exit code: --change-exit=unknown=critical                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Output |
+| --range-perfdata                           | Change perfdata range thresholds display: 1 = start value equals to '0' is removed, 2 = threshold range is not display.                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Output |
+| --filter-uom                               | Filter UOM that match the regexp.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Output |
+| --opt-exit                                 | Optional exit code for an execution error (i.e. wrong option provided, SSH connection refused, timeout, etc) (Default: unknown).                                                                                                                                                                                                                                                                                                                                                                                                                                           | Output |
+| --output-ignore-perfdata                   | Remove perfdata from output.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Output |
+| --output-ignore-label                      | Remove label status from output.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Output |
+| --output-xml                               | Display output in XML format.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Output |
+| --output-json                              | Display output in JSON format.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Output |
+| --output-openmetrics                       | Display metrics in OpenMetrics format.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Output |
+| --output-file                              | Write output in file (can be used with json and xml options)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Output |
+| --disco-format                             | Display discovery arguments (if the mode manages it).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Output |
+| --disco-show                               | Display discovery values (if the mode manages it).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Output |
+| --float-precision                          | Set the float precision for thresholds (Default: 8).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Output |
+| --source-encoding                          | Set encoding of monitoring sources (In some case. Default: 'UTF-8').                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Output |
+| --critical-duration                        | ='10' --verbose     See     'https://docs.aws.amazon.com/lambda/latest/dg/monitoring-functions-metri     cs.html' for more informations.      Default statistic: 'sum', 'average'.                                                                                                                                                                                                                                                                                                                                                                                         | Mode   |
+| --name                                     | Set the function name (Required) (Can be multiple).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Mode   |
+| --filter-metric                            | Filter metrics (Can be: 'Duration', 'Invocations', 'Errors', 'DeadLetterErrors', 'Throttles', 'IteratorAge') (Can be a regexp).                                                                                                                                                                                                                                                                                                                                                                                                                                            | Mode   |
+| --warning-*                                | Thresholds warning (Can be: 'invocations', 'errors', 'throttles', 'duration', 'deadlettererrors', 'iteratorage').                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Mode   |
+| --critical-*                               | Thresholds critical (Can be: 'invocations', 'errors', 'throttles', 'duration', 'deadlettererrors', 'iteratorage').                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Mode   |
+
+</TabItem>
+</Tabs>
+
+
+All available options for a given mode can be displayed by adding the
+`--help` parameter to the command:
+
+```bash
+/usr/lib/centreon/plugins//centreon_aws_lambda_api.pl \
+	--plugin=cloud::aws::lambda::plugin \
+	--mode=invocations \
+    --help
 ```
 
 ### Troubleshooting

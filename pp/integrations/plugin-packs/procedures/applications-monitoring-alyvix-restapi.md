@@ -6,204 +6,301 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 
-## Overview
+## Pack Assets
 
-Alyvix is an open source APM software tool for visual monitoring.
+### Templates
 
-Build end-user bots visually interacting with any Windows application like ERPs or your favourite browser. 
-Measure end-user experiences: Alyvix records the click-to-appearance responsiveness of each transaction.
-Report IT service quality to support technical and business actions.
+The Centreon Plugin Pack **Alyvix Server RestAPI** brings a host template:
 
-The Centreon Plugin-Pack *Alyvix Server* aims to collect the execution status and duration of the Alyvix's *testcases* and their *transactions*
-by requesting the dedicated built-in RestAPI.
+* App-Monitoring-Alyvix-Restapi-custom-custom
 
-> The *Alyvix Server* Plugin-Pack **can not** be used with the Open-Source free version of Alyvix, as the Rest API feature is only
-> available in the commercial version. Get in touch with your Centreon Sales representative to get a quote!
+It brings the following service template:
 
-## Plugin-Pack assets
+| Service Alias    | Service Template                               | Service Description                                                    | Default | Discovery |
+|:-----------------|:-----------------------------------------------|:-----------------------------------------------------------------------|:--------|:----------|
+| Testcases-Global | App-Monitoring-Alyvix-Restapi-Testcases-Global | Check the state and duration of "test cases" launched by Alyvix Server | X       | X         |
 
-### Monitored objects
 
-* *Testcases* and *transactions* details of Alyvix Server
+> **Default** services are automatically created when the host template is applied.
+>
+> If **Discovery** is checked, it means a service discovery rule exists for this service template.
 
 ### Discovery rules
 
-<Tabs groupId="sync">
-<TabItem value="Testcases" label="Testcases">
+| Rule Name                                   | Description |
+|:--------------------------------------------|:------------|
+| App-Monitoring-Alyvix-Restapi-Testcase-Name |             |
 
-| Rule name                                    | Description                                                        |
-| :------------------------------------------- | :----------------------------------------------------------------- |
-| App-Monitoring-Alyvix-Restapi-Testcase-Name  | Discover all the testcases handled by Alyvix Server                |
+More information about discovering services automatically is available on the [dedicated page](/docs/monitoring/discovery/services-discovery)
+and in the [following chapter](/docs/monitoring/discovery/services-discovery/#discovery-rules).
 
-</TabItem>
-</Tabs>
-
-## Monitored metrics 
+### Collected metrics & status
 
 <Tabs groupId="sync">
 <TabItem value="Testcases-Global" label="Testcases-Global">
 
-* Global (for each *testcase*)
-
-| Metric name                         | Description                                    | Unit |
-|:------------------------------------|:-----------------------------------------------|:-----|
-| *testcase_alias*#testcase-state     | Status of the case job execution               |      |
-| *testcase_alias*#testcase-duration  | Total time of the case job execution           | ms   |
-| *testcase_alias*#testcase-freshness | Last execution time of the case job            | s    |
-
-* Per *testcase* (for each *transaction*)
-
-| Metric name                                               | Description                                           | Unit |
-|:----------------------------------------------------------|:------------------------------------------------------|:-----|
-| *testcase_alias*~*transaction_alias*#transaction-state    | Status of the the transaction job execution           |      |
-| *testcase_alias*~*transaction_alias*#transaction-duration | Total time of the transaction job execution           | ms   |
+| Metric Name                                       | Unit  |
+|:--------------------------------------------------|:------|
+| testcase.duration.milliseconds                    | ms    |
+| testcase-state                                    |       |
+| testcase.freshness.seconds                        | s     |
+| cases~testcases#transaction-state                 |       |
+| cases~testcases#transaction.duration.milliseconds | ms    |
 
 </TabItem>
 </Tabs>
 
 ## Prerequisites
 
-The *Alyvix Server* must be installed and configured on a dedicated Windows Server machine.
-The Centreon Pollers must as well be able to reach the Alyvix Rest API on the TCP/80 or TCP/443 port(s).
+*Specify prerequisites that are relevant. You may want to just provide a link
+to the manufacturer official documentation BUT you should try to be as complete
+as possible here as it will save time to everybody.*
 
-More information about how to configure Alyvix and set up *testcases* can be found in the official documentation:
-https://www.alyvix.com/learn/.
+## Setup
 
-## Setup 
+### Monitoring Pack
+
+If the platform uses an *online* license, you can skip the package installation
+instruction below as it is not required to have the pack displayed within the
+**Configuration > Plugin Packs > Manager** menu.
+If the platform uses an *offline* license, install the package on the **central server**
+with the command corresponding to the operating system's package manager:
 
 <Tabs groupId="sync">
-<TabItem value="Online License" label="Online License">
-
-1. Install the Centreon Plugin package on every Centreon poller expected to monitor *Alyvix Server* ressources:
+<TabItem value="Alma / RHEL / Oracle Linux 9" label="Alma / RHEL / Oracle Linux 9">
 
 ```bash
-yum install centreon-plugin-Applications-Monitoring-Alyvix-Restapi
+dnf install centreon-pack-applications-monitoring-alyvix-restapi
 ```
-
-2. On the Centreon Web interface, install the *Alyvix Server* Centreon Plugin-Pack on the "Configuration > Plugin Packs > Manager" page
 
 </TabItem>
-<TabItem value="Offline License" label="Offline License">
-
-1. Install the Centreon Plugin package on every Centreon poller expected to monitor *Alyvix Server* ressources:
+<TabItem value="Alma / RHEL / Oracle Linux 8" label="Alma / RHEL / Oracle Linux 8">
 
 ```bash
-yum install centreon-plugin-Applications-Monitoring-Alyvix-Restapi
+dnf install centreon-pack-applications-monitoring-alyvix-restapi
 ```
 
-2. Install the Centreon Plugin-Pack RPM on the Centreon Central server:
+</TabItem>
+<TabItem value="CentOS 7" label="CentOS 7">
 
 ```bash
 yum install centreon-pack-applications-monitoring-alyvix-restapi
 ```
 
-3. On the Centreon Web interface, install the *Alyvix Server* Centreon Plugin-Pack on the "Configuration > Plugin Packs > Manager" page
+</TabItem>
+<TabItem value="Debian 11" label="Debian 11">
+
+```bash
+apt install centreon-pack-applications-monitoring-alyvix-restapi
+```
+
+</TabItem>
+</Tabs>
+
+Whatever the license type (*online* or *offline*), install the **Alyvix Server RestAPI** Pack through
+the **Configuration > Plugin Packs > Manager** menu.
+
+### Plugin
+
+Since Centreon 22.04, you can benefit from the 'Automatic plugin installation' feature.
+When this feature is enabled, you can skip the installation part below.
+
+You still have to manually install the plugin on the poller(s) when:
+- Automatic plugin installation is turned off
+- You want to run a discovery job from a poller that doesn't monitor any resource of this kind yet
+
+> More information in the [Installing the plugin](/docs/monitoring/pluginpacks/#installing-the-plugin) section.
+
+Use the commands below according to your operating system's package manager:
+
+<Tabs groupId="sync">
+<TabItem value="Alma / RHEL / Oracle Linux 9" label="Alma / RHEL / Oracle Linux 9">
+
+```bash
+dnf install centreon-plugin-Applications-Monitoring-Alyvix-Restapi
+```
+
+</TabItem>
+<TabItem value="Alma / RHEL / Oracle Linux 8" label="Alma / RHEL / Oracle Linux 8">
+
+```bash
+dnf install centreon-plugin-Applications-Monitoring-Alyvix-Restapi
+```
+
+</TabItem>
+<TabItem value="CentOS 7" label="CentOS 7">
+
+```bash
+yum install centreon-plugin-Applications-Monitoring-Alyvix-Restapi
+```
+
+</TabItem>
+<TabItem value="Debian 11" label="Debian 11">
+
+```bash
+apt install centreon-plugin-applications-monitoring-alyvix-restapi
+```
 
 </TabItem>
 </Tabs>
 
 ## Configuration
 
-* Log into Centreon and add a new Host through "Configuration > Hosts". 
-* Fill the "Name", "Alias" & "IP Address / DNS" fields according to your Alyvix Server settings
-* Select the *App-Monitoring-Alyvix-Restapi-custom*.
+### Host
 
-If needed, configure the following Host Macros:
+1. Log into Centreon and add a new host through **Configuration > Hosts**.
+2. Fill the **Name**, **Alias** & **IP Address/DNS** fields according to your ressource settings.
+3. Apply the **App-Monitoring-Alyvix-Restapi-custom-custom** template to the host
+4. Once the template is applied, fill in the corresponding macros. Some macros are mandatory.
 
-| Mandatory | Name              | Description                                                                        |
-|:----------|:------------------|:-----------------------------------------------------------------------------------|
-| X         | ALYVIXAPIPORT     | RestAPI port of the Alyvix Server (Default: '80')                                  |
-| X         | ALYVIXAPIPROTOCOL | Protocol used to reach the Alyvix Server (Default: 'http')                         |
-| X         | ALYVIXAPIURLPATH  | URL path of the API (Default: '/v0/')                                              |
-|           | ALYVIXAPIUSERNAME | Username to authenticate against the API (**not available yet**)                   |
-|           | ALYVIXAPIPASSWORD | Password to authenticate against the API (**not available yet**)                   |
-|           | EXTRAOPTIONS      | Any extra option you may want to add to every command\_line (eg. a --verbose flag) |
+| Mandatory      | Macro             | Description                                                                       | Default |
+|:---------------|:------------------|:----------------------------------------------------------------------------------|:--------|
+|                | ALYVIXAPIPASSWORD |                                                                                   |         |
+|                | ALYVIXAPIPORT     | API port                                                                          | 80      |
+|                | ALYVIXAPIPROTOCOL | Specify https if needed                                                           | http    |
+|                | ALYVIXAPITIMEOUT  | Set HTTP timeout                                                                  |         |
+|                | ALYVIXAPIURLPATH  | API url path                                                                      | /v0/    |
+|                | ALYVIXAPIUSERNAME |                                                                                   |         |
+|                | EXTRAOPTIONS      | Any extra option you may want to add to every command line (eg. a --verbose flag) |         |
 
-> This template will deploy one "Global" Service that will monitor all the *testcases*.
-> Use the **Service Discovery** feature if you wish to get one Service per *testcase*.
+## How to check in the CLI that the configuration is OK and what are the main options for?
 
-## FAQ
-
-### How to check in the CLI that the configuration is OK and what are the main options for ?
-
-Once the plugin installed, log into your Centreon Poller CLI using the *centreon-engine* user account and test the Plugin 
-by running the following command (some of the parameters such as ```--proxyurl``` have to be adjusted):
+Once the plugin is installed, log into your Centreon poller's CLI using the
+**centreon-engine** user account (`su - centreon-engine`) and test the plugin by
+running the following command:
 
 ```bash
-/usr/lib/centreon/plugins/centreon_monitoring_alyvix_restapi.pl \
-    --plugin=apps::monitoring::alyvix::restapi::plugin \
-    --mode=testcases \
-    --hostname='10.0.0.1' \
-    --proto='http' \
-    --port='80' \
-    --proxyurl='http://myproxy.mycompany.org:8080' \
-    --filter-testcase='case_app1|case_app2' \
-    --critical-testcase-state='%{state} eq "FAILED"' \
-    --critical-transaction-state='%{state} eq "FAILED"' \
-    --warning-testcase-duration='40000' \
-    --critical-testcase-duration='60000' \
-    --critical-testcase-freshness='600' \
-    --verbose
+/usr/lib/centreon/plugins//centreon_monitoring_alyvix_restapi.pl \
+	--plugin=apps::monitoring::alyvix::restapi::plugin \
+	--mode=testcases \
+	--hostname='10.0.0.1' \
+	--port='' \
+	--proto='' \
+	--api-username='' \
+	--api-password='' \
+	--url-path='' \
+	--timeout=''  \
+	--filter-testcase='' \
+	--warning-transaction-state='' \
+	--critical-transaction-state='' \
+	--warning-transaction-duration='' \
+	--critical-transaction-duration='' \
+	--warning-testcase-duration='' \
+	--critical-testcase-duration='' \
+	--warning-testcase-state='' \
+	--critical-testcase-state='' \
+	--warning-testcase-freshness='' \
+	--critical-testcase-freshness='' \
+	
 ```
 
-Expected command output is shown below: 
+The expected command output is shown below:
 
 ```bash
-OK: All test cases are ok | 'case_app1#testcase.duration.milliseconds'=3883ms;;;0; 'case_app1~1_openapp1#transaction.duration.milliseconds'=77ms;;;0;
-'case_app2#testcase.duration.milliseconds'=30658ms;;;0; 'case_app2~1_open_app1#transaction.duration.milliseconds'=3ms;;;0;
-'case_app2~2_open_app2#transaction.duration.milliseconds'=4ms;;;0; 'case_app2~3_delay#transaction.duration.milliseconds'=76ms;;;0;
-'case_app2~4_open_app1_explorer#transaction.duration.milliseconds'=0ms;;;0; 'case_app2~5_open_file#transaction.duration.milliseconds'=10000ms;;;0;
-'case_app2~6_close_app1#transaction.duration.milliseconds'=104ms;;;0; 'case_app2~7_close_app2#transaction.duration.milliseconds'=0ms;;;0;
-'case_app2~8_check_picture#transaction.duration.milliseconds'=0ms;;;0;
-checking test case 'case_app1'
-    duration: 3883 ms, state: OK, last execution: 2020-12-11T15:22:40 (1m 16s ago)
-    transaction '1_openapp1' state: OK, duration: 77 ms
-checking test case 'case_app2'
-    duration: 30658 ms, state: OK, last execution: 2020-12-11T15:20:39 (3m 18s ago)
-    transaction '1_open_app1' state: OK, duration: 3 ms
-    transaction '2_open_app2' state: OK, duration: 4 ms
-    transaction '3_delay' state: OK, duration: 76 ms
-    transaction '4_open_app1_explorer' state: OK, duration: 0 ms
-    transaction '5_open_file' state: OK, duration: 10000 ms
-    transaction '6_close_app1' state: OK, duration: 104 ms
-    transaction '7_close_app2' state: OK, duration: 0 ms
-    transaction '8_check_picture' state: OK, duration: 0ms
+OK:      | 'testcase.duration.milliseconds'=7ms;;;0; 'testcase.freshness.seconds'=90s;;;0; 'transaction.duration.milliseconds'=67ms;;;0; 
 ```
 
-In this example, the Plugin gets the execution status and duration of Alyvix Server *testcases* (```--plugin=apps::monitoring::alyvix::restapi::plugin --mode=testcases```)
-by requesting the Alyvix RestAPI at *http://10.0.0.1:80* (```--hostname='10.0.0.1' --proto='http' --port='80'```).
-Only the *testcases* named *case_app1* & *case_app2* will be displayed (```--filter-testcase='case_app1|case_app2'```).
+### Available modes
 
-This command would trigger a WARNING alarm if the execution duration of one of the *testcases* is greater than 40s -40000ms-
-```--warning-testcase-duration='40000'```).
-
-A CRITICAL alarm would however be triggered in the following cases:
-* the execution duration of one of the *testcases* is greater than 60s -60000ms- (```--critical-testcase-duration='60000'```)
-* the reported status of a *testcase* is "FAILED" (```--critical-testcase-state='%{state} eq "FAILED"'```)
-* the reported status of at least one of a *testcase*'s *transaction* is "FAILED" (```--critical-transaction-state='%{state} eq "FAILED"'```)
-
-All the filters that can be used as well as all the available thresholds parameters can be displayed by adding the  ```--help``` 
-parameter to the command:
+All available modes can be displayed by adding the `--list-mode` parameter to
+the command:
 
 ```bash
-/usr/lib/centreon/plugins/centreon_monitoring_alyvix_restapi.pl \
-    --plugin=apps::monitoring::alyvix::restapi::plugin \
-    --mode=testcases \
+/usr/lib/centreon/plugins//centreon_monitoring_alyvix_restapi.pl \
+	--plugin=apps::monitoring::alyvix::restapi::plugin \
+    --list-mode
+```
+
+The plugin brings the following modes:
+
+| Mode           | Template                                       |
+|:---------------|:-----------------------------------------------|
+| list-testcases | Used for service discovery                     |
+| testcases      | App-Monitoring-Alyvix-Restapi-Testcases-Global |
+
+
+
+### Available options
+
+#### Modes options
+
+All  modes specific options are listed here:
+
+<Tabs groupId="sync">
+<TabItem value="Testcases-Global" label="Testcases-Global">
+
+| Option                                     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Type         |
+|:-------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------|
+| --mode                                     | Choose a mode.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Global       |
+| --dyn-mode                                 | Specify a mode with the path (separated by '::').                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Global       |
+| --list-mode                                | List available modes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Global       |
+| --mode-version                             | Check minimal version of mode. If not, unknown error.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Global       |
+| --version                                  | Display plugin version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Global       |
+| --custommode                               | Choose a custom mode.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Global       |
+| --list-custommode                          | List available custom modes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Global       |
+| --multiple                                 | Multiple custom mode objects (required by some specific modes)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Global       |
+| --pass-manager                             | Use a password manager.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Global       |
+| --verbose                                  | Display long output.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Output       |
+| --debug                                    | Display also debug messages.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Output       |
+| --filter-perfdata                          | Filter perfdata that match the regexp.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Output       |
+| --filter-perfdata-adv                      | Advanced perfdata filter.  Eg: --filter-perfdata-adv='not (%(value) == 0 and %(max) eq "")'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Output       |
+| --explode-perfdata-max                     | Put max perfdata (if it exist) in a specific perfdata (without values: same with '\_max' suffix) (Multiple options)                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Output       |
+| --change-perfdata --extend-perfdata        | Change or extend perfdata. Syntax: --extend-perfdata=searchlabel,newlabel,target\[,\[newuom\],\[min\],\[m ax\]\]  Common examples:      Change storage free perfdata in used:     --change-perfdata=free,used,invert()      Change storage free perfdata in used:     --change-perfdata=used,free,invert()      Scale traffic values automaticaly:     --change-perfdata=traffic,,scale(auto)      Scale traffic values in Mbps:     --change-perfdata=traffic\_in,,scale(Mbps),mbps      Change traffic values in percent:     --change-perfdata=traffic\_in,,percent()   | Output       |
+| --extend-perfdata-group                    | Extend perfdata from multiple perfdatas (methods in target are: min, max, average, sum) Syntax: --extend-perfdata-group=searchlabel,newlabel,target\[,\[newuom\],\[m in\],\[max\]\]  Common examples:      Sum wrong packets from all interfaces (with interface need     --units-errors=absolute):     --extend-perfdata-group=',packets\_wrong,sum(packets\_(discard     \|error)\_(in\|out))'      Sum traffic by interface:     --extend-perfdata-group='traffic\_in\_(.*),traffic\_$1,sum(traf     fic\_(in\|out)\_$1)'                                               | Output       |
+| --change-short-output --change-long-output | Change short/long output display: --change-short-output=pattern~replace~modifier                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Output       |
+| --change-exit                              | Change exit code: --change-exit=unknown=critical                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Output       |
+| --range-perfdata                           | Change perfdata range thresholds display: 1 = start value equals to '0' is removed, 2 = threshold range is not display.                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Output       |
+| --filter-uom                               | Filter UOM that match the regexp.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Output       |
+| --opt-exit                                 | Optional exit code for an execution error (i.e. wrong option provided, SSH connection refused, timeout, etc) (Default: unknown).                                                                                                                                                                                                                                                                                                                                                                                                                                           | Output       |
+| --output-ignore-perfdata                   | Remove perfdata from output.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Output       |
+| --output-ignore-label                      | Remove label status from output.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Output       |
+| --output-xml                               | Display output in XML format.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Output       |
+| --output-json                              | Display output in JSON format.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Output       |
+| --output-openmetrics                       | Display metrics in OpenMetrics format.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Output       |
+| --output-file                              | Write output in file (can be used with json and xml options)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Output       |
+| --disco-format                             | Display discovery arguments (if the mode manages it).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Output       |
+| --disco-show                               | Display discovery values (if the mode manages it).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Output       |
+| --float-precision                          | Set the float precision for thresholds (Default: 8).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Output       |
+| --source-encoding                          | Set encoding of monitoring sources (In some case. Default: 'UTF-8').      Alyvix Server Rest API.                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Output       |
+| --hostname                                 | Alyvix Server hostname.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Api          |
+| --url-path                                 | API url path (Default: '/v0/')                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Api          |
+| --port                                     | API port (Default: 80)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Api          |
+| --proto                                    | Specify https if needed (Default: 'http')                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | Api          |
+| --credentials                              | Specify this option if you access the API with authentication                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Api          |
+| --username                                 | Specify username for authentication (Mandatory if --credentials is specified)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Api          |
+| --password                                 | Specify password for authentication (Mandatory if --credentials is specified)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Api          |
+| --basic                                    | Specify this option if you access the API over basicauthentication and don't want a '401 UNAUTHORIZED' error to be logged on your webserver.  Specify this option if you access the API over hidden basic authentication or you'll get a '404 NOT FOUND' error.  (Use with --credentials)                                                                                                                                                                                                                                                                                  | Api          |
+| --timeout                                  | Set HTTP timeout                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Api          |
+| --http-peer-addr                           | Set the address you want to connect (Useful if hostname is only a vhost. no ip resolve)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Http global  |
+| --proxyurl                                 | Proxy URL                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | Http global  |
+| --proxypac                                 | Proxy pac file (can be an url or local file)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Http global  |
+| --insecure                                 | Insecure SSL connections.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | Http global  |
+| --http-backend                             | Set the backend used (Default: 'lwp') For curl: --http-backend=curl                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Http global  |
+| --ssl-opt                                  | Set SSL Options (--ssl-opt="SSL\_version =\> TLSv1" --ssl-opt="SSL\_verify\_mode =\> SSL\_VERIFY\_NONE").                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | Backend lwp  |
+| --ssl                                      | Set SSL version (=TLSv1).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | Backend lwp  |
+| --curl-opt                                 | Set CURL Options (--curl-opt="CURLOPT\_SSL\_VERIFYPEER =\> 0" --curl-opt="CURLOPT\_SSLVERSION =\> CURL\_SSLVERSION\_TLSv1\_1" ).                                                                                                                                                                                                                                                                                                                                                                                                                                           | Backend curl |
+| --hostname                                 | ='10.0.0.1'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Mode         |
+| --filter-testcase                          | Filter on specific test case.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Mode         |
+| --warning-*-state                          | Set warning status (Default: '') where '*' can be 'testcase' or 'transaction'.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Mode         |
+| --critical-*-state                         | Set critical status (Default: '%{state} eq "FAILED"') where '*' can be 'testcase' or 'transaction'.                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Mode         |
+| --warning-*-duration                       | Set warning threshold for test cases or transactions duration (Default: '') where '*' can be 'testcase' or 'transaction'.                                                                                                                                                                                                                                                                                                                                                                                                                                                  | Mode         |
+| --critical-*-duration                      | Set critical threshold for test cases or transactions duration (Default: '') where '*' can be 'testcase' or 'transaction'.                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Mode         |
+
+</TabItem>
+</Tabs>
+
+
+All available options for a given mode can be displayed by adding the
+`--help` parameter to the command:
+
+```bash
+/usr/lib/centreon/plugins//centreon_monitoring_alyvix_restapi.pl \
+	--plugin=apps::monitoring::alyvix::restapi::plugin \
+	--mode=testcases \
     --help
 ```
 
-### Why do I get the following message: ```UNKNOWN: 500 Can't connect to 10.0.0.1:80 |```
+### Troubleshooting
 
-This error message means that the Centreon Plugin couldn't successfully connect to the Alyvix Server RestAPI.
-Check that no third party device (such as a firewall) is blocking the request.
-A proxy connection may also be necessary to connect to the API. 
-This can be done by using this option in the command: ```--proxyurl='http://proxy.mycompany:8080'```.
-
-#### ```UNKNOWN: 501 Protocol scheme 'connect' is not supported |```
-
-When using a proxy to connect to the Alyvix Server RestAPI, this error
-message means that the Centreon Plugin library does not support the proxy
-connection protocol.
-
-In order to prevent this issue, use the *curl* HTTP backend by adding the
-following option to the command: ```--http-backend='curl'```.
+Please find the troubleshooting documentation for the API-based plugins in
+this [chapter](../getting-started/how-to-guides/troubleshooting-plugins.md#http-and-api-checks).
