@@ -247,7 +247,7 @@ running the following command:
 The expected command output is shown below:
 
 ```bash
-OK:    | 'memory.usage.bytes'=46B;;;0;total 'memory.free.bytes'=22B;;;0;total 'memory.usage.percentage'=74%;;;0;100 
+OK:    | 'memory.usage.bytes'=51B;;;0;total 'memory.free.bytes'=49B;;;0;total 'memory.usage.percentage'=80%;;;0;100 
 ```
 
 ### Available modes

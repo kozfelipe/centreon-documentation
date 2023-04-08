@@ -245,7 +245,7 @@ l'utilisateur **centreon-engine** (`su - centreon-engine`) :
 La commande devrait retourner un message de sortie similaire à :
 
 ```bash
-OK:    | 'memory.usage.bytes'=46B;;;0;total 'memory.free.bytes'=22B;;;0;total 'memory.usage.percentage'=74%;;;0;100 
+OK:    | 'memory.usage.bytes'=51B;;;0;total 'memory.free.bytes'=49B;;;0;total 'memory.usage.percentage'=80%;;;0;100 
 ```
 
 ### Modes disponibles
