@@ -29,7 +29,7 @@ Il apporte les modèles de service suivants :
 
 > Les services par **Défaut** sont créés automatiquement lorsque le modèle d'hôte est appliqué.
 >
-> Les modèles de service avec le champ "Découverte" sont liés à une règle de découverte automatique de service.
+> Si la case **Découverte** est cochée, cela signifie qu'une règle de découverte de service existe pour ce service.
 
 ### Règles de découverte
 
@@ -131,6 +131,13 @@ sur le **serveur central** via la commande correspondant au gestionnaire de paqu
 associé à sa distribution :
 
 <Tabs groupId="sync">
+<TabItem value="Alma / RHEL / Oracle Linux 9" label="Alma / RHEL / Oracle Linux 9">
+
+```bash
+dnf install centreon-pack-network-aruba-cppm-snmp
+```
+
+</TabItem>
 <TabItem value="Alma / RHEL / Oracle Linux 8" label="Alma / RHEL / Oracle Linux 8">
 
 ```bash
@@ -169,6 +176,13 @@ que vous ne souhaitez pas découvrir des éléments pour la première fois, alor
 Utilisez les commandes ci-dessous en fonction du gestionnaire de paquets de votre système d'exploitation :
 
 <Tabs groupId="sync">
+<TabItem value="Alma / RHEL / Oracle Linux 9" label="Alma / RHEL / Oracle Linux 9">
+
+```bash
+dnf install centreon-plugin-Network-Aruba-Cppm-Snmp
+```
+
+</TabItem>
 <TabItem value="Alma / RHEL / Oracle Linux 8" label="Alma / RHEL / Oracle Linux 8">
 
 ```bash
@@ -231,7 +245,7 @@ l'utilisateur **centreon-engine** (`su - centreon-engine`) :
 La commande devrait retourner un message de sortie similaire à :
 
 ```bash
-OK:    | 'memory.usage.bytes'=6B;;;0;total 'memory.free.bytes'=94B;;;0;total 'memory.usage.percentage'=47%;;;0;100 
+OK:    | 'memory.usage.bytes'=46B;;;0;total 'memory.free.bytes'=22B;;;0;total 'memory.usage.percentage'=74%;;;0;100 
 ```
 
 ### Modes disponibles

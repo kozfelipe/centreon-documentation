@@ -27,9 +27,9 @@ It brings the following service templates:
 | Tacacs        | Net-Aruba-Cppm-Tacacs-SNMP       | Check TACACS                               |         |           |
 
 
-> Default services are automatically created when the host template is applied.
+> **Default** services are automatically created when the host template is applied.
 >
-> Services templates with the *Discovery* field are linked to a service discovery rule.
+> If **Discovery** is checked, it means a service discovery rule exists for this service template.
 
 ### Discovery rules
 
@@ -131,6 +131,13 @@ If the platform uses an *offline* license, install the package on the **central 
 with the command corresponding to the operating system's package manager:
 
 <Tabs groupId="sync">
+<TabItem value="Alma / RHEL / Oracle Linux 9" label="Alma / RHEL / Oracle Linux 9">
+
+```bash
+dnf install centreon-pack-network-aruba-cppm-snmp
+```
+
+</TabItem>
 <TabItem value="Alma / RHEL / Oracle Linux 8" label="Alma / RHEL / Oracle Linux 8">
 
 ```bash
@@ -171,6 +178,13 @@ You still have to manually install the plugin on the poller(s) when:
 Use the commands below according to your operating system's package manager:
 
 <Tabs groupId="sync">
+<TabItem value="Alma / RHEL / Oracle Linux 9" label="Alma / RHEL / Oracle Linux 9">
+
+```bash
+dnf install centreon-plugin-Network-Aruba-Cppm-Snmp
+```
+
+</TabItem>
 <TabItem value="Alma / RHEL / Oracle Linux 8" label="Alma / RHEL / Oracle Linux 8">
 
 ```bash
@@ -233,7 +247,7 @@ running the following command:
 The expected command output is shown below:
 
 ```bash
-OK:    | 'memory.usage.bytes'=6B;;;0;total 'memory.free.bytes'=94B;;;0;total 'memory.usage.percentage'=47%;;;0;100 
+OK:    | 'memory.usage.bytes'=46B;;;0;total 'memory.free.bytes'=22B;;;0;total 'memory.usage.percentage'=74%;;;0;100 
 ```
 
 ### Available modes
