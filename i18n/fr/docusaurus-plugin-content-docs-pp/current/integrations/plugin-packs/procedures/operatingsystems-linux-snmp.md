@@ -18,42 +18,42 @@ Il apporte les modèles de service suivants :
 
 | Alias                      | Modèle de service                        | Description                                                                                                                                                                        | Défaut | Découverte |
 |:---------------------------|:-----------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------|:-----------|
-| Swap                       | OS-Linux-Swap-SNMP                       | Contrôle du taux d'utilisation de la mémoire virtuelle                                                                                                                             | X      |            |
-| Memory                     | OS-Linux-Memory-SNMP                     | Contrôle du taux d'utilisation de la mémoire vive                                                                                                                                  | X      |            |
-| Load                       | OS-Linux-Load-SNMP                       | Contrôle de la charge serveur                                                                                                                                                      | X      |            |
 | Cpu                        | OS-Linux-Cpu-SNMP                        | Contrôle du taux d'utilisation du CPU de la machine. Ce contrôle pourra remonter la moyenne du taux d'utilisation des CPU ainsi que le taux par CPU pour les CPU multi-coeur       | X      |            |
-| Process-Generic            | OS-Linux-Process-Generic-SNMP            | Contrôle permettant de vérifier le fonctionnement d'un processus                                                                                                                   |        | X          |
-| Tcpcon-Generic             | OS-Linux-Tcpcon-Generic-SNMP             | Contrôle permettant de vérifier les connexions tcp Linux                                                                                                                           |        |            |
 | Cpu-Detailed               | OS-Linux-Cpu-Detailed-SNMP               | Contrôle du taux d'utilisation détaillé CPU de la machine. Ce contrôle pourra remonter la moyenne du taux d'utilisation des CPU ainsi que le taux par CPU pour les CPU multi-coeur |        |            |
+| Disk-Generic-Id            | OS-Linux-Disk-Generic-Id-SNMP            | Contrôle du taux d'espace libre disponible du disque. Pour chaque contrôle apparaîtra le nom du disque                                                                             |        |            |
+| Disk-Generic-Name          | OS-Linux-Disk-Generic-Name-SNMP          | Contrôle du taux d'espace libre disponible du disque. Pour chaque contrôle apparaîtra le point de montage du disque                                                                |        |            |
+| Disk-Global                | OS-Linux-Disk-Global-SNMP                | Contrôle du taux d'espace libre disponible des disques. Pour chaque contrôle apparaîtra le point de montage des disques                                                            |        | X          |
+| Disk-IO                    | OS-Linux-Disk-IO-SNMP                    | Contrôle les accès disques du disque. Pour chaque contrôle apparaîtra le nom du disque                                                                                             |        |            |
+| Inodes-Global              | OS-Linux-Inodes-Global-SNMP              | Contrôle l'utilisation des inodes                                                                                                                                                  |        | X          |
+| Load                       | OS-Linux-Load-SNMP                       | Contrôle de la charge serveur                                                                                                                                                      | X      |            |
+| Memory                     | OS-Linux-Memory-SNMP                     | Contrôle du taux d'utilisation de la mémoire vive                                                                                                                                  | X      |            |
+| Ntp                        | OS-Linux-NTP-SNMP                        | Contrôle la synchronisation avec un serveur NTP                                                                                                                                    |        |            |
 | Packet-Errors-Generic-Id   | Os-Linux-Packet-Errors-Generic-Id-SNMP   | Contrôle le pourcentage de paquets en erreur                                                                                                                                       |        |            |
 | Packet-Errors-Generic-Name | Os-Linux-Packet-Errors-Generic-Name-SNMP | Contrôle le pourcentage de paquets en erreur                                                                                                                                       |        |            |
 | Packet-Errors-Global       | Os-Linux-Packet-Errors-Global-SNMP       | Contrôle le pourcentage de paquets en erreur                                                                                                                                       |        | X          |
-| Uptime                     | OS-Linux-Uptime-SNMP                     | Durée depuis laquelle le serveur tourne sans interruption                                                                                                                          |        |            |
-| Inodes-Global              | OS-Linux-Inodes-Global-SNMP              | Contrôle l'utilisation des inodes                                                                                                                                                  |        | X          |
-| Disk-IO                    | OS-Linux-Disk-IO-SNMP                    | Contrôle les accès disques du disque. Pour chaque contrôle apparaîtra le nom du disque                                                                                             |        |            |
-| Traffic-Global             | OS-Linux-Traffic-Global-SNMP             | Contrôle de la bande passante des interfaces. Pour chaque contrôle apparaîtra le nom de l'interface                                                                                |        | X          |
+| Process-Generic            | OS-Linux-Process-Generic-SNMP            | Contrôle permettant de vérifier le fonctionnement d'un processus                                                                                                                   |        | X          |
+| Swap                       | OS-Linux-Swap-SNMP                       | Contrôle du taux d'utilisation de la mémoire virtuelle                                                                                                                             | X      |            |
+| Tcpcon-Generic             | OS-Linux-Tcpcon-Generic-SNMP             | Contrôle permettant de vérifier les connexions tcp Linux                                                                                                                           |        |            |
 | Traffic-Generic-Id         | OS-Linux-Traffic-Generic-Id-SNMP         | Contrôle de la bande passante de l'interface. Pour chaque contrôle apparaîtra le nom de l'interface                                                                                |        |            |
 | Traffic-Generic-Name       | OS-Linux-Traffic-Generic-Name-SNMP       | Contrôle de la bande passante de l'interface. Pour chaque contrôle apparaîtra le nom de l'interface                                                                                |        |            |
-| Disk-Global                | OS-Linux-Disk-Global-SNMP                | Contrôle du taux d'espace libre disponible des disques. Pour chaque contrôle apparaîtra le point de montage des disques                                                            |        | X          |
-| Disk-Generic-Id            | OS-Linux-Disk-Generic-Id-SNMP            | Contrôle du taux d'espace libre disponible du disque. Pour chaque contrôle apparaîtra le nom du disque                                                                             |        |            |
-| Disk-Generic-Name          | OS-Linux-Disk-Generic-Name-SNMP          | Contrôle du taux d'espace libre disponible du disque. Pour chaque contrôle apparaîtra le point de montage du disque                                                                |        |            |
-| Ntp                        | OS-Linux-NTP-SNMP                        | Contrôle la synchronisation avec un serveur NTP                                                                                                                                    |        |            |
-
+| Traffic-Global             | OS-Linux-Traffic-Global-SNMP             | Contrôle de la bande passante des interfaces. Pour chaque contrôle apparaîtra le nom de l'interface                                                                                |        | X          |
+| Uptime                     | OS-Linux-Uptime-SNMP                     | Durée depuis laquelle le serveur tourne sans interruption                                                                                                                          |        |            |
 
 > Les services par **Défaut** sont créés automatiquement lorsque le modèle d'hôte est appliqué.
->
+
 > Si la case **Découverte** est cochée, cela signifie qu'une règle de découverte de service existe pour ce service.
+
 
 ### Règles de découverte
 
 | Nom de la règle                  | Description                                                           |
 |:---------------------------------|:----------------------------------------------------------------------|
-| OS-Linux-SNMP-Inodes-Name        | Discover the disk partitions and monitor inodes usage                 |
 | OS-Linux-SNMP-Disk-Name          | Discover the disk partitions and monitor space occupation             |
-| OS-Linux-SNMP-Packet-Errors-Name | Discover network interfaces and monitor errored and discarded packets |
-| OS-Linux-SNMP-Traffic-Name       | Discover network interfaces and monitor bandwidth utilization         |
 | OS-Linux-SNMP-Disk-Path          | Discover the disk partitions and monitor space occupation             |
+| OS-Linux-SNMP-Inodes-Name        | Discover the disk partitions and monitor inodes usage                 |
+| OS-Linux-SNMP-Packet-Errors-Name | Discover network interfaces and monitor errored and discarded packets |
 | OS-Linux-SNMP-Processes-Name     | Discover processes and monitor their system usage                     |
+| OS-Linux-SNMP-Traffic-Name       | Discover network interfaces and monitor bandwidth utilization         |
 
 Rendez-vous sur la [documentation dédiée](/docs/monitoring/discovery/services-discovery)
 pour en savoir plus sur la découverte automatique de services et sa [planification](/docs/monitoring/discovery/services-discovery/#règles-de-découverte).
@@ -63,15 +63,17 @@ pour en savoir plus sur la découverte automatique de services et sa [planificat
 <Tabs groupId="sync">
 <TabItem value="Cpu" label="Cpu">
 
-| Métrique                                 | Unité |
-|:-----------------------------------------|:------|
-| cpu.utilization.percentage               | %     |
-| cpu_core#core.cpu.utilization.percentage | %     |
+| Metric Name                     | Unité |
+|:--------------------------------|:------|
+| cpu.utilization.percentage      | %     |
+| core.cpu.utilization.percentage | %     |
+
+> L'option **--use-new-perfdata** est nécessaire pour avoir le nouevau format de métrique.
 
 </TabItem>
 <TabItem value="Cpu-Detailed" label="Cpu-Detailed">
 
-| Métrique                             | Unité |
+| Metric Name                          | Unité |
 |:-------------------------------------|:------|
 | cpu.user.utilization.percentage      | %     |
 | cpu.nice.utilization.percentage      | %     |
@@ -85,21 +87,25 @@ pour en savoir plus sur la découverte automatique de services et sa [planificat
 | cpu.guest.utilization.percentage     | %     |
 | cpu.guestnice.utilization.percentage | %     |
 
+> L'option **--use-new-perfdata** est nécessaire pour avoir le nouevau format de métrique.
+
 </TabItem>
 <TabItem value="Disk-*" label="Disk-*">
 
-| Métrique                          | Unité |
-|:----------------------------------|:------|
-| storage.partitions.count          | count |
-| storage#storage.space.usage.bytes | B     |
-| storage#storage.access.count      | count |
+| Metric Name               | Unité |
+|:--------------------------|:------|
+| storage.partitions.count  | count |
+| storage.space.usage.bytes | B     |
+| storage.access.count      | count |
 
-> Concerne les modèles de service suivants : Disk-Global, Disk-Generic-Id, Disk-Generic-Name
+> Concerne les modèles de service suivants : Disk-Generic-Id, Disk-Generic-Name, Disk-Global
+
+> L'option **--use-new-perfdata** est nécessaire pour avoir le nouevau format de métrique.
 
 </TabItem>
 <TabItem value="Disk-IO" label="Disk-IO">
 
-| Métrique            | Unité |
+| Metric Name         | Unité |
 |:--------------------|:------|
 | total-read          | B/s   |
 | total-write         | B/s   |
@@ -107,22 +113,26 @@ pour en savoir plus sur la découverte automatique de services et sa [planificat
 | total-write-iops    | iops  |
 | sum-read-write      | B/s   |
 | sum-read-write-iops | iops  |
-| disk#read           | B/s   |
-| disk#write          | B/s   |
-| disk#read-iops      | iops  |
-| disk#write-iops     | iops  |
+| read                | B/s   |
+| write               | B/s   |
+| read-iops           | iops  |
+| write-iops          | iops  |
+
+> L'option **--use-new-perfdata** est nécessaire pour avoir le nouevau format de métrique.
 
 </TabItem>
 <TabItem value="Inodes-Global" label="Inodes-Global">
 
-| Métrique                             | Unité |
-|:-------------------------------------|:------|
-| disk#storage.inodes.usage.percentage | %     |
+| Metric Name                     | Unité |
+|:--------------------------------|:------|
+| storage.inodes.usage.percentage | %     |
+
+> L'option **--use-new-perfdata** est nécessaire pour avoir le nouevau format de métrique.
 
 </TabItem>
 <TabItem value="Load" label="Load">
 
-| Métrique               | Unité |
+| Metric Name            | Unité |
 |:-----------------------|:------|
 | load.1m.average.count  | count |
 | load.5m.average.count  | count |
@@ -134,7 +144,7 @@ pour en savoir plus sur la découverte automatique de services et sa [planificat
 </TabItem>
 <TabItem value="Memory" label="Memory">
 
-| Métrique                | Unité |
+| Metric Name             | Unité |
 |:------------------------|:------|
 | memory.usage.bytes      | B     |
 | memory.free.bytes       | B     |
@@ -146,29 +156,35 @@ pour en savoir plus sur la découverte automatique de services et sa [planificat
 | swap.free.bytes         | B     |
 | swap.usage.percentage   | %     |
 
+> L'option **--use-new-perfdata** est nécessaire pour avoir le nouevau format de métrique.
+
 </TabItem>
 <TabItem value="Ntp" label="Ntp">
 
-| Métrique            | Unité |
+| Metric Name         | Unité |
 |:--------------------|:------|
 | time.offset.seconds | s     |
+
+> L'option **--use-new-perfdata** est nécessaire pour avoir le nouevau format de métrique.
 
 </TabItem>
 <TabItem value="Packet-Errors-*" label="Packet-Errors-*">
 
-| Métrique                                     | Unité |
-|:---------------------------------------------|:------|
-| int#interface.packets.in.discard.percentage  | %     |
-| int#interface.packets.out.discard.percentage | %     |
-| int#interface.packets.in.error.percentage    | %     |
-| int#interface.packets.out.error.percentage   | %     |
+| Metric Name                              | Unité |
+|:-----------------------------------------|:------|
+| interface.packets.in.discard.percentage  | %     |
+| interface.packets.out.discard.percentage | %     |
+| interface.packets.in.error.percentage    | %     |
+| interface.packets.out.error.percentage   | %     |
 
-> Concerne les modèles de service suivants : Packet-Errors-Global, Packet-Errors-Generic-Id, Packet-Errors-Generic-Name
+> Concerne les modèles de service suivants : Packet-Errors-Generic-Id, Packet-Errors-Generic-Name, Packet-Errors-Global
+
+> L'option **--use-new-perfdata** est nécessaire pour avoir le nouevau format de métrique.
 
 </TabItem>
 <TabItem value="Process-Generic" label="Process-Generic">
 
-| Métrique    | Unité |
+| Metric Name | Unité |
 |:------------|:------|
 | nbproc      |       |
 | mem_total   | B     |
@@ -178,16 +194,18 @@ pour en savoir plus sur la découverte automatique de services et sa [planificat
 </TabItem>
 <TabItem value="Swap" label="Swap">
 
-| Métrique              | Unité |
+| Metric Name           | Unité |
 |:----------------------|:------|
 | swap.usage.bytes      | B     |
 | swap.free.bytes       | B     |
 | swap.usage.percentage | %     |
 
+> L'option **--use-new-perfdata** est nécessaire pour avoir le nouevau format de métrique.
+
 </TabItem>
 <TabItem value="Tcpcon-Generic" label="Tcpcon-Generic">
 
-| Métrique                          | Unité |
+| Metric Name                       | Unité |
 |:----------------------------------|:------|
 | service.connections.tcp.count     | count |
 | application.connections.tcp.count | count |
@@ -195,19 +213,25 @@ pour en savoir plus sur la découverte automatique de services et sa [planificat
 </TabItem>
 <TabItem value="Traffic-*" label="Traffic-*">
 
-| Métrique                                | Unité |
-|:----------------------------------------|:------|
-| int#interface.traffic.in.bitspersecond  | b/s   |
-| int#interface.traffic.out.bitspersecond | b/s   |
+| Metric Name                              | Unité |
+|:-----------------------------------------|:------|
+| interface.packets.in.discard.percentage  | %     |
+| interface.packets.out.discard.percentage | %     |
+| interface.packets.in.error.percentage    | %     |
+| interface.packets.out.error.percentage   | %     |
 
-> Concerne les modèles de service suivants : Traffic-Global, Traffic-Generic-Id, Traffic-Generic-Name
+> Concerne les modèles de service suivants : Traffic-Generic-Id, Traffic-Generic-Name, Traffic-Global
+
+> L'option **--use-new-perfdata** est nécessaire pour avoir le nouevau format de métrique.
 
 </TabItem>
 <TabItem value="Uptime" label="Uptime">
 
-| Métrique              | Unité |
+| Metric Name           | Unité |
 |:----------------------|:------|
 | system.uptime.seconds | s     |
+
+> L'option **--use-new-perfdata** est nécessaire pour avoir le nouevau format de métrique.
 
 </TabItem>
 </Tabs>
@@ -320,9 +344,240 @@ apt install centreon-plugin-operatingsystems-linux-snmp
 3. Appliquez le modèle d'hôte **OS-Linux-SNMP-custom-custom**.
 4. Une fois le modèle appliqué, les macros ci-dessous indiquées comme requises (**Obligatoire**) doivent être renseignées.
 
-| Obligatoire    | Macro            | Description                                                                       | Défaut  |
+| Mandatory      | Macro            | Description                                                                       | Défaut  |
 |:---------------|:-----------------|:----------------------------------------------------------------------------------|:--------|
 |                | SNMPEXTRAOPTIONS | Any extra option you may want to add to every command line (eg. a --verbose flag) |         |
+
+### Service
+
+<Tabs groupId="sync">
+<TabItem value="Cpu" label="Cpu">
+
+| Mandatory      | Macro    | Description                                | Défaut  |
+|:---------------|:---------|:-------------------------------------------|:--------|
+|                | WARNING  | Warning threshold average CPU utilization  | 80      |
+|                | CRITICAL | Critical threshold average CPU utilization | 90      |
+
+</TabItem>
+<TabItem value="Cpu-Detailed" label="Cpu-Detailed">
+
+| Mandatory      | Macro        | Description | Défaut    |
+|:---------------|:-------------|:------------|:----------|
+|                | WARNINGIDLE  |             | 20:       |
+|                | CRITICALIDLE |             | 10:       |
+|                | EXTRAOPTIONS |             | --verbose |
+
+</TabItem>
+<TabItem value="Disk-Generic-Id" label="Disk-Generic-Id">
+
+| Mandatory      | Macro        | Description                                                                      | Défaut                                      |
+|:---------------|:-------------|:---------------------------------------------------------------------------------|:--------------------------------------------|
+|                | WARNING      | Threshold warning                                                                | 80                                          |
+|                | CRITICAL     | Threshold critical                                                               | 90                                          |
+|                | EXTRAOPTIONS |                                                                                  | --filter-perfdata='storage.space|used|free' |
+|                | DISKID       | Set the storage (number expected) ex: 1, 2,... (empty means 'check all storage') |                                             |
+|                | TRANSFORMSRC | Regexp src to transform display value. (security risk!!!)                        |                                             |
+|                | TRANSFORMDST | Regexp dst to transform display value. (security risk!!!)                        |                                             |
+
+</TabItem>
+<TabItem value="Disk-Generic-Name" label="Disk-Generic-Name">
+
+| Mandatory      | Macro        | Description                                                                      | Défaut                                      |
+|:---------------|:-------------|:---------------------------------------------------------------------------------|:--------------------------------------------|
+|                | WARNING      | Threshold warning                                                                | 80                                          |
+|                | CRITICAL     | Threshold critical                                                               | 90                                          |
+|                | EXTRAOPTIONS |                                                                                  | --filter-perfdata='storage.space|used|free' |
+|                | DISKNAME     | Set the storage (number expected) ex: 1, 2,... (empty means 'check all storage') |                                             |
+|                | TRANSFORMSRC | Regexp src to transform display value. (security risk!!!)                        |                                             |
+|                | TRANSFORMDST | Regexp dst to transform display value. (security risk!!!)                        |                                             |
+
+</TabItem>
+<TabItem value="Disk-Global" label="Disk-Global">
+
+| Mandatory      | Macro        | Description                                                                      | Défaut                                                |
+|:---------------|:-------------|:---------------------------------------------------------------------------------|:------------------------------------------------------|
+|                | FILTER       | Set the storage (number expected) ex: 1, 2,... (empty means 'check all storage') | .*                                                    |
+|                | WARNING      | Threshold warning                                                                | 80                                                    |
+|                | CRITICAL     | Threshold critical                                                               | 90                                                    |
+|                | EXTRAOPTIONS |                                                                                  | --verbose --filter-perfdata='storage.space|used|free' |
+|                | TRANSFORMSRC | Regexp src to transform display value. (security risk!!!)                        |                                                       |
+|                | TRANSFORMDST | Regexp dst to transform display value. (security risk!!!)                        |                                                       |
+
+</TabItem>
+<TabItem value="Disk-IO" label="Disk-IO">
+
+| Mandatory      | Macro         | Description                                                                     | Défaut  |
+|:---------------|:--------------|:--------------------------------------------------------------------------------|:--------|
+|                | DISKNAME      | Set the device (number expected) ex: 1, 2,... (empty means 'check all devices') |         |
+|                | WARNINGREAD   |                                                                                 |         |
+|                | WARNINGWRITE  |                                                                                 |         |
+|                | CRITICALREAD  |                                                                                 |         |
+|                | CRITICALWRITE |                                                                                 |         |
+|                | EXTRAOPTIONS  |                                                                                 |         |
+
+</TabItem>
+<TabItem value="Inodes-Global" label="Inodes-Global">
+
+| Mandatory      | Macro        | Description                                                                           | Défaut                                             |
+|:---------------|:-------------|:--------------------------------------------------------------------------------------|:---------------------------------------------------|
+|                | CRITICAL     | Threshold critical in percent                                                         | 90                                                 |
+|                | EXTRAOPTIONS |                                                                                       | --verbose                                          |
+|                | FILTER       | Set the disk path (number expected) ex: 1, 2,... (empty means 'check all disks path') | .*                                                 |
+|                | WARNING      | Threshold warning in percent                                                          | 80                                                 |
+|                | FILTERDEVICE | Filter devices by name (regexp)                                                       | ^(?!(tmpfs|devpts|none|proc|sysfs|sunrpc|\/\/.*)$) |
+
+</TabItem>
+<TabItem value="Load" label="Load">
+
+| Mandatory      | Macro        | Description                          | Défaut  |
+|:---------------|:-------------|:-------------------------------------|:--------|
+|                | CRITICAL     | Threshold critical (1min,5min,15min) | 6,5,4   |
+|                | EXTRAOPTIONS |                                      |         |
+|                | WARNING      | Threshold warning (1min,5min,15min)  | 4,3,2   |
+
+</TabItem>
+<TabItem value="Memory" label="Memory">
+
+| Mandatory      | Macro        | Description | Défaut  |
+|:---------------|:-------------|:------------|:--------|
+|                | CRITICAL     |             | 90      |
+|                | EXTRAOPTIONS |             |         |
+|                | WARNING      |             | 80      |
+
+</TabItem>
+<TabItem value="Ntp" label="Ntp">
+
+| Mandatory      | Macro    | Description                                                                                                     | Défaut  |
+|:---------------|:---------|:----------------------------------------------------------------------------------------------------------------|:--------|
+|                | WARNING  | Time offset warning threshold (in seconds)                                                                      | -1:1    |
+|                | CRITICAL | Time offset critical Threshold (in seconds)                                                                     | -2:2    |
+|                | NTPADDR  | Set the ntp hostname (if not set, localtime is used)                                                            |         |
+|                | NTPPORT  | Set the ntp port (Default: 123)                                                                                 |         |
+|                | TIMEZONE | Set the timezone of distant server. For Windows, you need to set it. Can use format: 'Europe/London' or '+0100' |         |
+
+</TabItem>
+<TabItem value="Packet-Errors-Generic-Id" label="Packet-Errors-Generic-Id">
+
+| Mandatory      | Macro              | Description                                                                         | Défaut  |
+|:---------------|:-------------------|:------------------------------------------------------------------------------------|:--------|
+|                | CRITICALINDISCARD  |                                                                                     |         |
+|                | CRITICALINERROR    |                                                                                     |         |
+|                | CRITICALOUTDISCARD |                                                                                     |         |
+|                | CRITICALOUTERROR   |                                                                                     |         |
+|                | EXTRAOPTIONS       |                                                                                     |         |
+|                | INTERFACEID        | Set the interface (number expected) ex: 1,2,... (empty means 'check all interface') |         |
+|                | WARNINGINDISCARD   |                                                                                     |         |
+|                | WARNINGINERROR     |                                                                                     |         |
+|                | WARNINGOUTDISCARD  |                                                                                     |         |
+|                | WARNINGOUTERROR    |                                                                                     |         |
+
+</TabItem>
+<TabItem value="Packet-Errors-Generic-Name" label="Packet-Errors-Generic-Name">
+
+| Mandatory      | Macro              | Description                                                                         | Défaut  |
+|:---------------|:-------------------|:------------------------------------------------------------------------------------|:--------|
+|                | INTERFACENAME      | Set the interface (number expected) ex: 1,2,... (empty means 'check all interface') | .*      |
+|                | WARNINGINDISCARD   |                                                                                     |         |
+|                | CRITICALINDISCARD  |                                                                                     |         |
+|                | WARNINGOUTDISCARD  |                                                                                     |         |
+|                | CRITICALOUTDISCARD |                                                                                     |         |
+|                | WARNINGINERROR     |                                                                                     |         |
+|                | CRITICALINERROR    |                                                                                     |         |
+|                | WARNINGOUTERROR    |                                                                                     |         |
+|                | CRITICALOUTERROR   |                                                                                     |         |
+
+</TabItem>
+<TabItem value="Packet-Errors-Global" label="Packet-Errors-Global">
+
+| Mandatory      | Macro              | Description                                                                                                                                                                          | Défaut    |
+|:---------------|:-------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------|
+|                | CRITICALINDISCARD  |                                                                                                                                                                                      |           |
+|                | CRITICALINERROR    |                                                                                                                                                                                      |           |
+|                | CRITICALOUTDISCARD |                                                                                                                                                                                      |           |
+|                | CRITICALOUTERROR   |                                                                                                                                                                                      |           |
+|                | EXTRAOPTIONS       |                                                                                                                                                                                      | --verbose |
+|                | FILTER             | Set the interface (number expected) ex: 1,2,... (empty means 'check all interface')                                                                                                  | .*        |
+|                | WARNINGINDISCARD   |                                                                                                                                                                                      |           |
+|                | WARNINGINERROR     |                                                                                                                                                                                      |           |
+|                | WARNINGOUTDISCARD  |                                                                                                                                                                                      |           |
+|                | WARNINGOUTERROR    |                                                                                                                                                                                      |           |
+|                | CRITICALSTATUS     | Set critical threshold for status (Default: '%{admstatus} eq "up" and %{opstatus} ne "up"'). Can used special variables like: %{admstatus}, %{opstatus}, %{duplexstatus}, %{display} |           |
+
+</TabItem>
+<TabItem value="Process-Generic" label="Process-Generic">
+
+| Mandatory      | Macro        | Description                                    | Défaut  |
+|:---------------|:-------------|:-----------------------------------------------|:--------|
+|                | CRITICAL     | Threshold critical of matching processes count | 1:      |
+|                | EXTRAOPTIONS |                                                |         |
+|                | PROCESSARGS  | Filter process arguments                       |         |
+|                | PROCESSNAME  | Filter process name                            |         |
+|                | PROCESSPATH  | Filter process path                            |         |
+|                | WARNING      | Threshold warning of matching processes count  |         |
+
+</TabItem>
+<TabItem value="Swap" label="Swap">
+
+| Mandatory      | Macro        | Description | Défaut  |
+|:---------------|:-------------|:------------|:--------|
+|                | CRITICAL     |             | 30      |
+|                | EXTRAOPTIONS |             |         |
+|                | WARNING      |             | 10      |
+
+</TabItem>
+<TabItem value="Tcpcon-Generic" label="Tcpcon-Generic">
+
+| Mandatory      | Macro    | Description                              | Défaut  |
+|:---------------|:---------|:-----------------------------------------|:--------|
+|                | WARNING  | Threshold warning for total connections  |         |
+|                | CRITICAL | Threshold critical for total connections |         |
+
+</TabItem>
+<TabItem value="Traffic-Generic-Id" label="Traffic-Generic-Id">
+
+| Mandatory      | Macro        | Description                                                                         | Défaut  |
+|:---------------|:-------------|:------------------------------------------------------------------------------------|:--------|
+|                | CRITICALIN   |                                                                                     | 90      |
+|                | CRITICALOUT  |                                                                                     | 90      |
+|                | EXTRAOPTIONS |                                                                                     |         |
+|                | INTERFACEID  | Set the interface (number expected) ex: 1,2,... (empty means 'check all interface') |         |
+|                | WARNINGIN    |                                                                                     | 80      |
+|                | WARNINGOUT   |                                                                                     | 80      |
+
+</TabItem>
+<TabItem value="Traffic-Generic-Name" label="Traffic-Generic-Name">
+
+| Mandatory      | Macro         | Description                                                                         | Défaut  |
+|:---------------|:--------------|:------------------------------------------------------------------------------------|:--------|
+|                | INTERFACENAME | Set the interface (number expected) ex: 1,2,... (empty means 'check all interface') | .*      |
+|                | WARNINGIN     |                                                                                     | 80      |
+|                | CRITICALIN    |                                                                                     | 90      |
+|                | WARNINGOUT    |                                                                                     | 80      |
+|                | CRITICALOUT   |                                                                                     | 90      |
+
+</TabItem>
+<TabItem value="Traffic-Global" label="Traffic-Global">
+
+| Mandatory      | Macro          | Description                                                                                                                                                                          | Défaut    |
+|:---------------|:---------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------|
+|                | CRITICALIN     |                                                                                                                                                                                      | 90        |
+|                | CRITICALOUT    |                                                                                                                                                                                      | 90        |
+|                | EXTRAOPTIONS   |                                                                                                                                                                                      | --verbose |
+|                | FILTER         | Set the interface (number expected) ex: 1,2,... (empty means 'check all interface')                                                                                                  | .*        |
+|                | WARNINGIN      |                                                                                                                                                                                      | 80        |
+|                | WARNINGOUT     |                                                                                                                                                                                      | 80        |
+|                | CRITICALSTATUS | Set critical threshold for status (Default: '%{admstatus} eq "up" and %{opstatus} ne "up"'). Can used special variables like: %{admstatus}, %{opstatus}, %{duplexstatus}, %{display} |           |
+
+</TabItem>
+<TabItem value="Uptime" label="Uptime">
+
+| Mandatory      | Macro    | Description        | Défaut  |
+|:---------------|:---------|:-------------------|:--------|
+|                | WARNING  | Threshold warning  |         |
+|                | CRITICAL | Threshold critical |         |
+
+</TabItem>
+</Tabs>
 
 ## Comment puis-je tester le plugin et que signifient les options des commandes ?
 
@@ -333,19 +588,19 @@ l'utilisateur **centreon-engine** (`su - centreon-engine`) :
 ```bash
 /usr/lib/centreon/plugins//centreon_linux_snmp.pl \
 	--plugin=os::linux::snmp::plugin \
-	--mode=swap \
+	--mode=cpu \
 	--hostname=10.0.0.1 \
 	--snmp-version='2c' \
 	--snmp-community='my-snmp-community'  \
-	--warning-usage-prct='' \
-	--critical-usage-prct='' \
+	--warning-average=''  \
+	--critical-average='' \
 	
 ```
 
 La commande devrait retourner un message de sortie similaire à :
 
 ```bash
-OK:    | 'swap.usage.bytes'=92B;;;0;total 'swap.free.bytes'=98B;;;0;total 'swap.usage.percentage'=29%;;;0;100 
+OK:   | 'cpu.utilization.percentage'=2%;;;0;;;;100;  'core.cpu.utilization.percentage'=34%;;;0;;;;100;  
 ```
 
 ### Modes disponibles
@@ -361,7 +616,7 @@ Tous les modes disponibles peuvent être affichés en ajoutant le paramètre
 
 Le plugin apporte les modes suivants :
 
-| Mode            | Modèle                                                                                                                                                                                                                                       |
+| Mode            | Modèle de service associé                                                                                                                                                                                                                    |
 |:----------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | arp             | Not used in this Plugin Pack                                                                                                                                                                                                                 |
 | cpu             | OS-Linux-Cpu-SNMP                                                                                                                                                                                                                            |
@@ -369,7 +624,7 @@ Le plugin apporte les modes suivants :
 | disk-usage      | Not used in this Plugin Pack                                                                                                                                                                                                                 |
 | diskio          | OS-Linux-Disk-IO-SNMP                                                                                                                                                                                                                        |
 | inodes          | OS-Linux-Inodes-Global-SNMP                                                                                                                                                                                                                  |
-| interfaces      | Os-Linux-Packet-Errors-Generic-Id-SNMP<br />Os-Linux-Packet-Errors-Generic-Name-SNMP<br />Os-Linux-Packet-Errors-Global-SNMP<br />OS-Linux-Traffic-Global-SNMP<br />OS-Linux-Traffic-Generic-Id-SNMP<br />OS-Linux-Traffic-Generic-Name-SNMP |
+| interfaces      | Os-Linux-Packet-Errors-Generic-Id-SNMP<br />Os-Linux-Packet-Errors-Generic-Name-SNMP<br />Os-Linux-Packet-Errors-Global-SNMP<br />OS-Linux-Traffic-Generic-Id-SNMP<br />OS-Linux-Traffic-Generic-Name-SNMP<br />OS-Linux-Traffic-Global-SNMP |
 | list-diskspath  | Used for service discovery                                                                                                                                                                                                                   |
 | list-interfaces | Used for service discovery                                                                                                                                                                                                                   |
 | list-processes  | Used for service discovery                                                                                                                                                                                                                   |
@@ -377,7 +632,7 @@ Le plugin apporte les modes suivants :
 | load            | OS-Linux-Load-SNMP                                                                                                                                                                                                                           |
 | memory          | OS-Linux-Memory-SNMP                                                                                                                                                                                                                         |
 | processcount    | OS-Linux-Process-Generic-SNMP                                                                                                                                                                                                                |
-| storage         | OS-Linux-Disk-Global-SNMP<br />OS-Linux-Disk-Generic-Id-SNMP<br />OS-Linux-Disk-Generic-Name-SNMP                                                                                                                                            |
+| storage         | OS-Linux-Disk-Generic-Id-SNMP<br />OS-Linux-Disk-Generic-Name-SNMP<br />OS-Linux-Disk-Global-SNMP                                                                                                                                            |
 | swap            | OS-Linux-Swap-SNMP                                                                                                                                                                                                                           |
 | tcpcon          | OS-Linux-Tcpcon-Generic-SNMP                                                                                                                                                                                                                 |
 | time            | OS-Linux-NTP-SNMP                                                                                                                                                                                                                            |
@@ -422,30 +677,30 @@ Les options globales aux modes sont listées ci-dessus :
 | --disco-show                               | Display discovery values (if the mode manages it).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Output |
 | --float-precision                          | Set the float precision for thresholds (Default: 8).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Output |
 | --source-encoding                          | Set encoding of monitoring sources (In some case. Default: 'UTF-8').                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Output |
-| --hostname                                 | Hostname to query (required).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Snmp   |
-| --snmp-community                           | Read community (defaults to public).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Snmp   |
-| --snmp-version                             | Version: 1 for SNMP v1 (default), 2 for SNMP v2c, 3 for SNMP v3.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Snmp   |
-| --snmp-port                                | Port (default: 161).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Snmp   |
-| --snmp-timeout                             | Timeout in secondes (default: 1) before retries.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Snmp   |
-| --snmp-retries                             | Set the number of retries (default: 5) before failure.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Snmp   |
-| --maxrepetitions                           | Max repetitions value (default: 50) (only for SNMP v2 and v3).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Snmp   |
-| --subsetleef                               | How many oid values per SNMP request (default: 50) (for get\_leef method. Be cautious when you set it. Prefer to let the default value).                                                                                                                                                                                                                                                                                                                                                                                                                                   | Snmp   |
-| --snmp-autoreduce                          | Auto reduce SNMP request size in case of SNMP errors (By default, the divisor is 2).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Snmp   |
-| --snmp-force-getnext                       | Use snmp getnext function (even in snmp v2c and v3).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Snmp   |
-| --snmp-username                            | Security name (only for SNMP v3).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Snmp   |
-| --authpassphrase                           | Authentication protocol pass phrase.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Snmp   |
-| --authprotocol                             | Authentication protocol: MD5\|SHA. Since net-snmp 5.9.1: SHA224\|SHA256\|SHA384\|SHA512.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Snmp   |
-| --privpassphrase                           | Privacy protocol pass phrase                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Snmp   |
-| --privprotocol                             | Privacy protocol: DES\|AES. Since net-snmp 5.9.1: AES192\|AES192C\|AES256\|AES256C.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Snmp   |
-| --contextname                              | Context name                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Snmp   |
-| --contextengineid                          | Context engine ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Snmp   |
-| --securityengineid                         | Security engine ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Snmp   |
-| --snmp-errors-exit                         | Exit code for SNMP Errors (default: unknown)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Snmp   |
-| --snmp-tls-transport                       | TLS Transport communication used (can be: 'dtlsudp', 'tlstcp').                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Snmp   |
-| --snmp-tls-our-identity                    | Our X.509 identity to use, which should either be a fingerprint or the filename that holds the certificate.                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Snmp   |
-| --snmp-tls-their-identity                  | The remote server's identity to connect to, specified as either a fingerprint or a file name. Either this must be specified, or the hostname below along with a trust anchor.                                                                                                                                                                                                                                                                                                                                                                                              | Snmp   |
-| --snmp-tls-their-hostname                  | The remote server's hostname that is expected. If their certificate was signed by a CA then their hostname presented in the certificate must match this value or the connection fails to be established (to avoid man-in-the-middle attacks).                                                                                                                                                                                                                                                                                                                              | Snmp   |
-| --snmp-tls-trust-cert                      | A trusted certificate to use as trust anchor (like a CA certificate) for verifying a remote server's certificate. If a CA certificate is used to validate a certificate then the TheirHostname parameter must also be specified to ensure their presented hostname in the certificate matches.                                                                                                                                                                                                                                                                             | Snmp   |
+| --hostname                                 | Hostname to query (required).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | SNMP   |
+| --snmp-community                           | Read community (defaults to public).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | SNMP   |
+| --snmp-version                             | Version: 1 for SNMP v1 (default), 2 for SNMP v2c, 3 for SNMP v3.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | SNMP   |
+| --snmp-port                                | Port (default: 161).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | SNMP   |
+| --snmp-timeout                             | Timeout in secondes (default: 1) before retries.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | SNMP   |
+| --snmp-retries                             | Set the number of retries (default: 5) before failure.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | SNMP   |
+| --maxrepetitions                           | Max repetitions value (default: 50) (only for SNMP v2 and v3).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | SNMP   |
+| --subsetleef                               | How many oid values per SNMP request (default: 50) (for get\_leef method. Be cautious when you set it. Prefer to let the default value).                                                                                                                                                                                                                                                                                                                                                                                                                                   | SNMP   |
+| --snmp-autoreduce                          | Auto reduce SNMP request size in case of SNMP errors (By default, the divisor is 2).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | SNMP   |
+| --snmp-force-getnext                       | Use snmp getnext function (even in snmp v2c and v3).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | SNMP   |
+| --snmp-username                            | Security name (only for SNMP v3).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | SNMP   |
+| --authpassphrase                           | Authentication protocol pass phrase.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | SNMP   |
+| --authprotocol                             | Authentication protocol: MD5\|SHA. Since net-snmp 5.9.1: SHA224\|SHA256\|SHA384\|SHA512.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | SNMP   |
+| --privpassphrase                           | Privacy protocol pass phrase                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | SNMP   |
+| --privprotocol                             | Privacy protocol: DES\|AES. Since net-snmp 5.9.1: AES192\|AES192C\|AES256\|AES256C.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | SNMP   |
+| --contextname                              | Context name                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | SNMP   |
+| --contextengineid                          | Context engine ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | SNMP   |
+| --securityengineid                         | Security engine ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | SNMP   |
+| --snmp-errors-exit                         | Exit code for SNMP Errors (default: unknown)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | SNMP   |
+| --snmp-tls-transport                       | TLS Transport communication used (can be: 'dtlsudp', 'tlstcp').                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | SNMP   |
+| --snmp-tls-our-identity                    | Our X.509 identity to use, which should either be a fingerprint or the filename that holds the certificate.                                                                                                                                                                                                                                                                                                                                                                                                                                                                | SNMP   |
+| --snmp-tls-their-identity                  | The remote server's identity to connect to, specified as either a fingerprint or a file name. Either this must be specified, or the hostname below along with a trust anchor.                                                                                                                                                                                                                                                                                                                                                                                              | SNMP   |
+| --snmp-tls-their-hostname                  | The remote server's hostname that is expected. If their certificate was signed by a CA then their hostname presented in the certificate must match this value or the connection fails to be established (to avoid man-in-the-middle attacks).                                                                                                                                                                                                                                                                                                                              | SNMP   |
+| --snmp-tls-trust-cert                      | A trusted certificate to use as trust anchor (like a CA certificate) for verifying a remote server's certificate. If a CA certificate is used to validate a certificate then the TheirHostname parameter must also be specified to ensure their presented hostname in the certificate matches.                                                                                                                                                                                                                                                                             | SNMP   |
 
 
 #### Options des modes
@@ -484,7 +739,7 @@ Les options spécifiques aux modes sont listées ci-dessus :
 | --critical-*           | Threshold critical in percent. Can be: 'user', 'nice', 'system', 'idle', 'wait', 'kernel', 'interrupt', 'softirq', 'steal', 'guest', 'guestnice'.    | Mode      |
 
 </TabItem>
-<TabItem value="Disk-Global" label="Disk-Global">
+<TabItem value="Disk-*" label="Disk-*">
 
 | Option                  | Description                                                                                                                              | Type      |
 |:------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------|:----------|
@@ -595,7 +850,7 @@ Les options spécifiques aux modes sont listées ci-dessus :
 | --timezone        | Set the timezone of distant server. For Windows, you need to set it. Can use format: 'Europe/London' or '+0100'.    | Mode |
 
 </TabItem>
-<TabItem value="Packet-Errors-Global" label="Packet-Errors-Global">
+<TabItem value="Packet-Errors-*" label="Packet-Errors-*">
 
 | Option                   | Description                                                                                                                                                                                                                                                                                | Type      |
 |:-------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------|
@@ -702,7 +957,7 @@ Les options spécifiques aux modes sont listées ci-dessus :
 | --application | Check tcp connections of mutiple services: tag,\[services\],\[threshold-warning\],\[threshold-critical\]  Example: --application="web,http\|https,100,200"  \<tag\>           Name to identify application (must be unique).  \<services\>      List of services (used the tag name. Separated     by '\|').  \<threshold-*\>   nagios-perfdata - number of connections.                                                                                                                                                                                                                                                                                           | Mode |
 
 </TabItem>
-<TabItem value="Traffic-Global" label="Traffic-Global">
+<TabItem value="Traffic-*" label="Traffic-*">
 
 | Option                   | Description                                                                                                                                                                                                                                                                                | Type      |
 |:-------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------|
@@ -785,7 +1040,7 @@ affichée en ajoutant le paramètre `--help` à la commande :
 ```bash
 /usr/lib/centreon/plugins//centreon_linux_snmp.pl \
 	--plugin=os::linux::snmp::plugin \
-	--mode=swap \
+	--mode=cpu \
     --help
 ```
 

@@ -20,8 +20,8 @@ It brings the following service template:
 |:-------------------|:---------------------------------|:-----------------------------|:--------|
 | Lambda-Invocations | Cloud-Aws-Lambda-Invocations-Api | Check Memcached performances | X       |
 
-
 > **Default** services are automatically created when the host template is applied.
+
 
 ### Discovery rules
 
@@ -192,6 +192,28 @@ apt install centreon-plugin-cloud-aws-lambda-api
 |                | FUNCTIONNAME  | Set the function name                                                             | .*      |
 |                | PROXYURL      | Proxy URL if any                                                                  |         |
 
+### Service
+
+| Mandatory      | Macro                    | Description                                                                                                                                                                       | Default                         |
+|:---------------|:-------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------|
+|                | STATISTIC                |                                                                                                                                                                                   | sum                             |
+|                | TIMEFRAME                |                                                                                                                                                                                   | 600                             |
+|                | PERIOD                   |                                                                                                                                                                                   | 60                              |
+|                | EXTRAOPTIONS             |                                                                                                                                                                                   | --statistic='average' --verbose |
+|                | FILTERMETRIC             | Filter metrics (Can be: 'Duration', 'Invocations', 'Errors', 'DeadLetterErrors', 'Throttles', 'IteratorAge') (Can be a regexp)                                                    |                                 |
+|                | WARNINGTHROTTLES         |                                                                                                                                                                                   |                                 |
+|                | CRITICALTHROTTLES        |                                                                                                                                                                                   |                                 |
+|                | WARNINGERRORS            |                                                                                                                                                                                   |                                 |
+|                | CRITICALERRORS           |                                                                                                                                                                                   |                                 |
+|                | WARNINGITERATORAGE       |                                                                                                                                                                                   |                                 |
+|                | CRITICALITERATORAGE      |                                                                                                                                                                                   |                                 |
+|                | WARNINGINVOCATIONS       |                                                                                                                                                                                   |                                 |
+|                | CRITICALINVOCATIONS      |                                                                                                                                                                                   |                                 |
+|                | WARNINGDEADLETTERERRORS  |                                                                                                                                                                                   |                                 |
+|                | CRITICALDEADLETTERERRORS |                                                                                                                                                                                   |                                 |
+|                | WARNINGDURATION          |                                                                                                                                                                                   |                                 |
+|                | CRITICALDURATION         | ='10' --verbose     See     'https://docs.aws.amazon.com/lambda/latest/dg/monitoring-functions-metri     cs.html' for more informations.      Default statistic: 'sum', 'average' |                                 |
+
 ## How to check in the CLI that the configuration is OK and what are the main options for?
 
 Once the plugin is installed, log into your Centreon poller's CLI using the
@@ -231,7 +253,7 @@ running the following command:
 The expected command output is shown below:
 
 ```bash
-OK: Duration Invocations Errors Dead Letter Errors Throttles Iterator Age | 'lambda.function.duration.milliseconds'=18;;;; 'lambda.function.invocations.count'=8;;;; 'lambda.function.errors.count'=70;;;; 'lambda.function.deadlettererrors.count'=5;;;; 'lambda.function.throttles.count'=77;;;; 'lambda.function.iteratorage.milliseconds'=27;;;; 
+OK: Duration Invocations Errors Dead Letter Errors Throttles Iterator Age | 'lambda.function.duration.milliseconds'=97;;;;;;;;  'lambda.function.invocations.count'=75;;;;;;;;  'lambda.function.errors.count'=18;;;;;;;;  'lambda.function.deadlettererrors.count'=13;;;;;;;;  'lambda.function.throttles.count'=50;;;;;;;;  'lambda.function.iteratorage.milliseconds'=94;;;;;;;;  
 ```
 
 ### Available custom modes
@@ -263,7 +285,7 @@ the command:
 
 The plugin brings the following modes:
 
-| Mode        | Template                         |
+| Mode        | Linked service template          |
 |:------------|:---------------------------------|
 | discovery   | Not used in this Plugin Pack     |
 | invocations | Cloud-Aws-Lambda-Invocations-Api |

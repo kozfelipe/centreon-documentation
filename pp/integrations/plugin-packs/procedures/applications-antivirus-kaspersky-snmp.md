@@ -18,15 +18,15 @@ It brings the following service templates:
 
 | Service Alias   | Service Template                             | Service Description                                                     | Default |
 |:----------------|:---------------------------------------------|:------------------------------------------------------------------------|:--------|
-| Updates         | App-Antivirus-Kaspersky-Updates-SNMP         | Check delay since last server update and number of not up to date hosts | X       |
-| Protection      | App-Antivirus-Kaspersky-Protection-SNMP      | Check protection status                                                 | X       |
-| Logical-Network | App-Antivirus-Kaspersky-Logical-Network-SNMP | Check logical network status                                            | X       |
-| Full-Scan       | App-Antivirus-Kaspersky-Full-Scan-SNMP       | Check full scan status                                                  | X       |
-| Events          | App-Antivirus-Kaspersky-Events-SNMP          | Check events status                                                     | X       |
 | Deployment      | App-Antivirus-Kaspersky-Deployment-SNMP      | Check deployment status                                                 | X       |
-
+| Events          | App-Antivirus-Kaspersky-Events-SNMP          | Check events status                                                     | X       |
+| Full-Scan       | App-Antivirus-Kaspersky-Full-Scan-SNMP       | Check full scan status                                                  | X       |
+| Logical-Network | App-Antivirus-Kaspersky-Logical-Network-SNMP | Check logical network status                                            | X       |
+| Protection      | App-Antivirus-Kaspersky-Protection-SNMP      | Check protection status                                                 | X       |
+| Updates         | App-Antivirus-Kaspersky-Updates-SNMP         | Check delay since last server update and number of not up to date hosts | X       |
 
 > **Default** services are automatically created when the host template is applied.
+
 
 ### Collected metrics & status
 
@@ -35,59 +35,71 @@ It brings the following service templates:
 
 | Metric Name                          | Unit  |
 |:-------------------------------------|:------|
-| status                               |       |
+| status                               | N/A   |
 | hosts.antivirus.installed.count      | count |
 | hosts.antivirus.install.failed.count | count |
 | hosts.expiring.licence.count         | count |
 | hosts.expired.licence.count          | count |
+
+> **--use-new-perfdata** to get the new metric format.
 
 </TabItem>
 <TabItem value="Events" label="Events">
 
 | Metric Name           | Unit  |
 |:----------------------|:------|
-| status                |       |
+| status                | N/A   |
 | events.critical.count | count |
+
+> **--use-new-perfdata** to get the new metric format.
 
 </TabItem>
 <TabItem value="Full-Scan" label="Full-Scan">
 
 | Metric Name           | Unit  |
 |:----------------------|:------|
-| status                |       |
+| status                | N/A   |
 | hosts.unscanned.count | count |
+
+> **--use-new-perfdata** to get the new metric format.
 
 </TabItem>
 <TabItem value="Logical-Network" label="Logical-Network">
 
 | Metric Name              | Unit  |
 |:-------------------------|:------|
-| status                   |       |
+| status                   | N/A   |
 | hosts.new.count          | count |
 | groups.total.count       | count |
 | hosts.notconnected.count | count |
 | hosts.uncontrolled.count | count |
+
+> **--use-new-perfdata** to get the new metric format.
 
 </TabItem>
 <TabItem value="Protection" label="Protection">
 
 | Metric Name                                        | Unit  |
 |:---------------------------------------------------|:------|
-| status                                             |       |
+| status                                             | N/A   |
 | protection.hosts.antivirus.notrunning.count        | count |
 | protection.hosts.realtime.notrunning.count         | count |
 | protection.hosts.realtime.unacceptable.level.count | count |
 | protection.hosts.uncured.objects.count             | count |
 | protection.hosts.toomanythreats.count              | count |
 
+> **--use-new-perfdata** to get the new metric format.
+
 </TabItem>
 <TabItem value="Updates" label="Updates">
 
 | Metric Name                     | Unit  |
 |:--------------------------------|:------|
-| status                          |       |
+| status                          | N/A   |
 | update.server.freshness.seconds | s     |
 | update.hosts.outdated.count     | count |
+
+> **--use-new-perfdata** to get the new metric format.
 
 </TabItem>
 </Tabs>
@@ -206,6 +218,93 @@ apt install centreon-plugin-applications-antivirus-kaspersky-snmp
 |:---------------|:-----------------|:----------------------------------------------------------------------------------|:--------|
 |                | SNMPEXTRAOPTIONS | Any extra option you may want to add to every command line (eg. a --verbose flag) |         |
 
+### Service
+
+<Tabs groupId="sync">
+<TabItem value="Deployment" label="Deployment">
+
+| Mandatory      | Macro            | Description                                                                                                         | Default                  |
+|:---------------|:-----------------|:--------------------------------------------------------------------------------------------------------------------|:-------------------------|
+|                | WARNINGSTATUS    | Set warning threshold for status. (Default: '%{status} =~ /Warning/i'). Can use special variables like: %{status}   | %{status} =~ /Warning/i  |
+|                | CRITICALSTATUS   | Set critical threshold for status. (Default: '%{status} =~ /Critical/i'). Can use special variables like: %{status} | %{status} =~ /Critical/i |
+|                | WARNINGPROGRESS  |                                                                                                                     | 100:                     |
+|                | CRITICALPROGRESS |                                                                                                                     | 95:                      |
+|                | WARNINGFAILED    |                                                                                                                     | 0                        |
+|                | WARNINGEXPIRING  |                                                                                                                     | 0                        |
+|                | WARNINGEXPIRED   |                                                                                                                     | 0                        |
+|                | CRITICALFAILED   |                                                                                                                     |                          |
+|                | CRITICEXPIRING   |                                                                                                                     |                          |
+|                | CRITICALEXPIRED  |                                                                                                                     |                          |
+
+</TabItem>
+<TabItem value="Events" label="Events">
+
+| Mandatory      | Macro          | Description                                                                                                         | Default                  |
+|:---------------|:---------------|:--------------------------------------------------------------------------------------------------------------------|:-------------------------|
+|                | WARNINGSTATUS  | Set warning threshold for status. (Default: '%{status} =~ /Warning/i'). Can use special variables like: %{status}   | %{status} =~ /Warning/i  |
+|                | CRITICALSTATUS | Set critical threshold for status. (Default: '%{status} =~ /Critical/i'). Can use special variables like: %{status} | %{status} =~ /Critical/i |
+|                | WARNINGEVENTS  |                                                                                                                     | 0                        |
+|                | CRITICALEVENTS |                                                                                                                     |                          |
+
+</TabItem>
+<TabItem value="Full-Scan" label="Full-Scan">
+
+| Mandatory      | Macro              | Description                                                                                                         | Default                  |
+|:---------------|:-------------------|:--------------------------------------------------------------------------------------------------------------------|:-------------------------|
+|                | WARNINGSTATUS      | Set warning threshold for status. (Default: '%{status} =~ /Warning/i'). Can use special variables like: %{status}   | %{status} =~ /Warning/i  |
+|                | CRITICALSTATUS     | Set critical threshold for status. (Default: '%{status} =~ /Critical/i'). Can use special variables like: %{status} | %{status} =~ /Critical/i |
+|                | WARNINGNOTSCANNED  |                                                                                                                     | 0                        |
+|                | CRITICALNOTSCANNED |                                                                                                                     |                          |
+
+</TabItem>
+<TabItem value="Logical-Network" label="Logical-Network">
+
+| Mandatory      | Macro                        | Description                                                                                                         | Default                  |
+|:---------------|:-----------------------------|:--------------------------------------------------------------------------------------------------------------------|:-------------------------|
+|                | WARNINGSTATUS                | Set warning threshold for status. (Default: '%{status} =~ /Warning/i'). Can use special variables like: %{status}   | %{status} =~ /Warning/i  |
+|                | CRITICALSTATUS               | Set critical threshold for status. (Default: '%{status} =~ /Critical/i'). Can use special variables like: %{status} | %{status} =~ /Critical/i |
+|                | WARNINGNOTCONNECTEDLONGTIME  |                                                                                                                     | 0                        |
+|                | WARNINGNOTCONTROLLED         |                                                                                                                     | 0                        |
+|                | WARNINGNEWHOSTS              |                                                                                                                     |                          |
+|                | CRITICALNEWHOSTS             |                                                                                                                     |                          |
+|                | WARNINGGROUPS                |                                                                                                                     |                          |
+|                | CRITICALGROUPS               |                                                                                                                     |                          |
+|                | CRITICALNOTCONNECTEDLONGTIME |                                                                                                                     |                          |
+|                | CRITICALNOTCONTROLLED        |                                                                                                                     |                          |
+
+</TabItem>
+<TabItem value="Protection" label="Protection">
+
+| Mandatory      | Macro                      | Description                                                                                                         | Default                  |
+|:---------------|:---------------------------|:--------------------------------------------------------------------------------------------------------------------|:-------------------------|
+|                | WARNINGSTATUS              | Set warning threshold for status. (Default: '%{status} =~ /Warning/i'). Can use special variables like: %{status}   | %{status} =~ /Warning/i  |
+|                | CRITICALSTATUS             | Set critical threshold for status. (Default: '%{status} =~ /Critical/i'). Can use special variables like: %{status} | %{status} =~ /Critical/i |
+|                | WARNINGNOANTIVIRUS         |                                                                                                                     | 0                        |
+|                | WARNINGNOREALTIME          |                                                                                                                     | 0                        |
+|                | WARNINGNOTACCEPTABLELEVEL  |                                                                                                                     | 0                        |
+|                | WARNINGNOTCUREDOBJECTS     |                                                                                                                     | 0                        |
+|                | WARNINGTOOMANYTHREATS      |                                                                                                                     | 0                        |
+|                | CRITICALNOANTIVIRUS        |                                                                                                                     |                          |
+|                | CRITICALNOREALTIME         |                                                                                                                     |                          |
+|                | CRITICALNOTACCEPTABLELEVEL |                                                                                                                     |                          |
+|                | CRITICALNOTCUREDOBJECTS    |                                                                                                                     |                          |
+|                | CRITICALTOOMANYTHREATS     |                                                                                                                     |                          |
+
+</TabItem>
+<TabItem value="Updates" label="Updates">
+
+| Mandatory      | Macro                    | Description                                                                                                         | Default                  |
+|:---------------|:-------------------------|:--------------------------------------------------------------------------------------------------------------------|:-------------------------|
+|                | WARNINGSTATUS            | Set warning threshold for status. (Default: '%{status} =~ /Warning/i'). Can use special variables like: %{status}   | %{status} =~ /Warning/i  |
+|                | CRITICALSTATUS           | Set critical threshold for status. (Default: '%{status} =~ /Critical/i'). Can use special variables like: %{status} | %{status} =~ /Critical/i |
+|                | WARNINGLASTSERVERUPDATE  |                                                                                                                     | 120                      |
+|                | CRITICALLASTSERVERUPDATE |                                                                                                                     | 240                      |
+|                | WARNINGNOTUPDATED        |                                                                                                                     | 0                        |
+|                | CRITICALNOTUPDATED       |                                                                                                                     |                          |
+
+</TabItem>
+</Tabs>
+
 ## How to check in the CLI that the configuration is OK and what are the main options for?
 
 Once the plugin is installed, log into your Centreon poller's CLI using the
@@ -215,23 +314,27 @@ running the following command:
 ```bash
 /usr/lib/centreon/plugins//centreon_kaspersky_snmp.pl \
 	--plugin=apps::antivirus::kaspersky::snmp::plugin \
-	--mode=updates \
+	--mode=deployment \
 	--hostname=10.0.0.1 \
 	--snmp-version='2c' \
 	--snmp-community='my-snmp-community'  \
 	--warning-status='' \
 	--critical-status='' \
-	--warning-last-server-update='' \
-	--critical-last-server-update='' \
-	--warning-not-updated='' \
-	--critical-not-updated='' \
+	--warning-progress='' \
+	--critical-progress='' \
+	--warning-failed='' \
+	--critical-failed='' \
+	--warning-expiring='' \
+	--critical-expiring='' \
+	--warning-expired='' \
+	--critical-expired='' \
 	
 ```
 
 The expected command output is shown below:
 
 ```bash
-OK:    | 'update.server.freshness.seconds'=53s;;;0; 'update.hosts.outdated.count'=28;;;0 ; 
+OK:      | 'hosts.antivirus.installed.count'=50;;;0;;;;;  'hosts.antivirus.install.failed.count'=60;;;0 ;;;;;  'hosts.expiring.licence.count'=81;;;0;;;;;  'hosts.expired.licence.count'=34;;;0;;;;;  
 ```
 
 ### Available modes
@@ -247,7 +350,7 @@ the command:
 
 The plugin brings the following modes:
 
-| Mode            | Template                                     |
+| Mode            | Linked service template                      |
 |:----------------|:---------------------------------------------|
 | deployment      | App-Antivirus-Kaspersky-Deployment-SNMP      |
 | events          | App-Antivirus-Kaspersky-Events-SNMP          |
@@ -292,30 +395,30 @@ The plugin brings the following modes:
 | --disco-show                               | Display discovery values (if the mode manages it).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Output |
 | --float-precision                          | Set the float precision for thresholds (Default: 8).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Output |
 | --source-encoding                          | Set encoding of monitoring sources (In some case. Default: 'UTF-8').                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Output |
-| --hostname                                 | Hostname to query (required).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Snmp   |
-| --snmp-community                           | Read community (defaults to public).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Snmp   |
-| --snmp-version                             | Version: 1 for SNMP v1 (default), 2 for SNMP v2c, 3 for SNMP v3.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Snmp   |
-| --snmp-port                                | Port (default: 161).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Snmp   |
-| --snmp-timeout                             | Timeout in secondes (default: 1) before retries.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Snmp   |
-| --snmp-retries                             | Set the number of retries (default: 5) before failure.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Snmp   |
-| --maxrepetitions                           | Max repetitions value (default: 50) (only for SNMP v2 and v3).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Snmp   |
-| --subsetleef                               | How many oid values per SNMP request (default: 50) (for get\_leef method. Be cautious when you set it. Prefer to let the default value).                                                                                                                                                                                                                                                                                                                                                                                                                                   | Snmp   |
-| --snmp-autoreduce                          | Auto reduce SNMP request size in case of SNMP errors (By default, the divisor is 2).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Snmp   |
-| --snmp-force-getnext                       | Use snmp getnext function (even in snmp v2c and v3).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Snmp   |
-| --snmp-username                            | Security name (only for SNMP v3).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Snmp   |
-| --authpassphrase                           | Authentication protocol pass phrase.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Snmp   |
-| --authprotocol                             | Authentication protocol: MD5\|SHA. Since net-snmp 5.9.1: SHA224\|SHA256\|SHA384\|SHA512.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Snmp   |
-| --privpassphrase                           | Privacy protocol pass phrase                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Snmp   |
-| --privprotocol                             | Privacy protocol: DES\|AES. Since net-snmp 5.9.1: AES192\|AES192C\|AES256\|AES256C.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Snmp   |
-| --contextname                              | Context name                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Snmp   |
-| --contextengineid                          | Context engine ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Snmp   |
-| --securityengineid                         | Security engine ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Snmp   |
-| --snmp-errors-exit                         | Exit code for SNMP Errors (default: unknown)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Snmp   |
-| --snmp-tls-transport                       | TLS Transport communication used (can be: 'dtlsudp', 'tlstcp').                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Snmp   |
-| --snmp-tls-our-identity                    | Our X.509 identity to use, which should either be a fingerprint or the filename that holds the certificate.                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Snmp   |
-| --snmp-tls-their-identity                  | The remote server's identity to connect to, specified as either a fingerprint or a file name. Either this must be specified, or the hostname below along with a trust anchor.                                                                                                                                                                                                                                                                                                                                                                                              | Snmp   |
-| --snmp-tls-their-hostname                  | The remote server's hostname that is expected. If their certificate was signed by a CA then their hostname presented in the certificate must match this value or the connection fails to be established (to avoid man-in-the-middle attacks).                                                                                                                                                                                                                                                                                                                              | Snmp   |
-| --snmp-tls-trust-cert                      | A trusted certificate to use as trust anchor (like a CA certificate) for verifying a remote server's certificate. If a CA certificate is used to validate a certificate then the TheirHostname parameter must also be specified to ensure their presented hostname in the certificate matches.                                                                                                                                                                                                                                                                             | Snmp   |
+| --hostname                                 | Hostname to query (required).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | SNMP   |
+| --snmp-community                           | Read community (defaults to public).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | SNMP   |
+| --snmp-version                             | Version: 1 for SNMP v1 (default), 2 for SNMP v2c, 3 for SNMP v3.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | SNMP   |
+| --snmp-port                                | Port (default: 161).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | SNMP   |
+| --snmp-timeout                             | Timeout in secondes (default: 1) before retries.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | SNMP   |
+| --snmp-retries                             | Set the number of retries (default: 5) before failure.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | SNMP   |
+| --maxrepetitions                           | Max repetitions value (default: 50) (only for SNMP v2 and v3).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | SNMP   |
+| --subsetleef                               | How many oid values per SNMP request (default: 50) (for get\_leef method. Be cautious when you set it. Prefer to let the default value).                                                                                                                                                                                                                                                                                                                                                                                                                                   | SNMP   |
+| --snmp-autoreduce                          | Auto reduce SNMP request size in case of SNMP errors (By default, the divisor is 2).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | SNMP   |
+| --snmp-force-getnext                       | Use snmp getnext function (even in snmp v2c and v3).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | SNMP   |
+| --snmp-username                            | Security name (only for SNMP v3).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | SNMP   |
+| --authpassphrase                           | Authentication protocol pass phrase.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | SNMP   |
+| --authprotocol                             | Authentication protocol: MD5\|SHA. Since net-snmp 5.9.1: SHA224\|SHA256\|SHA384\|SHA512.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | SNMP   |
+| --privpassphrase                           | Privacy protocol pass phrase                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | SNMP   |
+| --privprotocol                             | Privacy protocol: DES\|AES. Since net-snmp 5.9.1: AES192\|AES192C\|AES256\|AES256C.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | SNMP   |
+| --contextname                              | Context name                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | SNMP   |
+| --contextengineid                          | Context engine ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | SNMP   |
+| --securityengineid                         | Security engine ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | SNMP   |
+| --snmp-errors-exit                         | Exit code for SNMP Errors (default: unknown)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | SNMP   |
+| --snmp-tls-transport                       | TLS Transport communication used (can be: 'dtlsudp', 'tlstcp').                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | SNMP   |
+| --snmp-tls-our-identity                    | Our X.509 identity to use, which should either be a fingerprint or the filename that holds the certificate.                                                                                                                                                                                                                                                                                                                                                                                                                                                                | SNMP   |
+| --snmp-tls-their-identity                  | The remote server's identity to connect to, specified as either a fingerprint or a file name. Either this must be specified, or the hostname below along with a trust anchor.                                                                                                                                                                                                                                                                                                                                                                                              | SNMP   |
+| --snmp-tls-their-hostname                  | The remote server's hostname that is expected. If their certificate was signed by a CA then their hostname presented in the certificate must match this value or the connection fails to be established (to avoid man-in-the-middle attacks).                                                                                                                                                                                                                                                                                                                              | SNMP   |
+| --snmp-tls-trust-cert                      | A trusted certificate to use as trust anchor (like a CA certificate) for verifying a remote server's certificate. If a CA certificate is used to validate a certificate then the TheirHostname parameter must also be specified to ensure their presented hostname in the certificate matches.                                                                                                                                                                                                                                                                             | SNMP   |
 
 
 #### Modes options
@@ -394,7 +497,7 @@ All available options for a given mode can be displayed by adding the
 ```bash
 /usr/lib/centreon/plugins//centreon_kaspersky_snmp.pl \
 	--plugin=apps::antivirus::kaspersky::snmp::plugin \
-	--mode=updates \
+	--mode=deployment \
     --help
 ```
 

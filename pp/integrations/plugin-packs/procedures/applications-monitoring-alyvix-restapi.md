@@ -16,14 +16,14 @@ The Centreon Plugin Pack **Alyvix Server RestAPI** brings a host template:
 
 It brings the following service template:
 
-| Service Alias    | Service Template                               | Service Description                                                    | Default | Discovery |
-|:-----------------|:-----------------------------------------------|:-----------------------------------------------------------------------|:--------|:----------|
-| Testcases-Global | App-Monitoring-Alyvix-Restapi-Testcases-Global | Check the state and duration of "test cases" launched by Alyvix Server | X       | X         |
-
+| Service Alias    | Service Template                               | Service Description                                                    | Default | Discovery  |
+|:-----------------|:-----------------------------------------------|:-----------------------------------------------------------------------|:--------|:-----------|
+| Testcases-Global | App-Monitoring-Alyvix-Restapi-Testcases-Global | Check the state and duration of "test cases" launched by Alyvix Server | X       | X          |
 
 > **Default** services are automatically created when the host template is applied.
->
+
 > If **Discovery** is checked, it means a service discovery rule exists for this service template.
+
 
 ### Discovery rules
 
@@ -39,13 +39,13 @@ and in the [following chapter](/docs/monitoring/discovery/services-discovery/#di
 <Tabs groupId="sync">
 <TabItem value="Testcases-Global" label="Testcases-Global">
 
-| Metric Name                                       | Unit  |
-|:--------------------------------------------------|:------|
-| testcase.duration.milliseconds                    | ms    |
-| testcase-state                                    |       |
-| testcase.freshness.seconds                        | s     |
-| cases~testcases#transaction-state                 |       |
-| cases~testcases#transaction.duration.milliseconds | ms    |
+| Metric Name                       | Unit  |
+|:----------------------------------|:------|
+| testcase.duration.milliseconds    | ms    |
+| testcase-state                    | N/A   |
+| testcase.freshness.seconds        | s     |
+| transaction-state                 | N/A   |
+| transaction.duration.milliseconds | ms    |
 
 </TabItem>
 </Tabs>
@@ -163,6 +163,23 @@ apt install centreon-plugin-applications-monitoring-alyvix-restapi
 |                | ALYVIXAPIUSERNAME |                                                                                   |         |
 |                | EXTRAOPTIONS      | Any extra option you may want to add to every command line (eg. a --verbose flag) |         |
 
+### Service
+
+| Mandatory      | Macro                       | Description                  | Default              |
+|:---------------|:----------------------------|:-----------------------------|:---------------------|
+|                | FILTERTESTCASE              | Filter on specific test case | .*                   |
+|                | CRITICALTESTCASESTATE       |                              | %{state} eq "FAILED" |
+|                | EXTRAOPTIONS                |                              | --verbose            |
+|                | WARNINGTRANSACTIONSTATE     |                              |                      |
+|                | CRITICALTRANSACTIONSTATE    |                              |                      |
+|                | WARNINGTRANSACTIONDURATION  |                              |                      |
+|                | CRITICALTRANSACTIONDURATION |                              |                      |
+|                | WARNINGTESTCASEDURATION     |                              |                      |
+|                | CRITICALTESTCASEDURATION    |                              |                      |
+|                | WARNINGTESTCASESTATE        |                              |                      |
+|                | WARNINGTESTCASEFRESHNESS    |                              |                      |
+|                | CRITICALTESTCASEFRESHNESS   |                              |                      |
+
 ## How to check in the CLI that the configuration is OK and what are the main options for?
 
 Once the plugin is installed, log into your Centreon poller's CLI using the
@@ -197,7 +214,7 @@ running the following command:
 The expected command output is shown below:
 
 ```bash
-OK:      | 'testcase.duration.milliseconds'=7ms;;;0; 'testcase.freshness.seconds'=90s;;;0; 'transaction.duration.milliseconds'=67ms;;;0; 
+OK:      | 'testcase.duration.milliseconds'=2ms;;;0;;;;;  'testcase.freshness.seconds'=19s;;;0;;;;;  'transaction.duration.milliseconds'=84ms;;;0;;;;;  
 ```
 
 ### Available modes
@@ -213,7 +230,7 @@ the command:
 
 The plugin brings the following modes:
 
-| Mode           | Template                                       |
+| Mode           | Linked service template                        |
 |:---------------|:-----------------------------------------------|
 | list-testcases | Used for service discovery                     |
 | testcases      | App-Monitoring-Alyvix-Restapi-Testcases-Global |

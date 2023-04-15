@@ -18,11 +18,11 @@ It brings the following service templates:
 
 | Service Alias        | Service Template                  | Service Description                                         | Default |
 |:---------------------|:----------------------------------|:------------------------------------------------------------|:--------|
-| System-Notifications | App-Graylog-Notifications-Restapi | Check Graylog server system notifications via Rest Api      | X       |
 | Query                | App-Graylog-Query-Restapi         | Check Lucene query matches on a Graylog server via Rest Api |         |
-
+| System-Notifications | App-Graylog-Notifications-Restapi | Check Graylog server system notifications via Rest Api      | X       |
 
 > **Default** services are automatically created when the host template is applied.
+
 
 ### Collected metrics & status
 
@@ -156,6 +156,35 @@ apt install centreon-plugin-applications-graylog-restapi
 |                | APIUSERNAME  |                                                                                   |         |
 |                | EXTRAOPTIONS | Any extra option you may want to add to every command line (eg. a --verbose flag) |         |
 
+### Service
+
+<Tabs groupId="sync">
+<TabItem value="Query" label="Query">
+
+| Mandatory      | Macro                | Description                                                  | Default |
+|:---------------|:---------------------|:-------------------------------------------------------------|:--------|
+|                | TIMEFRAME            | Set timeframe in seconds (E.g '300' to check last 5 minutes) | 300     |
+|                | QUERY                | Set a Lucene query                                           |         |
+|                | WARNINGQUERYMATCHES  |                                                              |         |
+|                | CRITICALQUERYMATCHES |                                                              |         |
+
+</TabItem>
+<TabItem value="System-Notifications" label="System-Notifications">
+
+| Mandatory      | Macro                       | Description                                                                                             | Default |
+|:---------------|:----------------------------|:--------------------------------------------------------------------------------------------------------|:--------|
+|                | FILTERSEVERITY              | Filter on specific notification severity. Can be 'normal' or 'urgent'. (Default: both severities shown) |         |
+|                | FILTERNODE                  | Filter notifications by node ID. (Default: all notifications shown)                                     |         |
+|                | WARNINGNOTIFICATIONSTOTAL   |                                                                                                         |         |
+|                | CRITICALNOTIFICATIONSTOTAL  |                                                                                                         |         |
+|                | WARNINGNOTIFICATIONSNORMAL  |                                                                                                         |         |
+|                | CRITICALNOTIFICATIONSNORMAL |                                                                                                         |         |
+|                | WARNINGNOTIFICATIONSURGENT  |                                                                                                         |         |
+|                | CRITICALNOTIFICATIONSURGENT |                                                                                                         |         |
+
+</TabItem>
+</Tabs>
+
 ## How to check in the CLI that the configuration is OK and what are the main options for?
 
 Once the plugin is installed, log into your Centreon poller's CLI using the
@@ -165,27 +194,23 @@ running the following command:
 ```bash
 /usr/lib/centreon/plugins//centreon_graylog_restapi.pl \
 	--plugin=apps::graylog::restapi::plugin \
-	--mode=notifications \
+	--mode=query \
 	--hostname='10.0.0.1' \
-	--api-username='' \
-	--api-password='' \
 	--port='' \
-	--proto=''  \
-	--filter-severity='' \
-	--filter-node='' \
-	--warning-notifications-total='' \
-	--critical-notifications-total='' \
-	--warning-notifications-normal='' \
-	--critical-notifications-normal='' \
-	--warning-notifications-urgent='' \
-	--critical-notifications-urgent='' \
+	--proto='' \
+	--api-username='' \
+	--api-password=''  \
+	--query='' \
+	--timeframe='' \
+	--warning-query-matches='' \
+	--critical-query-matches='' \
 	
 ```
 
 The expected command output is shown below:
 
 ```bash
-OK:    | 'graylog.system.notifications.total.count'=50;;;0 ; 'graylog.system.notifications.normal.count'=43;;;0 ; 'graylog.system.notifications.urgent.count'=52;;;0 ; 
+OK:  | 'graylog.query.match.count'=34;;;0 ;;;;;  
 ```
 
 ### Available modes
@@ -201,7 +226,7 @@ the command:
 
 The plugin brings the following modes:
 
-| Mode          | Template                          |
+| Mode          | Linked service template           |
 |:--------------|:----------------------------------|
 | notifications | App-Graylog-Notifications-Restapi |
 | query         | App-Graylog-Query-Restapi         |
@@ -308,7 +333,7 @@ All available options for a given mode can be displayed by adding the
 ```bash
 /usr/lib/centreon/plugins//centreon_graylog_restapi.pl \
 	--plugin=apps::graylog::restapi::plugin \
-	--mode=notifications \
+	--mode=query \
     --help
 ```
 

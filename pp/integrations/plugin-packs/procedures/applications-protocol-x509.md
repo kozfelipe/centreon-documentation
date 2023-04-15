@@ -20,8 +20,8 @@ It brings the following service template:
 |:-----------------|:------------------------------|:----------------------------------------------|:--------|
 | X509-Certificate | App-Protocol-X509-Certificate | Check expiration date of a X509's certificate | X       |
 
-
 > **Default** services are automatically created when the host template is applied.
+
 
 ### Collected metrics & status
 
@@ -30,7 +30,9 @@ It brings the following service template:
 
 | Metric Name | Unit  |
 |:------------|:------|
-| status      |       |
+| status      | N/A   |
+
+> **--use-new-perfdata** to get the new metric format.
 
 </TabItem>
 </Tabs>
@@ -133,10 +135,14 @@ apt install centreon-plugin-applications-protocol-x509
 
 ### Host
 
-1. Log into Centreon and add a new host through **Configuration > Hosts**.
-2. Fill the **Name**, **Alias** & **IP Address/DNS** fields according to your ressource settings.
-3. Apply the **App-Protocol-X509-custom-custom** template to the host
-4. Once the template is applied, fill in the corresponding macros. Some macros are mandatory.
+### Service
+
+| Mandatory      | Macro          | Description                                                                                                                                                                                                                                                                                                                                                                | Default            |
+|:---------------|:---------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------|
+|                | CUSTOMMODE     |                                                                                                                                                                                                                                                                                                                                                                            | tcp                |
+|                | PORT           |                                                                                                                                                                                                                                                                                                                                                                            | 443                |
+|                | WARNINGSTATUS  | Set warning threshold for status. (Default: '%{expiration} \< 60'). Can use special variables like: %{expiration}, %{subject}, %{issuer}, %{alt\_subjects}                                                                                                                                                                                                                 | %{expiration} < 60 |
+|                | CRITICALSTATUS | Set critical threshold for status. (Default: '%{expiration} \< 30'). Can use special variables like: %{expiration}, %{subject}, %{issuer}, %{alt\_subjects}.  Examples :  Raise a critical alarm if certificate expires in less than 30 days or does not cover alternative name 'my.app.com' --critical-status='%{expiration} \< 30 \|\| %{alt\_subjects} !~ /my.app.com/' | %{expiration} < 30 |
 
 ## How to check in the CLI that the configuration is OK and what are the main options for?
 
@@ -193,7 +199,7 @@ the command:
 
 The plugin brings the following modes:
 
-| Mode        | Template                      |
+| Mode        | Linked service template       |
 |:------------|:------------------------------|
 | certificate | App-Protocol-X509-Certificate |
 

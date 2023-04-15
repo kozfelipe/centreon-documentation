@@ -18,18 +18,18 @@ Il apporte les modèles de service suivants :
 
 | Alias        | Modèle de service                | Description                                             | Défaut | Découverte |
 |:-------------|:---------------------------------|:--------------------------------------------------------|:-------|:-----------|
-| Memory       | Net-Aruba-Cppm-Memory-SNMP       | Contrôle l'utilisation mémoire                          | X      |            |
-| Disks        | Net-Aruba-Cppm-Disks-SNMP        | Contrôle l'utilisation des disques                      | X      |            |
 | Cpu          | Net-Aruba-Cppm-Cpu-SNMP          | Contrôle l'utilisation processeur                       | X      |            |
+| Disks        | Net-Aruba-Cppm-Disks-SNMP        | Contrôle l'utilisation des disques                      | X      |            |
 | Interfaces   | Net-Aruba-Cppm-Interfaces-SNMP   | Contrôle les interfaces                                 |        | X          |
+| Memory       | Net-Aruba-Cppm-Memory-SNMP       | Contrôle l'utilisation mémoire                          | X      |            |
 | Radius       | Net-Aruba-Cppm-Radius-SNMP       | Contrôle les statistiques radius                        |        |            |
 | Repositories | Net-Aruba-Cppm-Repositories-SNMP | Contrôle les statistiques des dépôts d'authentification |        |            |
 | Tacacs       | Net-Aruba-Cppm-Tacacs-SNMP       | Contrôle les statistiques TACACS                        |        |            |
 
-
 > Les services par **Défaut** sont créés automatiquement lorsque le modèle d'hôte est appliqué.
->
+
 > Si la case **Découverte** est cochée, cela signifie qu'une règle de découverte de service existe pour ce service.
+
 
 ### Règles de découverte
 
@@ -50,11 +50,11 @@ Coming soon
 </TabItem>
 <TabItem value="Disks" label="Disks">
 
-| Métrique                          | Unité |
-|:----------------------------------|:------|
-| disks#disk.space.usage.bytes      | B     |
-| disks#disk.space.free.bytes       | B     |
-| disks#disk.space.usage.percentage | %     |
+| Metric Name                 | Unité |
+|:----------------------------|:------|
+| disk.space.usage.bytes      | B     |
+| disk.space.free.bytes       | B     |
+| disk.space.usage.percentage | %     |
 
 </TabItem>
 <TabItem value="Interfaces" label="Interfaces">
@@ -64,45 +64,45 @@ Coming soon
 </TabItem>
 <TabItem value="Memory" label="Memory">
 
-| Métrique                         | Unité |
-|:---------------------------------|:------|
-| memories#memory.usage.bytes      | B     |
-| memories#memory.free.bytes       | B     |
-| memories#memory.usage.percentage | %     |
+| Metric Name             | Unité |
+|:------------------------|:------|
+| memory.usage.bytes      | B     |
+| memory.free.bytes       | B     |
+| memory.usage.percentage | %     |
 
 </TabItem>
 <TabItem value="Radius" label="Radius">
 
-| Métrique                                     | Unité |
-|:---------------------------------------------|:------|
-| radius#radius.policy.evaluation.milliseconds | ms    |
-| radius#radius.requests.milliseconds          | ms    |
-| radius#radius.requests.count                 | count |
-| radius#radius.requests.failed.count          | count |
-| radius#radius.requests.succeeded.count       | count |
+| Metric Name                           | Unité |
+|:--------------------------------------|:------|
+| radius.policy.evaluation.milliseconds | ms    |
+| radius.requests.milliseconds          | ms    |
+| radius.requests.count                 | count |
+| radius.requests.failed.count          | count |
+| radius.requests.succeeded.count       | count |
 
 </TabItem>
 <TabItem value="Repositories" label="Repositories">
 
-| Métrique                                                        | Unité |
-|:----------------------------------------------------------------|:------|
-| repositories#authentication_repository.requests.milliseconds    | ms    |
-| repositories#authentication_repository.requests.count           | count |
-| repositories#authentication_repository.requests.failed.count    | count |
-| repositories#authentication_repository.requests.succeeded.count | count |
+| Metric Name                                        | Unité |
+|:---------------------------------------------------|:------|
+| authentication_repository.requests.milliseconds    | ms    |
+| authentication_repository.requests.count           | count |
+| authentication_repository.requests.failed.count    | count |
+| authentication_repository.requests.succeeded.count | count |
 
 </TabItem>
 <TabItem value="Tacacs" label="Tacacs">
 
-| Métrique                                                                    | Unité |
-|:----------------------------------------------------------------------------|:------|
-| tacacs_auth#tacacs.authentication.policy.evaluation.milliseconds            | ms    |
-| tacacs_auth#tacacs.authentication.service.policy.evaluation.milliseconds    | ms    |
-| tacacs_auth#tacacs.authentication.requests.authentication.time.milliseconds | ms    |
-| tacacs_auth#tacacs.authentication.requests.time.milliseconds                | ms    |
-| tacacs_auth#tacacs.authentication.requests.count                            | count |
-| tacacs_auth#tacacs.authentication.requests.failed.count                     | count |
-| tacacs_auth#tacacs.authentication.requests.succeeded.count                  | count |
+| Metric Name                                                     | Unité |
+|:----------------------------------------------------------------|:------|
+| tacacs.authentication.policy.evaluation.milliseconds            | ms    |
+| tacacs.authentication.service.policy.evaluation.milliseconds    | ms    |
+| tacacs.authentication.requests.authentication.time.milliseconds | ms    |
+| tacacs.authentication.requests.time.milliseconds                | ms    |
+| tacacs.authentication.requests.count                            | count |
+| tacacs.authentication.requests.failed.count                     | count |
+| tacacs.authentication.requests.succeeded.count                  | count |
 
 </TabItem>
 </Tabs>
@@ -215,9 +215,131 @@ apt install centreon-plugin-network-aruba-cppm-snmp
 3. Appliquez le modèle d'hôte **Net-Aruba-Cppm-SNMP-custom-custom**.
 4. Une fois le modèle appliqué, les macros ci-dessous indiquées comme requises (**Obligatoire**) doivent être renseignées.
 
-| Obligatoire    | Macro            | Description                                                                       | Défaut  |
+| Mandatory      | Macro            | Description                                                                       | Défaut  |
 |:---------------|:-----------------|:----------------------------------------------------------------------------------|:--------|
 |                | SNMPEXTRAOPTIONS | Any extra option you may want to add to every command line (eg. a --verbose flag) |         |
+
+### Service
+
+<Tabs groupId="sync">
+<TabItem value="Cpu" label="Cpu">
+
+| Mandatory      | Macro           | Description                                | Défaut    |
+|:---------------|:----------------|:-------------------------------------------|:----------|
+|                | EXTRAOPTIONS    |                                            | --verbose |
+|                | WARNINGCORE     | Warning thresholds for each CPU core       |           |
+|                | CRITICALCORE    | Critical thresholds for each CPU core      |           |
+|                | WARNINGAVERAGE  | Warning threshold average CPU utilization  |           |
+|                | CRITICALAVERAGE | Critical threshold average CPU utilization |           |
+
+</TabItem>
+<TabItem value="Disks" label="Disks">
+
+| Mandatory      | Macro                  | Description                                       | Défaut    |
+|:---------------|:-----------------------|:--------------------------------------------------|:----------|
+|                | EXTRAOPTIONS           |                                                   | --verbose |
+|                | FILTERNAME             | Filter disks by system hostname (can be a regexp) |           |
+|                | WARNINGSPACEUSAGE      |                                                   |           |
+|                | CRITICALSPACEUSAGE     |                                                   |           |
+|                | WARNINGSPACEUSAGEFREE  |                                                   |           |
+|                | CRITICALSPACEUSAGEFREE |                                                   |           |
+|                | WARNINGSPACEUSAGEPRCT  |                                                   |           |
+|                | CRITICALSPACEUSAGEPRCT |                                                   |           |
+
+</TabItem>
+<TabItem value="Interfaces" label="Interfaces">
+
+| Mandatory      | Macro              | Description                                                                                                                                                                          | Défaut                                               |
+|:---------------|:-------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------|
+|                | CRITICALSTATUS     | Set critical threshold for status (Default: '%{admstatus} eq "up" and %{opstatus} ne "up"'). Can used special variables like: %{admstatus}, %{opstatus}, %{duplexstatus}, %{display} | %{admstatus} eq "up" and %{opstatus} !~ /up|dormant/ |
+|                | OIDFILTER          | Choose OID used to filter interface (default: ifName) (values: ifDesc, ifAlias, ifName, IpAddr)                                                                                      | ifname                                               |
+|                | OIDDISPLAY         | Choose OID used to display interface (default: ifName) (values: ifDesc, ifAlias, ifName, IpAddr)                                                                                     | ifname                                               |
+|                | EXTRAOPTIONS       |                                                                                                                                                                                      | --verbose                                            |
+|                | INTERFACENAME      | Set the interface (number expected) ex: 1,2,... (empty means 'check all interface')                                                                                                  |                                                      |
+|                | WARNINGSTATUS      | Set warning threshold for status. Can used special variables like: %{admstatus}, %{opstatus}, %{duplexstatus}, %{display}                                                            |                                                      |
+|                | WARNINGINTRAFFIC   |                                                                                                                                                                                      |                                                      |
+|                | CRITICALINTRAFFIC  |                                                                                                                                                                                      |                                                      |
+|                | WARNINGOUTTRAFFIC  |                                                                                                                                                                                      |                                                      |
+|                | CRITICALOUTTRAFFIC |                                                                                                                                                                                      |                                                      |
+|                | WARNINGINDISCARD   |                                                                                                                                                                                      |                                                      |
+|                | CRITICALINDISCARD  |                                                                                                                                                                                      |                                                      |
+|                | WARNINGOUTDISCARD  |                                                                                                                                                                                      |                                                      |
+|                | CRITICALOUTDISCARD |                                                                                                                                                                                      |                                                      |
+|                | WARNINGINERROR     |                                                                                                                                                                                      |                                                      |
+|                | CRITICALINERROR    |                                                                                                                                                                                      |                                                      |
+|                | WARNINGOUTERROR    |                                                                                                                                                                                      |                                                      |
+|                | CRITICALOUTERROR   |                                                                                                                                                                                      |                                                      |
+
+</TabItem>
+<TabItem value="Memory" label="Memory">
+
+| Mandatory      | Macro             | Description                                        | Défaut    |
+|:---------------|:------------------|:---------------------------------------------------|:----------|
+|                | EXTRAOPTIONS      |                                                    | --verbose |
+|                | FILTERNAME        | Filter memory by system hostname (can be a regexp) |           |
+|                | WARNINGUSAGE      |                                                    |           |
+|                | CRITICALUSAGE     |                                                    |           |
+|                | WARNINGUSAGEFREE  |                                                    |           |
+|                | CRITICALUSAGEFREE |                                                    |           |
+|                | WARNINGUSAGEPRCT  |                                                    |           |
+|                | CRITICALUSAGEPRCT |                                                    |           |
+
+</TabItem>
+<TabItem value="Radius" label="Radius">
+
+| Mandatory      | Macro                           | Description                                        | Défaut    |
+|:---------------|:--------------------------------|:---------------------------------------------------|:----------|
+|                | EXTRAOPTIONS                    |                                                    | --verbose |
+|                | FILTERNAME                      | Filter radius by system hostname (can be a regexp) |           |
+|                | WARNINGRADIUSPOLICYEVAL         |                                                    |           |
+|                | CRITICALRADIUSPOLICYEVAL        |                                                    |           |
+|                | WARNINGRADIUSREQUESTSTIME       |                                                    |           |
+|                | CRITICALRADIUSREQUESTSTIME      |                                                    |           |
+|                | WARNINGRADIUSREQUESTS           |                                                    |           |
+|                | CRITICALRADIUSREQUESTS          |                                                    |           |
+|                | WARNINGRADIUSREQUESTSFAILED     |                                                    |           |
+|                | CRITICALRADIUSREQUESTSFAILED    |                                                    |           |
+|                | WARNINGRADIUSREQUESTSSUCCEEDED  |                                                    |           |
+|                | CRITICALRADIUSREQUESTSSUCCEEDED |                                                    |           |
+
+</TabItem>
+<TabItem value="Repositories" label="Repositories">
+
+| Mandatory      | Macro                     | Description                                                               | Défaut    |
+|:---------------|:--------------------------|:--------------------------------------------------------------------------|:----------|
+|                | EXTRAOPTIONS              |                                                                           | --verbose |
+|                | FILTERNAME                | Filter authentification repositories by system hostname (can be a regexp) |           |
+|                | WARNINGREQUESTSTIME       |                                                                           |           |
+|                | CRITICALREQUESTSTIME      |                                                                           |           |
+|                | WARNINGREQUESTS           |                                                                           |           |
+|                | CRITICALREQUESTS          |                                                                           |           |
+|                | WARNINGREQUESTSFAILED     |                                                                           |           |
+|                | CRITICALREQUESTSFAILED    |                                                                           |           |
+|                | WARNINGREQUESTSSUCCEEDED  |                                                                           |           |
+|                | CRITICALREQUESTSSUCCEEDED |                                                                           |           |
+
+</TabItem>
+<TabItem value="Tacacs" label="Tacacs">
+
+| Mandatory      | Macro                               | Description                                        | Défaut    |
+|:---------------|:------------------------------------|:---------------------------------------------------|:----------|
+|                | EXTRAOPTIONS                        |                                                    | --verbose |
+|                | FILTERNAME                          | Filter tacacs by system hostname (can be a regexp) |           |
+|                | WARNINGTACACSAUTHPOLICYEVAL         |                                                    |           |
+|                | CRITICALTACACSAUTHPOLICYEVAL        |                                                    |           |
+|                | WARNINGTACACSAUTHREQUESTSAUTHTIME   |                                                    |           |
+|                | CRITICALTACACSAUTHREQUESTSAUTHTIME  |                                                    |           |
+|                | WARNINGTACACSAUTHREQUESTSTIME       |                                                    |           |
+|                | CRITICALTACACSAUTHREQUESTSTIME      |                                                    |           |
+|                | WARNINGTACACSAUTHREQUESTS           |                                                    |           |
+|                | CRITICALTACACSAUTHREQUESTS          |                                                    |           |
+|                | WARNINGTACACSAUTHREQUESTSFAILED     |                                                    |           |
+|                | CRITICALTACACSAUTHREQUESTSFAILED    |                                                    |           |
+|                | WARNINGTACACSAUTHREQUESTSSUCCEEDED  |                                                    |           |
+|                | CRITICALTACACSAUTHREQUESTSSUCCEEDED |                                                    |           |
+
+</TabItem>
+</Tabs>
 
 ## Comment puis-je tester le plugin et que signifient les options des commandes ?
 
@@ -228,24 +350,21 @@ l'utilisateur **centreon-engine** (`su - centreon-engine`) :
 ```bash
 /usr/lib/centreon/plugins//centreon_aruba_cppm_snmp.pl \
 	--plugin=network::aruba::cppm::snmp::plugin \
-	--mode=memory \
+	--mode=cpu \
 	--hostname='10.0.0.1' \
 	--snmp-version='2c' \
 	--snmp-community='my-snmp-community'  \
-	--filter-name='' \
-	--warning-usage='' \
-	--critical-usage='' \
-	--warning-usage-free='' \
-	--critical-usage-free='' \
-	--warning-usage-prct='' \
-	--critical-usage-prct='' \
+	--warning-core='' \
+	--critical-core='' \
+	--warning-average='' \
+	--critical-average='' \
 	
 ```
 
 La commande devrait retourner un message de sortie similaire à :
 
 ```bash
-OK:    | 'memory.usage.bytes'=51B;;;0;total 'memory.free.bytes'=49B;;;0;total 'memory.usage.percentage'=80%;;;0;100 
+OK: | 
 ```
 
 ### Modes disponibles
@@ -261,7 +380,7 @@ Tous les modes disponibles peuvent être affichés en ajoutant le paramètre
 
 Le plugin apporte les modes suivants :
 
-| Mode            | Modèle                           |
+| Mode            | Modèle de service associé        |
 |:----------------|:---------------------------------|
 | cpu             | Net-Aruba-Cppm-Cpu-SNMP          |
 | disks           | Net-Aruba-Cppm-Disks-SNMP        |
@@ -310,30 +429,30 @@ Les options globales aux modes sont listées ci-dessus :
 | --disco-show                               | Display discovery values (if the mode manages it).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Output |
 | --float-precision                          | Set the float precision for thresholds (Default: 8).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Output |
 | --source-encoding                          | Set encoding of monitoring sources (In some case. Default: 'UTF-8').                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Output |
-| --hostname                                 | Hostname to query (required).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Snmp   |
-| --snmp-community                           | Read community (defaults to public).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Snmp   |
-| --snmp-version                             | Version: 1 for SNMP v1 (default), 2 for SNMP v2c, 3 for SNMP v3.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Snmp   |
-| --snmp-port                                | Port (default: 161).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Snmp   |
-| --snmp-timeout                             | Timeout in secondes (default: 1) before retries.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Snmp   |
-| --snmp-retries                             | Set the number of retries (default: 5) before failure.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Snmp   |
-| --maxrepetitions                           | Max repetitions value (default: 50) (only for SNMP v2 and v3).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Snmp   |
-| --subsetleef                               | How many oid values per SNMP request (default: 50) (for get\_leef method. Be cautious when you set it. Prefer to let the default value).                                                                                                                                                                                                                                                                                                                                                                                                                                   | Snmp   |
-| --snmp-autoreduce                          | Auto reduce SNMP request size in case of SNMP errors (By default, the divisor is 2).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Snmp   |
-| --snmp-force-getnext                       | Use snmp getnext function (even in snmp v2c and v3).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Snmp   |
-| --snmp-username                            | Security name (only for SNMP v3).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Snmp   |
-| --authpassphrase                           | Authentication protocol pass phrase.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Snmp   |
-| --authprotocol                             | Authentication protocol: MD5\|SHA. Since net-snmp 5.9.1: SHA224\|SHA256\|SHA384\|SHA512.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Snmp   |
-| --privpassphrase                           | Privacy protocol pass phrase                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Snmp   |
-| --privprotocol                             | Privacy protocol: DES\|AES. Since net-snmp 5.9.1: AES192\|AES192C\|AES256\|AES256C.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Snmp   |
-| --contextname                              | Context name                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Snmp   |
-| --contextengineid                          | Context engine ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Snmp   |
-| --securityengineid                         | Security engine ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Snmp   |
-| --snmp-errors-exit                         | Exit code for SNMP Errors (default: unknown)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Snmp   |
-| --snmp-tls-transport                       | TLS Transport communication used (can be: 'dtlsudp', 'tlstcp').                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Snmp   |
-| --snmp-tls-our-identity                    | Our X.509 identity to use, which should either be a fingerprint or the filename that holds the certificate.                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Snmp   |
-| --snmp-tls-their-identity                  | The remote server's identity to connect to, specified as either a fingerprint or a file name. Either this must be specified, or the hostname below along with a trust anchor.                                                                                                                                                                                                                                                                                                                                                                                              | Snmp   |
-| --snmp-tls-their-hostname                  | The remote server's hostname that is expected. If their certificate was signed by a CA then their hostname presented in the certificate must match this value or the connection fails to be established (to avoid man-in-the-middle attacks).                                                                                                                                                                                                                                                                                                                              | Snmp   |
-| --snmp-tls-trust-cert                      | A trusted certificate to use as trust anchor (like a CA certificate) for verifying a remote server's certificate. If a CA certificate is used to validate a certificate then the TheirHostname parameter must also be specified to ensure their presented hostname in the certificate matches.                                                                                                                                                                                                                                                                             | Snmp   |
+| --hostname                                 | Hostname to query (required).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | SNMP   |
+| --snmp-community                           | Read community (defaults to public).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | SNMP   |
+| --snmp-version                             | Version: 1 for SNMP v1 (default), 2 for SNMP v2c, 3 for SNMP v3.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | SNMP   |
+| --snmp-port                                | Port (default: 161).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | SNMP   |
+| --snmp-timeout                             | Timeout in secondes (default: 1) before retries.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | SNMP   |
+| --snmp-retries                             | Set the number of retries (default: 5) before failure.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | SNMP   |
+| --maxrepetitions                           | Max repetitions value (default: 50) (only for SNMP v2 and v3).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | SNMP   |
+| --subsetleef                               | How many oid values per SNMP request (default: 50) (for get\_leef method. Be cautious when you set it. Prefer to let the default value).                                                                                                                                                                                                                                                                                                                                                                                                                                   | SNMP   |
+| --snmp-autoreduce                          | Auto reduce SNMP request size in case of SNMP errors (By default, the divisor is 2).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | SNMP   |
+| --snmp-force-getnext                       | Use snmp getnext function (even in snmp v2c and v3).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | SNMP   |
+| --snmp-username                            | Security name (only for SNMP v3).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | SNMP   |
+| --authpassphrase                           | Authentication protocol pass phrase.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | SNMP   |
+| --authprotocol                             | Authentication protocol: MD5\|SHA. Since net-snmp 5.9.1: SHA224\|SHA256\|SHA384\|SHA512.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | SNMP   |
+| --privpassphrase                           | Privacy protocol pass phrase                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | SNMP   |
+| --privprotocol                             | Privacy protocol: DES\|AES. Since net-snmp 5.9.1: AES192\|AES192C\|AES256\|AES256C.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | SNMP   |
+| --contextname                              | Context name                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | SNMP   |
+| --contextengineid                          | Context engine ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | SNMP   |
+| --securityengineid                         | Security engine ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | SNMP   |
+| --snmp-errors-exit                         | Exit code for SNMP Errors (default: unknown)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | SNMP   |
+| --snmp-tls-transport                       | TLS Transport communication used (can be: 'dtlsudp', 'tlstcp').                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | SNMP   |
+| --snmp-tls-our-identity                    | Our X.509 identity to use, which should either be a fingerprint or the filename that holds the certificate.                                                                                                                                                                                                                                                                                                                                                                                                                                                                | SNMP   |
+| --snmp-tls-their-identity                  | The remote server's identity to connect to, specified as either a fingerprint or a file name. Either this must be specified, or the hostname below along with a trust anchor.                                                                                                                                                                                                                                                                                                                                                                                              | SNMP   |
+| --snmp-tls-their-hostname                  | The remote server's hostname that is expected. If their certificate was signed by a CA then their hostname presented in the certificate must match this value or the connection fails to be established (to avoid man-in-the-middle attacks).                                                                                                                                                                                                                                                                                                                              | SNMP   |
+| --snmp-tls-trust-cert                      | A trusted certificate to use as trust anchor (like a CA certificate) for verifying a remote server's certificate. If a CA certificate is used to validate a certificate then the TheirHostname parameter must also be specified to ensure their presented hostname in the certificate matches.                                                                                                                                                                                                                                                                             | SNMP   |
 
 
 #### Options des modes
@@ -450,7 +569,7 @@ affichée en ajoutant le paramètre `--help` à la commande :
 ```bash
 /usr/lib/centreon/plugins//centreon_aruba_cppm_snmp.pl \
 	--plugin=network::aruba::cppm::snmp::plugin \
-	--mode=memory \
+	--mode=cpu \
     --help
 ```
 

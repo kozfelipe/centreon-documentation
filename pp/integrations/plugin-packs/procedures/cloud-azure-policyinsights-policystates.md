@@ -20,18 +20,18 @@ It brings the following service template:
 |:--------------|:-------------------------------------------------------|:--------------------------------|:--------|
 | Compliance    | Cloud-Azure-PolicyInsights-PolicyStates-Compliance-Api | Check Azure policies compliance | X       |
 
-
 > **Default** services are automatically created when the host template is applied.
+
 
 ### Collected metrics & status
 
 <Tabs groupId="sync">
 <TabItem value="Compliance" label="Compliance">
 
-| Metric Name                       | Unit  |
-|:----------------------------------|:------|
-| policies.non_compliant.count      | count |
-| compliance_state#compliance-state |       |
+| Metric Name                  | Unit  |
+|:-----------------------------|:------|
+| policies.non_compliant.count | count |
+| compliance-state             | N/A   |
 
 </TabItem>
 </Tabs>
@@ -144,18 +144,6 @@ These mandatory macros differ depending on the custom mode used.
 in **AZURERESOURCE**
 > * Resource name in the **AZURERESOURCE** macro, and resource group name in the **AZURERESOURCEGROUP** macro.
 
-1. Log into Centreon and add a new host through **Configuration > Hosts**.
-2. In the **IP Address/DNS** field, set the following IP address: **127.0.0.1**.
-3. Apply the **Cloud-Azure-PolicyInsights-PolicyStates-custom-custom** template to the host.
-4. Once the template is applied, fill in the corresponding macros. Some macros are mandatory.
-These mandatory macros differ depending on the custom mode used.
-
-> Two methods can be used to set the macros:
->
-> * Full ID of the Resource (`/subscriptions/<subscription_id>/resourceGroups/<resourcegroup_id>/providers/XXXXX/XXXXX/<resource_name>`)
-in **AZURERESOURCE**
-> * Resource name in the **AZURERESOURCE** macro, and resource group name in the **AZURERESOURCEGROUP** macro.
-
 | Mandatory      | Macro              | Description                                                                       | Default |
 |:---------------|:-------------------|:----------------------------------------------------------------------------------|:--------|
 |                | AZURECLIENTID      | Set Azure client ID                                                               |         |
@@ -165,6 +153,18 @@ in **AZURERESOURCE**
 |                | AZURETENANT        | Set Azure tenant ID                                                               |         |
 |                | EXTRAOPTIONS       | Any extra option you may want to add to every command line (eg. a --verbose flag) |         |
 |                | PROXYURL           | Proxy URL                                                                         |         |
+
+### Service
+
+| Mandatory      | Macro                        | Description                                                                                                                                                                    | Default                               |
+|:---------------|:-----------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------|
+|                | POLICYSTATES                 | The virtual resource under PolicyStates resource type. In a given time range, 'latest' represents the latest policy state(s), whereas 'default' represents all policy state(s) | default                               |
+|                | CRITICALCOMPLIANCESTATE      |                                                                                                                                                                                | %{compliance_state} eq "NonCompliant" |
+|                | RESOURCELOCATION             | Set resource location (Optional)                                                                                                                                               |                                       |
+|                | RESOURCETYPE                 | Set resource type (Optional)                                                                                                                                                   |                                       |
+|                | WARNINGNONCOMPLIANTPOLICIES  |                                                                                                                                                                                |                                       |
+|                | CRITICALNONCOMPLIANTPOLICIES |                                                                                                                                                                                |                                       |
+|                | WARNINGCOMPLIANCESTATE       |                                                                                                                                                                                |                                       |
 
 ## How to check in the CLI that the configuration is OK and what are the main options for?
 
@@ -195,7 +195,7 @@ running the following command:
 The expected command output is shown below:
 
 ```bash
-OK:   | 'policies.non_compliant.count'=65;;;0; 
+OK:   | 'policies.non_compliant.count'=90;;;0;;;;;  
 ```
 
 ### Available modes
@@ -211,7 +211,7 @@ the command:
 
 The plugin brings the following modes:
 
-| Mode       | Template                                               |
+| Mode       | Linked service template                                |
 |:-----------|:-------------------------------------------------------|
 | compliance | Cloud-Azure-PolicyInsights-PolicyStates-Compliance-Api |
 

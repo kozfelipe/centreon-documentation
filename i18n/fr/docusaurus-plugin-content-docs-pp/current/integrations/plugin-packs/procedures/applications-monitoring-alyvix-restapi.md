@@ -20,10 +20,10 @@ Il apporte le modèle de service suivant :
 |:-----------------|:-----------------------------------------------|:------------|:-------|:-----------|
 | Testcases-Global | App-Monitoring-Alyvix-Restapi-Testcases-Global | ContrÃ      | X      | X          |
 
-
 > Les services par **Défaut** sont créés automatiquement lorsque le modèle d'hôte est appliqué.
->
+
 > Si la case **Découverte** est cochée, cela signifie qu'une règle de découverte de service existe pour ce service.
+
 
 ### Règles de découverte
 
@@ -39,13 +39,13 @@ pour en savoir plus sur la découverte automatique de services et sa [planificat
 <Tabs groupId="sync">
 <TabItem value="Testcases-Global" label="Testcases-Global">
 
-| Métrique                                          | Unité |
-|:--------------------------------------------------|:------|
-| testcase.duration.milliseconds                    | ms    |
-| testcase-state                                    |       |
-| testcase.freshness.seconds                        | s     |
-| cases~testcases#transaction-state                 |       |
-| cases~testcases#transaction.duration.milliseconds | ms    |
+| Metric Name                       | Unité |
+|:----------------------------------|:------|
+| testcase.duration.milliseconds    | ms    |
+| testcase-state                    | N/A   |
+| testcase.freshness.seconds        | s     |
+| transaction-state                 | N/A   |
+| transaction.duration.milliseconds | ms    |
 
 </TabItem>
 </Tabs>
@@ -152,7 +152,7 @@ apt install centreon-plugin-applications-monitoring-alyvix-restapi
 3. Appliquez le modèle d'hôte **App-Monitoring-Alyvix-Restapi-custom-custom**.
 4. Une fois le modèle appliqué, les macros ci-dessous indiquées comme requises (**Obligatoire**) doivent être renseignées.
 
-| Obligatoire    | Macro             | Description                                                                       | Défaut  |
+| Mandatory      | Macro             | Description                                                                       | Défaut  |
 |:---------------|:------------------|:----------------------------------------------------------------------------------|:--------|
 |                | ALYVIXAPIPASSWORD |                                                                                   |         |
 |                | ALYVIXAPIPORT     | API port                                                                          | 80      |
@@ -161,6 +161,23 @@ apt install centreon-plugin-applications-monitoring-alyvix-restapi
 |                | ALYVIXAPIURLPATH  | API url path                                                                      | /v0/    |
 |                | ALYVIXAPIUSERNAME |                                                                                   |         |
 |                | EXTRAOPTIONS      | Any extra option you may want to add to every command line (eg. a --verbose flag) |         |
+
+### Service
+
+| Mandatory      | Macro                       | Description                  | Défaut               |
+|:---------------|:----------------------------|:-----------------------------|:---------------------|
+|                | FILTERTESTCASE              | Filter on specific test case | .*                   |
+|                | CRITICALTESTCASESTATE       |                              | %{state} eq "FAILED" |
+|                | EXTRAOPTIONS                |                              | --verbose            |
+|                | WARNINGTRANSACTIONSTATE     |                              |                      |
+|                | CRITICALTRANSACTIONSTATE    |                              |                      |
+|                | WARNINGTRANSACTIONDURATION  |                              |                      |
+|                | CRITICALTRANSACTIONDURATION |                              |                      |
+|                | WARNINGTESTCASEDURATION     |                              |                      |
+|                | CRITICALTESTCASEDURATION    |                              |                      |
+|                | WARNINGTESTCASESTATE        |                              |                      |
+|                | WARNINGTESTCASEFRESHNESS    |                              |                      |
+|                | CRITICALTESTCASEFRESHNESS   |                              |                      |
 
 ## Comment puis-je tester le plugin et que signifient les options des commandes ?
 
@@ -196,7 +213,7 @@ l'utilisateur **centreon-engine** (`su - centreon-engine`) :
 La commande devrait retourner un message de sortie similaire à :
 
 ```bash
-OK:      | 'testcase.duration.milliseconds'=7ms;;;0; 'testcase.freshness.seconds'=90s;;;0; 'transaction.duration.milliseconds'=67ms;;;0; 
+OK:      | 'testcase.duration.milliseconds'=2ms;;;0;;;;;  'testcase.freshness.seconds'=19s;;;0;;;;;  'transaction.duration.milliseconds'=84ms;;;0;;;;;  
 ```
 
 ### Modes disponibles
@@ -212,7 +229,7 @@ Tous les modes disponibles peuvent être affichés en ajoutant le paramètre
 
 Le plugin apporte les modes suivants :
 
-| Mode           | Modèle                                         |
+| Mode           | Modèle de service associé                      |
 |:---------------|:-----------------------------------------------|
 | list-testcases | Used for service discovery                     |
 | testcases      | App-Monitoring-Alyvix-Restapi-Testcases-Global |

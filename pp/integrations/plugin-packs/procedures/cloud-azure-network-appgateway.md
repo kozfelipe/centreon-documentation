@@ -22,31 +22,33 @@ It brings the following service templates:
 
 | Service Alias  | Service Template                                  | Service Description                                    | Default |
 |:---------------|:--------------------------------------------------|:-------------------------------------------------------|:--------|
-| Throughput     | Cloud-Azure-Network-AppGateway-Throughput-Api     | Check Azure Application Gateway throughput             | X       |
-| Requests       | Cloud-Azure-Network-AppGateway-Requests-Api       | Check Azure Application Gateway requests               | X       |
+| Backend-Health | Cloud-Azure-Network-AppGateway-Throughput-Api     | Check Azure Application Gateway v1 host backend status | X       |
+| Connections    | Cloud-Azure-Network-AppGateway-Requests-Api       | Check Azure Application Gateway connections            | X       |
 | Health         | Cloud-Azure-Network-AppGateway-Health-Api         | Check Azure Application Gateway health                 | X       |
-| Connections    | Cloud-Azure-Network-AppGateway-Connections-Api    | Check Azure Application Gateway connections            | X       |
-| Backend-Health | Cloud-Azure-Network-AppGateway-Backend-Health-Api | Check Azure Application Gateway v1 host backend status | X       |
+| Requests       | Cloud-Azure-Network-AppGateway-Connections-Api    | Check Azure Application Gateway requests               | X       |
+| Throughput     | Cloud-Azure-Network-AppGateway-Backend-Health-Api | Check Azure Application Gateway throughput             | X       |
+
+> **Default** services are automatically created when the host template is applied.
 
 </TabItem>
 <TabItem value="Cloud-Azure-Network-AppGateway-V2-custom" label="Cloud-Azure-Network-AppGateway-V2-custom">
 
 | Service Alias   | Service Template                                   | Service Description                                   | Default |
 |:----------------|:---------------------------------------------------|:------------------------------------------------------|:--------|
-| Units           | Cloud-Azure-Network-AppGateway-Units-Api           | Check Azure Application Gateway units                 | X       |
-| Throughput      | Cloud-Azure-Network-AppGateway-Throughput-Api      | Check Azure Application Gateway throughput            | X       |
-| Requests        | Cloud-Azure-Network-AppGateway-Requests-Api        | Check Azure Application Gateway requests              | X       |
-| Health          | Cloud-Azure-Network-AppGateway-Health-Api          | Check Azure Application Gateway health                | X       |
+| Backend-Status  | Cloud-Azure-Network-AppGateway-Units-Api           | Check Azure Application Gateway backend status        | X       |
+| Backend-Time    | Cloud-Azure-Network-AppGateway-Throughput-Api      | Check Azure Application Gateway backend response time | X       |
+| Clients-Traffic | Cloud-Azure-Network-AppGateway-Requests-Api        | Check Azure Application Gateway clients traffic       | X       |
+| Connections     | Cloud-Azure-Network-AppGateway-Health-Api          | Check Azure Application Gateway connections           | X       |
 | Gateway-Time    | Cloud-Azure-Network-AppGateway-Gateway-Time-Api    | Check Azure Application Gateway response time         | X       |
-| Connections     | Cloud-Azure-Network-AppGateway-Connections-Api     | Check Azure Application Gateway connections           | X       |
-| Clients-Traffic | Cloud-Azure-Network-AppGateway-Clients-Traffic-Api | Check Azure Application Gateway clients traffic       | X       |
-| Backend-Time    | Cloud-Azure-Network-AppGateway-Backend-Time-Api    | Check Azure Application Gateway backend response time | X       |
-| Backend-Status  | Cloud-Azure-Network-AppGateway-Backend-Status-Api  | Check Azure Application Gateway backend status        | X       |
+| Health          | Cloud-Azure-Network-AppGateway-Connections-Api     | Check Azure Application Gateway health                | X       |
+| Requests        | Cloud-Azure-Network-AppGateway-Clients-Traffic-Api | Check Azure Application Gateway requests              | X       |
+| Throughput      | Cloud-Azure-Network-AppGateway-Backend-Time-Api    | Check Azure Application Gateway throughput            | X       |
+| Units           | Cloud-Azure-Network-AppGateway-Backend-Status-Api  | Check Azure Application Gateway units                 | X       |
+
+> **Default** services are automatically created when the host template is applied.
 
 </TabItem>
 </Tabs>
-
-> **Default** services are automatically created when the host template is applied.
 
 ### Discovery rules
 
@@ -111,7 +113,11 @@ More information about discovering hosts automatically is available on the [dedi
 </TabItem>
 <TabItem value="Health" label="Health">
 
-Coming soon
+| Metric Name | Unit  |
+|:------------|:------|
+| status      |       |
+
+> **--use-new-perfdata** to get the new metric format.
 
 </TabItem>
 <TabItem value="Requests" label="Requests">
@@ -302,34 +308,185 @@ in **AZURERESOURCE**
 <Tabs groupId="sync">
 <TabItem value="Azure Monitor API" label="Azure Monitor API">
 
-| Mandatory      | Macro              | Description                                                                       | Default |
-|:---------------|:-------------------|:----------------------------------------------------------------------------------|:--------|
-|                | AZURECLIENTID      | Set Azure client ID                                                               |         |
-|                | AZURECLIENTSECRET  | Set Azure client secret                                                           |         |
-|                | AZURECUSTOMMODE    | =api                                                                              | api     |
-|                | AZURERESOURCE      | Set resource name or id                                                           |         |
-|                | AZURERESOURCEGROUP | Set resource group                                                                |         |
-|                | AZURERESOURCETYPE  |                                                                                   |         |
-|                | AZURESUBSCRIPTION  | Set Azure subscription                                                            |         |
-|                | AZURETENANT        | Set Azure tenant ID                                                               |         |
-|                | EXTRAOPTIONS       | Any extra option you may want to add to every command line (eg. a --verbose flag) |         |
-|                | PROXYURL           | Proxy URL if any                                                                  |         |
+| Mandatory      | Macro              | Description | Default |
+|:---------------|:-------------------|:------------|:--------|
+|                | AZURECLIENTID      |             |         |
+|                | AZURECLIENTSECRET  |             |         |
+|                | AZURECUSTOMMODE    |             | api     |
+|                | AZURERESOURCE      |             |         |
+|                | AZURERESOURCEGROUP |             |         |
+|                | AZURERESOURCETYPE  |             |         |
+|                | AZURESUBSCRIPTION  |             |         |
+|                | AZURETENANT        |             |         |
+|                | EXTRAOPTIONS       |             |         |
+|                | PROXYURL           |             |         |
 
 </TabItem>
 <TabItem value="Azure AZ CLI" label="Azure AZ CLI">
 
-| Mandatory      | Macro              | Description                                                                       | Default |
-|:---------------|:-------------------|:----------------------------------------------------------------------------------|:--------|
-|                | AZURECUSTOMMODE    | =api                                                                              | api     |
-|                | AZURERESOURCE      | Set resource name or id                                                           |         |
-|                | AZURERESOURCEGROUP | Set resource group                                                                |         |
-|                | AZURERESOURCETYPE  |                                                                                   |         |
-|                | AZURESUBSCRIPTION  | Set Azure subscription                                                            |         |
-|                | EXTRAOPTIONS       | Any extra option you may want to add to every command line (eg. a --verbose flag) |         |
-|                | PROXYURL           | Proxy URL if any                                                                  |         |
+| Mandatory      | Macro              | Description | Default |
+|:---------------|:-------------------|:------------|:--------|
+|                | AZURECLIENTID      |             |         |
+|                | AZURECLIENTSECRET  |             |         |
+|                | AZURECUSTOMMODE    |             | api     |
+|                | AZURERESOURCE      |             |         |
+|                | AZURERESOURCEGROUP |             |         |
+|                | AZURERESOURCETYPE  |             |         |
+|                | AZURESUBSCRIPTION  |             |         |
+|                | AZURETENANT        |             |         |
+|                | EXTRAOPTIONS       |             |         |
+|                | PROXYURL           |             |         |
 
 </TabItem>
 </Tabs>
+
+</TabItem>
+</Tabs>
+
+### Service
+
+<Tabs groupId="sync">
+<TabItem value="Backend-Health" label="Backend-Health">
+
+| Mandatory      | Macro                      | Description                                                                              | Default |
+|:---------------|:---------------------------|:-----------------------------------------------------------------------------------------|:--------|
+|                | TIMEFRAME                  |                                                                                          | 900     |
+|                | INTERVAL                   |                                                                                          | PT5M    |
+|                | AGGREGATION                |                                                                                          | Average |
+|                | FILTERMETRIC               |                                                                                          |         |
+|                | FILTERDIMENSION            |                                                                                          |         |
+|                | WARNINGHEALTHYHOSTCOUNT    |                                                                                          |         |
+|                | CRITICALHEALTHYHOSTCOUNT   |                                                                                          |         |
+|                | WARNINGUNHEALTHYHOSTCOUNT  |                                                                                          |         |
+|                | CRITICALUNHEALTHYHOSTCOUNT | ='2'     Default aggregation: 'average' / 'total', 'minimum' and 'maximum' are     valid |         |
+
+</TabItem>
+<TabItem value="Backend-Status" label="Backend-Status">
+
+| Mandatory      | Macro                  | Description        | Default |
+|:---------------|:-----------------------|:-------------------|:--------|
+|                | TIMEFRAME              |                    | 900     |
+|                | INTERVAL               |                    | PT5M    |
+|                | AGGREGATION            |                    | Total   |
+|                | FILTERMETRIC           |                    |         |
+|                | FILTERDIMENSION        |                    |         |
+|                | WARNINGRESPONSESTATUS  | Warning threshold  |         |
+|                | CRITICALRESPONSESTATUS | Critical threshold |         |
+
+</TabItem>
+<TabItem value="Backend-Time" label="Backend-Time">
+
+| Mandatory      | Macro                         | Description                                                                                 | Default |
+|:---------------|:------------------------------|:--------------------------------------------------------------------------------------------|:--------|
+|                | TIMEFRAME                     |                                                                                             | 900     |
+|                | INTERVAL                      |                                                                                             | PT5M    |
+|                | AGGREGATION                   |                                                                                             | Average |
+|                | FILTERMETRIC                  |                                                                                             |         |
+|                | FILTERDIMENSION               |                                                                                             |         |
+|                | WARNINGCONNECTTIME            |                                                                                             |         |
+|                | CRITICALCONNECTTIME           |                                                                                             |         |
+|                | WARNINGLASTBYTERESPONSETIME   | ='1000'                                                                                     |         |
+|                | CRITICALLASTBYTERESPONSETIME  | ='2000'     Default aggregation: 'average' / 'total', 'minimum' and 'maximum' are     valid |         |
+|                | WARNINGFIRSTBYTERESPONSETIME  |                                                                                             |         |
+|                | CRITICALFIRSTBYTERESPONSETIME |                                                                                             |         |
+
+</TabItem>
+<TabItem value="Clients-Traffic" label="Clients-Traffic">
+
+| Mandatory      | Macro                        | Description | Default |
+|:---------------|:-----------------------------|:------------|:--------|
+|                | TIMEFRAME                    |             | 900     |
+|                | INTERVAL                     |             | PT5M    |
+|                | AGGREGATION                  |             | Total   |
+|                | FILTERMETRIC                 |             |         |
+|                | FILTERDIMENSION              |             |         |
+|                | WARNINGCLIENTSBYTESRECEIVED  |             |         |
+|                | CRITICALCLIENTSBYTESRECEIVED |             |         |
+|                | WARNINGCLIENTSBYTESSENT      |             |         |
+|                | CRITICALCLIENTSBYTESSENT     |             |         |
+
+</TabItem>
+<TabItem value="Connections" label="Connections">
+
+| Mandatory      | Macro                      | Description        | Default |
+|:---------------|:---------------------------|:-------------------|:--------|
+|                | TIMEFRAME                  |                    | 900     |
+|                | INTERVAL                   |                    | PT5M    |
+|                | AGGREGATION                |                    | Average |
+|                | FILTERMETRIC               |                    |         |
+|                | FILTERDIMENSION            |                    |         |
+|                | WARNINGCURRENTCONNECTIONS  | Warning threshold  |         |
+|                | CRITICALCURRENTCONNECTIONS | Critical threshold |         |
+
+</TabItem>
+<TabItem value="Gateway-Time" label="Gateway-Time">
+
+| Mandatory      | Macro             | Description        | Default |
+|:---------------|:------------------|:-------------------|:--------|
+|                | TIMEFRAME         |                    | 900     |
+|                | INTERVAL          |                    | PT5M    |
+|                | AGGREGATION       |                    | Average |
+|                | FILTERMETRIC      |                    |         |
+|                | FILTERDIMENSION   |                    |         |
+|                | WARNINGTOTALTIME  | Warning threshold  |         |
+|                | CRITICALTOTALTIME | Critical threshold |         |
+
+</TabItem>
+<TabItem value="Health" label="Health">
+
+| Mandatory      | Macro          | Description                                                                                                                         | Default                      |
+|:---------------|:---------------|:------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------|
+|                | OKSTATUS       | Set ok threshold for status (Default: '%{status} =~ /^Available$/'). Can used special variables like: %{status}, %{summary}         | %{status} =~ /^Available$/   |
+|                | CRITICALSTATUS | Set critical threshold for status (Default: '%{status} =~ /^Unavailable$/'). Can used special variables like: %{status}, %{summary} | %{status} =~ /^Unavailable$/ |
+|                | UNKNOWNSTATUS  | Set unknown threshold for status (Default: '%{status} =~ /^Unknown$/'). Can used special variables like: %{status}, %{summary}      | %{status} =~ /^Unknown$/     |
+|                | WARNINGSTATUS  | Set warning threshold for status (Default: ''). Can used special variables like: %{status}, %{summary}                              |                              |
+
+</TabItem>
+<TabItem value="Requests" label="Requests">
+
+| Mandatory      | Macro                  | Description                                                                                 | Default |
+|:---------------|:-----------------------|:--------------------------------------------------------------------------------------------|:--------|
+|                | TIMEFRAME              |                                                                                             | 900     |
+|                | INTERVAL               |                                                                                             | PT5M    |
+|                | AGGREGATION            |                                                                                             | Total   |
+|                | FILTERMETRIC           |                                                                                             |         |
+|                | FILTERDIMENSION        |                                                                                             |         |
+|                | WARNINGFAILEDREQUESTS  |                                                                                             |         |
+|                | CRITICALFAILEDREQUESTS | ='2000'     Default aggregation: 'total' / 'average', 'minimum' and 'maximum' are     valid |         |
+|                | WARNINGTOTALREQUESTS   |                                                                                             |         |
+|                | CRITICALTOTALREQUESTS  |                                                                                             |         |
+
+</TabItem>
+<TabItem value="Throughput" label="Throughput">
+
+| Mandatory      | Macro              | Description        | Default |
+|:---------------|:-------------------|:-------------------|:--------|
+|                | TIMEFRAME          |                    | 900     |
+|                | INTERVAL           |                    | PT5M    |
+|                | AGGREGATION        |                    | Average |
+|                | FILTERMETRIC       |                    |         |
+|                | FILTERDIMENSION    |                    |         |
+|                | WARNINGTHROUGHPUT  | Warning threshold  |         |
+|                | CRITICALTHROUGHPUT | Critical threshold |         |
+
+</TabItem>
+<TabItem value="Units" label="Units">
+
+| Mandatory      | Macro                        | Description                                                                                 | Default |
+|:---------------|:-----------------------------|:--------------------------------------------------------------------------------------------|:--------|
+|                | TIMEFRAME                    |                                                                                             | 900     |
+|                | INTERVAL                     |                                                                                             | PT5M    |
+|                | AGGREGATION                  |                                                                                             | Average |
+|                | FILTERMETRIC                 |                                                                                             |         |
+|                | FILTERDIMENSION              |                                                                                             |         |
+|                | WARNINGESTIMATEDBILLEDUNITS  |                                                                                             |         |
+|                | CRITICALESTIMATEDBILLEDUNITS |                                                                                             |         |
+|                | WARNINGFIXEDBILLABLEUNITS    |                                                                                             |         |
+|                | CRITICALFIXEDBILLABLEUNITS   |                                                                                             |         |
+|                | WARNINGCOMPUTEUNITS          |                                                                                             |         |
+|                | CRITICALCOMPUTEUNITS         | ='2000'     Default aggregation: 'average' / 'total', 'minimum' and 'maximum' are     valid |         |
+|                | WARNINGCAPACITYUNITS         |                                                                                             |         |
+|                | CRITICALCAPACITYUNITS        |                                                                                             |         |
 
 </TabItem>
 </Tabs>
@@ -343,7 +500,7 @@ running the following command:
 ```bash
 /usr/lib/centreon/plugins//centreon_azure_network_appgateway_api.pl \
 	--plugin=cloud::azure::network::appgateway::plugin \
-	--mode=units \
+	--mode=backend-health \
 	--custommode='' \
 	--resource='' \
 	--resource-group='' \
@@ -357,21 +514,17 @@ running the following command:
 	--timeframe='' \
 	--interval='' \
 	--aggregation='' \
-	--warning-estimated-billed-units='' \
-	--critical-estimated-billed-units='' \
-	--warning-fixed-billable-units='' \
-	--critical-fixed-billable-units='' \
-	--warning-compute-units='' \
-	--critical-compute-units='' \
-	--warning-capacity-units='' \
-	--critical-capacity-units='' \
+	--warning-healthy-host-count='' \
+	--critical-healthy-host-count='' \
+	--warning-unhealthy-host-count='' \
+	--critical-unhealthy-host-count='' \
 	
 ```
 
 The expected command output is shown below:
 
 ```bash
-OK: Capacity Units consumed Compute Units consumed Estimated Billed Capacity Units Fixed Billable Capacity Units | 'appgateway.capacity.units.count'=45;;;0; 'appgateway.compute.units.count'=19;;;0; 'appgateway.billed.units.estimated.count'=25;;;0; 'appgateway.billable.units.fixed.count'=52;;;0; 
+OK: Unhealthy Host Count Healthy Host Count | 'appgateway.backend.unhealthy.host.count'=87;;;0;;;;;  'appgateway.backend.healthy.host.count'=14;;;0;;;;;  
 ```
 
 ### Available custom modes
@@ -403,7 +556,7 @@ the command:
 
 The plugin brings the following modes:
 
-| Mode            | Template                                           |
+| Mode            | Linked service template                            |
 |:----------------|:---------------------------------------------------|
 | backend-health  | Cloud-Azure-Network-AppGateway-Backend-Health-Api  |
 | backend-status  | Cloud-Azure-Network-AppGateway-Backend-Status-Api  |
@@ -423,39 +576,39 @@ The plugin brings the following modes:
 
 #### Global optionsAll global options are listed here:
 
-| Option                                     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Type   |
-|:-------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------|
-| --mode                                     | Choose a mode.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Global |
-| --dyn-mode                                 | Specify a mode with the path (separated by '::').                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Global |
-| --list-mode                                | List available modes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Global |
-| --mode-version                             | Check minimal version of mode. If not, unknown error.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Global |
-| --version                                  | Display plugin version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Global |
-| --custommode                               | Choose a custom mode.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Global |
-| --list-custommode                          | List available custom modes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Global |
-| --multiple                                 | Multiple custom mode objects (required by some specific modes)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Global |
-| --pass-manager                             | Use a password manager.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Global |
-| --verbose                                  | Display long output.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Output |
-| --debug                                    | Display also debug messages.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Output |
-| --filter-perfdata                          | Filter perfdata that match the regexp.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Output |
-| --filter-perfdata-adv                      | Advanced perfdata filter.  Eg: --filter-perfdata-adv='not (%(value) == 0 and %(max) eq "")'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Output |
-| --explode-perfdata-max                     | Put max perfdata (if it exist) in a specific perfdata (without values: same with '\_max' suffix) (Multiple options)                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Output |
-| --change-perfdata --extend-perfdata        | Change or extend perfdata. Syntax: --extend-perfdata=searchlabel,newlabel,target\[,\[newuom\],\[min\],\[m ax\]\]  Common examples:      Change storage free perfdata in used:     --change-perfdata=free,used,invert()      Change storage free perfdata in used:     --change-perfdata=used,free,invert()      Scale traffic values automaticaly:     --change-perfdata=traffic,,scale(auto)      Scale traffic values in Mbps:     --change-perfdata=traffic\_in,,scale(Mbps),mbps      Change traffic values in percent:     --change-perfdata=traffic\_in,,percent()   | Output |
-| --extend-perfdata-group                    | Extend perfdata from multiple perfdatas (methods in target are: min, max, average, sum) Syntax: --extend-perfdata-group=searchlabel,newlabel,target\[,\[newuom\],\[m in\],\[max\]\]  Common examples:      Sum wrong packets from all interfaces (with interface need     --units-errors=absolute):     --extend-perfdata-group=',packets\_wrong,sum(packets\_(discard     \|error)\_(in\|out))'      Sum traffic by interface:     --extend-perfdata-group='traffic\_in\_(.*),traffic\_$1,sum(traf     fic\_(in\|out)\_$1)'                                               | Output |
-| --change-short-output --change-long-output | Change short/long output display: --change-short-output=pattern~replace~modifier                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Output |
-| --change-exit                              | Change exit code: --change-exit=unknown=critical                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Output |
-| --range-perfdata                           | Change perfdata range thresholds display: 1 = start value equals to '0' is removed, 2 = threshold range is not display.                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Output |
-| --filter-uom                               | Filter UOM that match the regexp.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Output |
-| --opt-exit                                 | Optional exit code for an execution error (i.e. wrong option provided, SSH connection refused, timeout, etc) (Default: unknown).                                                                                                                                                                                                                                                                                                                                                                                                                                           | Output |
-| --output-ignore-perfdata                   | Remove perfdata from output.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Output |
-| --output-ignore-label                      | Remove label status from output.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Output |
-| --output-xml                               | Display output in XML format.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Output |
-| --output-json                              | Display output in JSON format.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Output |
-| --output-openmetrics                       | Display metrics in OpenMetrics format.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Output |
-| --output-file                              | Write output in file (can be used with json and xml options)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Output |
-| --disco-format                             | Display discovery arguments (if the mode manages it).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | Output |
-| --disco-show                               | Display discovery values (if the mode manages it).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Output |
-| --float-precision                          | Set the float precision for thresholds (Default: 8).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Output |
-| --source-encoding                          | Set encoding of monitoring sources (In some case. Default: 'UTF-8').                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Output |
+| Option                                     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Type   |
+|:-------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------|
+| --mode                                     | Choose a mode.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Global |
+| --dyn-mode                                 | Specify a mode with the path (separated by '::').                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Global |
+| --list-mode                                | List available modes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Global |
+| --mode-version                             | Check minimal version of mode. If not, unknown error.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Global |
+| --version                                  | Display plugin version.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Global |
+| --custommode                               | Choose a custom mode.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Global |
+| --list-custommode                          | List available custom modes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Global |
+| --multiple                                 | Multiple custom mode objects (required by some specific modes)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Global |
+| --pass-manager                             | Use a password manager.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Global |
+| --verbose                                  | Display long output.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Output |
+| --debug                                    | Display also debug messages.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Output |
+| --filter-perfdata                          | Filter perfdata that match the regexp.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Output |
+| --filter-perfdata-adv                      | Advanced perfdata filter.  Eg: --filter-perfdata-adv='not (%(value) == 0 and %(max) eq "")'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Output |
+| --explode-perfdata-max                     | Put max perfdata (if it exist) in a specific perfdata (without values: same with '\_max' suffix) (Multiple options)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Output |
+| --change-perfdata --extend-perfdata        | Change or extend perfdata. Syntax: --extend-perfdata=searchlabel,newlabel,target\[,\[newuom\],\[min\],\[m ax\]\]  Common examples:      Change storage free perfdata in used:     --change-perfdata=free,used,invert()      Change storage free perfdata in used:     --change-perfdata=used,free,invert()      Scale traffic values automaticaly:     --change-perfdata=traffic,,scale(auto)      Scale traffic values in Mbps:     --change-perfdata=traffic\_in,,scale(Mbps),mbps      Change traffic values in percent:     --change-perfdata=traffic\_in,,percent()                                                                                                                                                                                                                                       | Output |
+| --extend-perfdata-group                    | Extend perfdata from multiple perfdatas (methods in target are: min, max, average, sum) Syntax: --extend-perfdata-group=searchlabel,newlabel,target\[,\[newuom\],\[m in\],\[max\]\]  Common examples:      Sum wrong packets from all interfaces (with interface need     --units-errors=absolute):     --extend-perfdata-group=',packets\_wrong,sum(packets\_(discard     \|error)\_(in\|out))'      Sum traffic by interface:     --extend-perfdata-group='traffic\_in\_(.*),traffic\_$1,sum(traf     fic\_(in\|out)\_$1)'                                                                                                                                                                                                                                                                                   | Output |
+| --change-short-output --change-long-output | Change short/long output display: --change-short-output=pattern~replace~modifier                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Output |
+| --change-exit                              | Change exit code: --change-exit=unknown=critical                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Output |
+| --range-perfdata                           | Change perfdata range thresholds display: 1 = start value equals to '0' is removed, 2 = threshold range is not display.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Output |
+| --filter-uom                               | Filter UOM that match the regexp.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Output |
+| --opt-exit                                 | Optional exit code for an execution error (i.e. wrong option provided, SSH connection refused, timeout, etc) (Default: unknown).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Output |
+| --output-ignore-perfdata                   | Remove perfdata from output.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Output |
+| --output-ignore-label                      | Remove label status from output.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Output |
+| --output-xml                               | Display output in XML format.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | Output |
+| --output-json                              | Display output in JSON format.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Output |
+| --output-openmetrics                       | Display metrics in OpenMetrics format.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Output |
+| --output-file                              | Write output in file (can be used with json and xml options)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Output |
+| --disco-format                             | Display discovery arguments (if the mode manages it).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Output |
+| --disco-show                               | Display discovery values (if the mode manages it).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Output |
+| --float-precision                          | Set the float precision for thresholds (Default: 8).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Output |
+| --source-encoding                          | Set encoding of monitoring sources (In some case. Default: 'UTF-8').      Microsoft Azure CLI 2.0      To install the Azure CLI 2.0 in a CentOS/RedHat environment :      (As root)      # rpm --import https://packages.microsoft.com/keys/microsoft.asc      # sh -c 'echo -e "\[azure-cli\]\nname=Azure     CLI\nbaseurl=https://packages.microsoft.com/yumrepos/azure-cli\nenabled=     1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc"     \> /etc/yum.repos.d/azure-cli.repo'      # yum install azure-cli      (As centreon-engine)      # az login      Go to https://aka.ms/devicelogin and enter the code given by the last     command.      For futher informations, visit     https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-     cli-latest.   | Output |
 
 
 #### Custom modes options
@@ -651,7 +804,7 @@ All available options for a given mode can be displayed by adding the
 ```bash
 /usr/lib/centreon/plugins//centreon_azure_network_appgateway_api.pl \
 	--plugin=cloud::azure::network::appgateway::plugin \
-	--mode=units \
+	--mode=backend-health \
     --help
 ```
 

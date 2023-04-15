@@ -20,18 +20,18 @@ Il apporte le modèle de service suivant :
 |:-----------|:-------------------------------------------------------|:---------------------------------------------------|:-------|
 | Compliance | Cloud-Azure-PolicyInsights-PolicyStates-Compliance-Api | Contrôle l'état de conformité des stratégies Azure | X      |
 
-
 > Les services par **Défaut** sont créés automatiquement lorsque le modèle d'hôte est appliqué.
+
 
 ### Métriques & statuts collectés
 
 <Tabs groupId="sync">
 <TabItem value="Compliance" label="Compliance">
 
-| Métrique                          | Unité |
-|:----------------------------------|:------|
-| policies.non_compliant.count      | count |
-| compliance_state#compliance-state |       |
+| Metric Name                  | Unité |
+|:-----------------------------|:------|
+| policies.non_compliant.count | count |
+| compliance-state             | N/A   |
 
 </TabItem>
 </Tabs>
@@ -141,17 +141,7 @@ apt install centreon-plugin-cloud-azure-policyinsights-policystates-api
 > * Utilisation de l'ID complet de la ressource (de type `/subscriptions/<subscription_id>/resourceGroups/<resourcegroup_id>/providers/XXXXXX/XXXXXXX/<resource_name>`) dans la macro *AZURERESOURCE*.
 > * Utilisation du nom de la ressource dans la macro **AZURERESOURCE** et du nom du groupe de ressources dans la macro **AZURERESOURCEGROUP**.
 
-1. Ajoutez un hôte à Centreon depuis la page **Configuration > Hôtes**.
-2. Remplissez le champ **Adresse IP/DNS** avec l'adresse **127.0.0.1**.
-3. Appliquez le modèle d'hôte **Cloud-Azure-PolicyInsights-PolicyStates-custom-custom**.
-4. Une fois le modèle appliqué, renseignez les macros correspondantes. Attention, certaines macros sont obligatoires. Elles doivent être renseignées selon le *custom mode* utilisé.
-
-> Deux méthodes peuvent être utilisées lors de l'assignation des macros :
->
-> * Utilisation de l'ID complet de la ressource (de type `/subscriptions/<subscription_id>/resourceGroups/<resourcegroup_id>/providers/XXXXXX/XXXXXXX/<resource_name>`) dans la macro *AZURERESOURCE*.
-> * Utilisation du nom de la ressource dans la macro **AZURERESOURCE** et du nom du groupe de ressources dans la macro **AZURERESOURCEGROUP**.
-
-| Obligatoire    | Macro              | Description                                                                       | Défaut  |
+| Mandatory      | Macro              | Description                                                                       | Défaut  |
 |:---------------|:-------------------|:----------------------------------------------------------------------------------|:--------|
 |                | AZURECLIENTID      | Set Azure client ID                                                               |         |
 |                | AZURECLIENTSECRET  | Set Azure client secret                                                           |         |
@@ -160,6 +150,18 @@ apt install centreon-plugin-cloud-azure-policyinsights-policystates-api
 |                | AZURETENANT        | Set Azure tenant ID                                                               |         |
 |                | EXTRAOPTIONS       | Any extra option you may want to add to every command line (eg. a --verbose flag) |         |
 |                | PROXYURL           | Proxy URL                                                                         |         |
+
+### Service
+
+| Mandatory      | Macro                        | Description                                                                                                                                                                    | Défaut                                |
+|:---------------|:-----------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------|
+|                | POLICYSTATES                 | The virtual resource under PolicyStates resource type. In a given time range, 'latest' represents the latest policy state(s), whereas 'default' represents all policy state(s) | default                               |
+|                | CRITICALCOMPLIANCESTATE      |                                                                                                                                                                                | %{compliance_state} eq "NonCompliant" |
+|                | RESOURCELOCATION             | Set resource location (Optional)                                                                                                                                               |                                       |
+|                | RESOURCETYPE                 | Set resource type (Optional)                                                                                                                                                   |                                       |
+|                | WARNINGNONCOMPLIANTPOLICIES  |                                                                                                                                                                                |                                       |
+|                | CRITICALNONCOMPLIANTPOLICIES |                                                                                                                                                                                |                                       |
+|                | WARNINGCOMPLIANCESTATE       |                                                                                                                                                                                |                                       |
 
 ## Comment puis-je tester le plugin et que signifient les options des commandes ?
 
@@ -190,7 +192,7 @@ l'utilisateur **centreon-engine** (`su - centreon-engine`) :
 La commande devrait retourner un message de sortie similaire à :
 
 ```bash
-OK:   | 'policies.non_compliant.count'=65;;;0; 
+OK:   | 'policies.non_compliant.count'=90;;;0;;;;;  
 ```
 
 ### Modes disponibles
@@ -206,7 +208,7 @@ Tous les modes disponibles peuvent être affichés en ajoutant le paramètre
 
 Le plugin apporte les modes suivants :
 
-| Mode       | Modèle                                                 |
+| Mode       | Modèle de service associé                              |
 |:-----------|:-------------------------------------------------------|
 | compliance | Cloud-Azure-PolicyInsights-PolicyStates-Compliance-Api |
 

@@ -20,8 +20,8 @@ Il apporte le modèle de service suivant :
 |:-------------------|:---------------------------------|:---------------------------------------------|:-------|
 | Lambda-Invocations | Cloud-Aws-Lambda-Invocations-Api | Contrôle les performances du cache Memcached | X      |
 
-
 > Les services par **Défaut** sont créés automatiquement lorsque le modèle d'hôte est appliqué.
+
 
 ### Règles de découverte
 
@@ -36,7 +36,7 @@ Vous trouverez plus d'informations sur la découverte d'Hôtes et son fonctionne
 <Tabs groupId="sync">
 <TabItem value="Lambda-Invocations" label="Lambda-Invocations">
 
-| Métrique                                 | Unité |
+| Metric Name                              | Unité |
 |:-----------------------------------------|:------|
 | lambda.function.duration.milliseconds    |       |
 | lambda.function.invocations.count        | count |
@@ -180,7 +180,7 @@ apt install centreon-plugin-cloud-aws-lambda-api
 3. Appliquez le modèle d'hôte **Cloud-Aws-Lambda-custom-custom**.
 4. Une fois le modèle appliqué, les macros ci-dessous indiquées comme requises (**Obligatoire**) doivent être renseignées.
 
-| Obligatoire    | Macro         | Description                                                                       | Défaut  |
+| Mandatory      | Macro         | Description                                                                       | Défaut  |
 |:---------------|:--------------|:----------------------------------------------------------------------------------|:--------|
 |                | AWSACCESSKEY  | Set AWS access key                                                                |         |
 |                | AWSASSUMEROLE | Set arn of the role to be assumed                                                 |         |
@@ -190,6 +190,28 @@ apt install centreon-plugin-cloud-aws-lambda-api
 |                | EXTRAOPTIONS  | Any extra option you may want to add to every command line (eg. a --verbose flag) |         |
 |                | FUNCTIONNAME  | Set the function name                                                             | .*      |
 |                | PROXYURL      | Proxy URL if any                                                                  |         |
+
+### Service
+
+| Mandatory      | Macro                    | Description                                                                                                                                                                       | Défaut                          |
+|:---------------|:-------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------|
+|                | STATISTIC                |                                                                                                                                                                                   | sum                             |
+|                | TIMEFRAME                |                                                                                                                                                                                   | 600                             |
+|                | PERIOD                   |                                                                                                                                                                                   | 60                              |
+|                | EXTRAOPTIONS             |                                                                                                                                                                                   | --statistic='average' --verbose |
+|                | FILTERMETRIC             | Filter metrics (Can be: 'Duration', 'Invocations', 'Errors', 'DeadLetterErrors', 'Throttles', 'IteratorAge') (Can be a regexp)                                                    |                                 |
+|                | WARNINGTHROTTLES         |                                                                                                                                                                                   |                                 |
+|                | CRITICALTHROTTLES        |                                                                                                                                                                                   |                                 |
+|                | WARNINGERRORS            |                                                                                                                                                                                   |                                 |
+|                | CRITICALERRORS           |                                                                                                                                                                                   |                                 |
+|                | WARNINGITERATORAGE       |                                                                                                                                                                                   |                                 |
+|                | CRITICALITERATORAGE      |                                                                                                                                                                                   |                                 |
+|                | WARNINGINVOCATIONS       |                                                                                                                                                                                   |                                 |
+|                | CRITICALINVOCATIONS      |                                                                                                                                                                                   |                                 |
+|                | WARNINGDEADLETTERERRORS  |                                                                                                                                                                                   |                                 |
+|                | CRITICALDEADLETTERERRORS |                                                                                                                                                                                   |                                 |
+|                | WARNINGDURATION          |                                                                                                                                                                                   |                                 |
+|                | CRITICALDURATION         | ='10' --verbose     See     'https://docs.aws.amazon.com/lambda/latest/dg/monitoring-functions-metri     cs.html' for more informations.      Default statistic: 'sum', 'average' |                                 |
 
 ## Comment puis-je tester le plugin et que signifient les options des commandes ?
 
@@ -230,7 +252,7 @@ l'utilisateur **centreon-engine** (`su - centreon-engine`) :
 La commande devrait retourner un message de sortie similaire à :
 
 ```bash
-OK: Duration Invocations Errors Dead Letter Errors Throttles Iterator Age | 'lambda.function.duration.milliseconds'=18;;;; 'lambda.function.invocations.count'=8;;;; 'lambda.function.errors.count'=70;;;; 'lambda.function.deadlettererrors.count'=5;;;; 'lambda.function.throttles.count'=77;;;; 'lambda.function.iteratorage.milliseconds'=27;;;; 
+OK: Duration Invocations Errors Dead Letter Errors Throttles Iterator Age | 'lambda.function.duration.milliseconds'=97;;;;;;;;  'lambda.function.invocations.count'=75;;;;;;;;  'lambda.function.errors.count'=18;;;;;;;;  'lambda.function.deadlettererrors.count'=13;;;;;;;;  'lambda.function.throttles.count'=50;;;;;;;;  'lambda.function.iteratorage.milliseconds'=94;;;;;;;;  
 ```
 
 ### Custom modes disponibles
@@ -262,7 +284,7 @@ Tous les modes disponibles peuvent être affichés en ajoutant le paramètre
 
 Le plugin apporte les modes suivants :
 
-| Mode        | Modèle                           |
+| Mode        | Modèle de service associé        |
 |:------------|:---------------------------------|
 | discovery   | Not used in this Plugin Pack     |
 | invocations | Cloud-Aws-Lambda-Invocations-Api |

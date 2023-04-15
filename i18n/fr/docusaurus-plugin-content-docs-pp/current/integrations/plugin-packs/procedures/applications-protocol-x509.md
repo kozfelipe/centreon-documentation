@@ -20,17 +20,19 @@ Il apporte le modèle de service suivant :
 |:-----------------|:------------------------------|:--------------------------------------------------------------------------|:-------|
 | X509-Certificate | App-Protocol-X509-Certificate | Contrôle permettant de vérifier la date d'expiration d'un certificat X509 | X      |
 
-
 > Les services par **Défaut** sont créés automatiquement lorsque le modèle d'hôte est appliqué.
+
 
 ### Métriques & statuts collectés
 
 <Tabs groupId="sync">
 <TabItem value="X509-Certificate" label="X509-Certificate">
 
-| Métrique    | Unité |
+| Metric Name | Unité |
 |:------------|:------|
-| status      |       |
+| status      | N/A   |
+
+> L'option **--use-new-perfdata** est nécessaire pour avoir le nouevau format de métrique.
 
 </TabItem>
 </Tabs>
@@ -132,10 +134,14 @@ apt install centreon-plugin-applications-protocol-x509
 
 ### Hôte
 
-1. Ajoutez un hôte à Centreon depuis la page **Configuration > Hôtes**.
-2. Complétez les champs **Nom**, **Alias** & **IP Address/DNS** correspondant à votre ressource.
-3. Appliquez le modèle d'hôte **App-Protocol-X509-custom-custom**.
-4. Une fois le modèle appliqué, les macros ci-dessous indiquées comme requises (**Obligatoire**) doivent être renseignées.
+### Service
+
+| Mandatory      | Macro          | Description                                                                                                                                                                                                                                                                                                                                                                | Défaut             |
+|:---------------|:---------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-------------------|
+|                | CUSTOMMODE     |                                                                                                                                                                                                                                                                                                                                                                            | tcp                |
+|                | PORT           |                                                                                                                                                                                                                                                                                                                                                                            | 443                |
+|                | WARNINGSTATUS  | Set warning threshold for status. (Default: '%{expiration} \< 60'). Can use special variables like: %{expiration}, %{subject}, %{issuer}, %{alt\_subjects}                                                                                                                                                                                                                 | %{expiration} < 60 |
+|                | CRITICALSTATUS | Set critical threshold for status. (Default: '%{expiration} \< 30'). Can use special variables like: %{expiration}, %{subject}, %{issuer}, %{alt\_subjects}.  Examples :  Raise a critical alarm if certificate expires in less than 30 days or does not cover alternative name 'my.app.com' --critical-status='%{expiration} \< 30 \|\| %{alt\_subjects} !~ /my.app.com/' | %{expiration} < 30 |
 
 ## Comment puis-je tester le plugin et que signifient les options des commandes ?
 
@@ -192,7 +198,7 @@ Tous les modes disponibles peuvent être affichés en ajoutant le paramètre
 
 Le plugin apporte les modes suivants :
 
-| Mode        | Modèle                        |
+| Mode        | Modèle de service associé     |
 |:------------|:------------------------------|
 | certificate | App-Protocol-X509-Certificate |
 

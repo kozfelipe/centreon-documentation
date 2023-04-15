@@ -18,25 +18,25 @@ Il apporte les modèles de service suivants :
 
 | Alias                | Modèle de service                 | Description | Défaut |
 |:---------------------|:----------------------------------|:------------|:-------|
-| System-Notifications | App-Graylog-Notifications-Restapi | ContrÃ      | X      |
 | Query                | App-Graylog-Query-Restapi         | ContrÃ      |        |
-
+| System-Notifications | App-Graylog-Notifications-Restapi | ContrÃ      | X      |
 
 > Les services par **Défaut** sont créés automatiquement lorsque le modèle d'hôte est appliqué.
+
 
 ### Métriques & statuts collectés
 
 <Tabs groupId="sync">
 <TabItem value="Query" label="Query">
 
-| Métrique                  | Unité |
+| Metric Name               | Unité |
 |:--------------------------|:------|
 | graylog.query.match.count | count |
 
 </TabItem>
 <TabItem value="System-Notifications" label="System-Notifications">
 
-| Métrique                                  | Unité |
+| Metric Name                               | Unité |
 |:------------------------------------------|:------|
 | graylog.system.notifications.total.count  | count |
 | graylog.system.notifications.normal.count | count |
@@ -147,13 +147,42 @@ apt install centreon-plugin-applications-graylog-restapi
 3. Appliquez le modèle d'hôte **App-Graylog-Restapi-custom-custom**.
 4. Une fois le modèle appliqué, les macros ci-dessous indiquées comme requises (**Obligatoire**) doivent être renseignées.
 
-| Obligatoire    | Macro        | Description                                                                       | Défaut  |
+| Mandatory      | Macro        | Description                                                                       | Défaut  |
 |:---------------|:-------------|:----------------------------------------------------------------------------------|:--------|
 |                | APIPASSWORD  |                                                                                   |         |
 |                | APIPORT      | API port                                                                          | 9000    |
 |                | APIPROTOCOL  | Specify https if needed                                                           | http    |
 |                | APIUSERNAME  |                                                                                   |         |
 |                | EXTRAOPTIONS | Any extra option you may want to add to every command line (eg. a --verbose flag) |         |
+
+### Service
+
+<Tabs groupId="sync">
+<TabItem value="Query" label="Query">
+
+| Mandatory      | Macro                | Description                                                  | Défaut  |
+|:---------------|:---------------------|:-------------------------------------------------------------|:--------|
+|                | TIMEFRAME            | Set timeframe in seconds (E.g '300' to check last 5 minutes) | 300     |
+|                | QUERY                | Set a Lucene query                                           |         |
+|                | WARNINGQUERYMATCHES  |                                                              |         |
+|                | CRITICALQUERYMATCHES |                                                              |         |
+
+</TabItem>
+<TabItem value="System-Notifications" label="System-Notifications">
+
+| Mandatory      | Macro                       | Description                                                                                             | Défaut  |
+|:---------------|:----------------------------|:--------------------------------------------------------------------------------------------------------|:--------|
+|                | FILTERSEVERITY              | Filter on specific notification severity. Can be 'normal' or 'urgent'. (Default: both severities shown) |         |
+|                | FILTERNODE                  | Filter notifications by node ID. (Default: all notifications shown)                                     |         |
+|                | WARNINGNOTIFICATIONSTOTAL   |                                                                                                         |         |
+|                | CRITICALNOTIFICATIONSTOTAL  |                                                                                                         |         |
+|                | WARNINGNOTIFICATIONSNORMAL  |                                                                                                         |         |
+|                | CRITICALNOTIFICATIONSNORMAL |                                                                                                         |         |
+|                | WARNINGNOTIFICATIONSURGENT  |                                                                                                         |         |
+|                | CRITICALNOTIFICATIONSURGENT |                                                                                                         |         |
+
+</TabItem>
+</Tabs>
 
 ## Comment puis-je tester le plugin et que signifient les options des commandes ?
 
@@ -164,27 +193,23 @@ l'utilisateur **centreon-engine** (`su - centreon-engine`) :
 ```bash
 /usr/lib/centreon/plugins//centreon_graylog_restapi.pl \
 	--plugin=apps::graylog::restapi::plugin \
-	--mode=notifications \
+	--mode=query \
 	--hostname='10.0.0.1' \
-	--api-username='' \
-	--api-password='' \
 	--port='' \
-	--proto=''  \
-	--filter-severity='' \
-	--filter-node='' \
-	--warning-notifications-total='' \
-	--critical-notifications-total='' \
-	--warning-notifications-normal='' \
-	--critical-notifications-normal='' \
-	--warning-notifications-urgent='' \
-	--critical-notifications-urgent='' \
+	--proto='' \
+	--api-username='' \
+	--api-password=''  \
+	--query='' \
+	--timeframe='' \
+	--warning-query-matches='' \
+	--critical-query-matches='' \
 	
 ```
 
 La commande devrait retourner un message de sortie similaire à :
 
 ```bash
-OK:    | 'graylog.system.notifications.total.count'=50;;;0 ; 'graylog.system.notifications.normal.count'=43;;;0 ; 'graylog.system.notifications.urgent.count'=52;;;0 ; 
+OK:  | 'graylog.query.match.count'=34;;;0 ;;;;;  
 ```
 
 ### Modes disponibles
@@ -200,7 +225,7 @@ Tous les modes disponibles peuvent être affichés en ajoutant le paramètre
 
 Le plugin apporte les modes suivants :
 
-| Mode          | Modèle                            |
+| Mode          | Modèle de service associé         |
 |:--------------|:----------------------------------|
 | notifications | App-Graylog-Notifications-Restapi |
 | query         | App-Graylog-Query-Restapi         |
@@ -309,7 +334,7 @@ affichée en ajoutant le paramètre `--help` à la commande :
 ```bash
 /usr/lib/centreon/plugins//centreon_graylog_restapi.pl \
 	--plugin=apps::graylog::restapi::plugin \
-	--mode=notifications \
+	--mode=query \
     --help
 ```
 
