@@ -225,82 +225,88 @@ apt install centreon-plugin-applications-antivirus-kaspersky-snmp
 
 | Mandatory      | Macro            | Description                                                                                                         | Default                  |
 |:---------------|:-----------------|:--------------------------------------------------------------------------------------------------------------------|:-------------------------|
-|                | WARNINGSTATUS    | Set warning threshold for status. (Default: '%{status} =~ /Warning/i'). Can use special variables like: %{status}   | %{status} =~ /Warning/i  |
-|                | CRITICALSTATUS   | Set critical threshold for status. (Default: '%{status} =~ /Critical/i'). Can use special variables like: %{status} | %{status} =~ /Critical/i |
+|                | CRITICEXPIRING   |                                                                                                                     |                          |
+|                | WARNINGEXPIRED   |                                                                                                                     | 0                        |
+|                | CRITICALEXPIRED  |                                                                                                                     |                          |
+|                | WARNINGEXPIRING  |                                                                                                                     | 0                        |
+|                | WARNINGFAILED    |                                                                                                                     | 0                        |
+|                | CRITICALFAILED   |                                                                                                                     |                          |
 |                | WARNINGPROGRESS  |                                                                                                                     | 100:                     |
 |                | CRITICALPROGRESS |                                                                                                                     | 95:                      |
-|                | WARNINGFAILED    |                                                                                                                     | 0                        |
-|                | WARNINGEXPIRING  |                                                                                                                     | 0                        |
-|                | WARNINGEXPIRED   |                                                                                                                     | 0                        |
-|                | CRITICALFAILED   |                                                                                                                     |                          |
-|                | CRITICEXPIRING   |                                                                                                                     |                          |
-|                | CRITICALEXPIRED  |                                                                                                                     |                          |
+|                | WARNINGSTATUS    | Set warning threshold for status. (Default: '%{status} =~ /Warning/i'). Can use special variables like: %{status}   | %{status} =~ /Warning/i  |
+|                | CRITICALSTATUS   | Set critical threshold for status. (Default: '%{status} =~ /Critical/i'). Can use special variables like: %{status} | %{status} =~ /Critical/i |
+|                | EXTRAOPTIONS     | Any extra option you may want to add to the command line (eg. a --verbose flag)                                     |                          |
 
 </TabItem>
 <TabItem value="Events" label="Events">
 
 | Mandatory      | Macro          | Description                                                                                                         | Default                  |
 |:---------------|:---------------|:--------------------------------------------------------------------------------------------------------------------|:-------------------------|
-|                | WARNINGSTATUS  | Set warning threshold for status. (Default: '%{status} =~ /Warning/i'). Can use special variables like: %{status}   | %{status} =~ /Warning/i  |
-|                | CRITICALSTATUS | Set critical threshold for status. (Default: '%{status} =~ /Critical/i'). Can use special variables like: %{status} | %{status} =~ /Critical/i |
 |                | WARNINGEVENTS  |                                                                                                                     | 0                        |
 |                | CRITICALEVENTS |                                                                                                                     |                          |
+|                | WARNINGSTATUS  | Set warning threshold for status. (Default: '%{status} =~ /Warning/i'). Can use special variables like: %{status}   | %{status} =~ /Warning/i  |
+|                | CRITICALSTATUS | Set critical threshold for status. (Default: '%{status} =~ /Critical/i'). Can use special variables like: %{status} | %{status} =~ /Critical/i |
+|                | EXTRAOPTIONS   | Any extra option you may want to add to the command line (eg. a --verbose flag)                                     |                          |
 
 </TabItem>
 <TabItem value="Full-Scan" label="Full-Scan">
 
 | Mandatory      | Macro              | Description                                                                                                         | Default                  |
 |:---------------|:-------------------|:--------------------------------------------------------------------------------------------------------------------|:-------------------------|
-|                | WARNINGSTATUS      | Set warning threshold for status. (Default: '%{status} =~ /Warning/i'). Can use special variables like: %{status}   | %{status} =~ /Warning/i  |
-|                | CRITICALSTATUS     | Set critical threshold for status. (Default: '%{status} =~ /Critical/i'). Can use special variables like: %{status} | %{status} =~ /Critical/i |
 |                | WARNINGNOTSCANNED  |                                                                                                                     | 0                        |
 |                | CRITICALNOTSCANNED |                                                                                                                     |                          |
+|                | WARNINGSTATUS      | Set warning threshold for status. (Default: '%{status} =~ /Warning/i'). Can use special variables like: %{status}   | %{status} =~ /Warning/i  |
+|                | CRITICALSTATUS     | Set critical threshold for status. (Default: '%{status} =~ /Critical/i'). Can use special variables like: %{status} | %{status} =~ /Critical/i |
+|                | EXTRAOPTIONS       | Any extra option you may want to add to the command line (eg. a --verbose flag)                                     |                          |
 
 </TabItem>
 <TabItem value="Logical-Network" label="Logical-Network">
 
 | Mandatory      | Macro                        | Description                                                                                                         | Default                  |
 |:---------------|:-----------------------------|:--------------------------------------------------------------------------------------------------------------------|:-------------------------|
-|                | WARNINGSTATUS                | Set warning threshold for status. (Default: '%{status} =~ /Warning/i'). Can use special variables like: %{status}   | %{status} =~ /Warning/i  |
-|                | CRITICALSTATUS               | Set critical threshold for status. (Default: '%{status} =~ /Critical/i'). Can use special variables like: %{status} | %{status} =~ /Critical/i |
-|                | WARNINGNOTCONNECTEDLONGTIME  |                                                                                                                     | 0                        |
-|                | WARNINGNOTCONTROLLED         |                                                                                                                     | 0                        |
-|                | WARNINGNEWHOSTS              |                                                                                                                     |                          |
-|                | CRITICALNEWHOSTS             |                                                                                                                     |                          |
 |                | WARNINGGROUPS                |                                                                                                                     |                          |
 |                | CRITICALGROUPS               |                                                                                                                     |                          |
+|                | WARNINGNEWHOSTS              |                                                                                                                     |                          |
+|                | CRITICALNEWHOSTS             |                                                                                                                     |                          |
+|                | WARNINGNOTCONNECTEDLONGTIME  |                                                                                                                     | 0                        |
 |                | CRITICALNOTCONNECTEDLONGTIME |                                                                                                                     |                          |
+|                | WARNINGNOTCONTROLLED         |                                                                                                                     | 0                        |
 |                | CRITICALNOTCONTROLLED        |                                                                                                                     |                          |
+|                | WARNINGSTATUS                | Set warning threshold for status. (Default: '%{status} =~ /Warning/i'). Can use special variables like: %{status}   | %{status} =~ /Warning/i  |
+|                | CRITICALSTATUS               | Set critical threshold for status. (Default: '%{status} =~ /Critical/i'). Can use special variables like: %{status} | %{status} =~ /Critical/i |
+|                | EXTRAOPTIONS                 | Any extra option you may want to add to the command line (eg. a --verbose flag)                                     |                          |
 
 </TabItem>
 <TabItem value="Protection" label="Protection">
 
 | Mandatory      | Macro                      | Description                                                                                                         | Default                  |
 |:---------------|:---------------------------|:--------------------------------------------------------------------------------------------------------------------|:-------------------------|
+|                | WARNINGNOANTIVIRUS         |                                                                                                                     | 0                        |
+|                | CRITICALNOANTIVIRUS        |                                                                                                                     |                          |
+|                | WARNINGNOREALTIME          |                                                                                                                     | 0                        |
+|                | CRITICALNOREALTIME         |                                                                                                                     |                          |
+|                | WARNINGNOTACCEPTABLELEVEL  |                                                                                                                     | 0                        |
+|                | CRITICALNOTACCEPTABLELEVEL |                                                                                                                     |                          |
+|                | WARNINGNOTCUREDOBJECTS     |                                                                                                                     | 0                        |
+|                | CRITICALNOTCUREDOBJECTS    |                                                                                                                     |                          |
 |                | WARNINGSTATUS              | Set warning threshold for status. (Default: '%{status} =~ /Warning/i'). Can use special variables like: %{status}   | %{status} =~ /Warning/i  |
 |                | CRITICALSTATUS             | Set critical threshold for status. (Default: '%{status} =~ /Critical/i'). Can use special variables like: %{status} | %{status} =~ /Critical/i |
-|                | WARNINGNOANTIVIRUS         |                                                                                                                     | 0                        |
-|                | WARNINGNOREALTIME          |                                                                                                                     | 0                        |
-|                | WARNINGNOTACCEPTABLELEVEL  |                                                                                                                     | 0                        |
-|                | WARNINGNOTCUREDOBJECTS     |                                                                                                                     | 0                        |
 |                | WARNINGTOOMANYTHREATS      |                                                                                                                     | 0                        |
-|                | CRITICALNOANTIVIRUS        |                                                                                                                     |                          |
-|                | CRITICALNOREALTIME         |                                                                                                                     |                          |
-|                | CRITICALNOTACCEPTABLELEVEL |                                                                                                                     |                          |
-|                | CRITICALNOTCUREDOBJECTS    |                                                                                                                     |                          |
 |                | CRITICALTOOMANYTHREATS     |                                                                                                                     |                          |
+|                | EXTRAOPTIONS               | Any extra option you may want to add to the command line (eg. a --verbose flag)                                     |                          |
 
 </TabItem>
 <TabItem value="Updates" label="Updates">
 
 | Mandatory      | Macro                    | Description                                                                                                         | Default                  |
 |:---------------|:-------------------------|:--------------------------------------------------------------------------------------------------------------------|:-------------------------|
-|                | WARNINGSTATUS            | Set warning threshold for status. (Default: '%{status} =~ /Warning/i'). Can use special variables like: %{status}   | %{status} =~ /Warning/i  |
-|                | CRITICALSTATUS           | Set critical threshold for status. (Default: '%{status} =~ /Critical/i'). Can use special variables like: %{status} | %{status} =~ /Critical/i |
 |                | WARNINGLASTSERVERUPDATE  |                                                                                                                     | 120                      |
 |                | CRITICALLASTSERVERUPDATE |                                                                                                                     | 240                      |
 |                | WARNINGNOTUPDATED        |                                                                                                                     | 0                        |
 |                | CRITICALNOTUPDATED       |                                                                                                                     |                          |
+|                | WARNINGSTATUS            | Set warning threshold for status. (Default: '%{status} =~ /Warning/i'). Can use special variables like: %{status}   | %{status} =~ /Warning/i  |
+|                | CRITICALSTATUS           | Set critical threshold for status. (Default: '%{status} =~ /Critical/i'). Can use special variables like: %{status} | %{status} =~ /Critical/i |
+|                | EXTRAOPTIONS             | Any extra option you may want to add to the command line (eg. a --verbose flag)                                     |                          |
 
 </TabItem>
 </Tabs>
@@ -334,7 +340,7 @@ running the following command:
 The expected command output is shown below:
 
 ```bash
-OK:      | 'hosts.antivirus.installed.count'=50;;;0;;;;;  'hosts.antivirus.install.failed.count'=60;;;0 ;;;;;  'hosts.expiring.licence.count'=81;;;0;;;;;  'hosts.expired.licence.count'=34;;;0;;;;;  
+OK:      | 'hosts.antivirus.installed.count'=21;;;0;;;;;  'hosts.antivirus.install.failed.count'=16;;;0 ;;;;;  'hosts.expiring.licence.count'=64;;;0;;;;;  'hosts.expired.licence.count'=87;;;0;;;;;  
 ```
 
 ### Available modes

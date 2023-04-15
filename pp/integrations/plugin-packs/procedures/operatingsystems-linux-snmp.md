@@ -355,10 +355,11 @@ apt install centreon-plugin-operatingsystems-linux-snmp
 <Tabs groupId="sync">
 <TabItem value="Cpu" label="Cpu">
 
-| Mandatory      | Macro    | Description                                | Default |
-|:---------------|:---------|:-------------------------------------------|:--------|
-|                | WARNING  | Warning threshold average CPU utilization  | 80      |
-|                | CRITICAL | Critical threshold average CPU utilization | 90      |
+| Mandatory      | Macro        | Description                                                                     | Default |
+|:---------------|:-------------|:--------------------------------------------------------------------------------|:--------|
+|                | WARNING      | Warning threshold average CPU utilization                                       | 80      |
+|                | CRITICAL     | Critical threshold average CPU utilization                                      | 90      |
+|                | EXTRAOPTIONS | Any extra option you may want to add to the command line (eg. a --verbose flag) |         |
 
 </TabItem>
 <TabItem value="Cpu-Detailed" label="Cpu-Detailed">
@@ -374,24 +375,24 @@ apt install centreon-plugin-operatingsystems-linux-snmp
 
 | Mandatory      | Macro        | Description                                                                      | Default                                     |
 |:---------------|:-------------|:---------------------------------------------------------------------------------|:--------------------------------------------|
-|                | WARNING      | Threshold warning                                                                | 80                                          |
-|                | CRITICAL     | Threshold critical                                                               | 90                                          |
-|                | EXTRAOPTIONS |                                                                                  | --filter-perfdata='storage.space|used|free' |
 |                | DISKID       | Set the storage (number expected) ex: 1, 2,... (empty means 'check all storage') |                                             |
 |                | TRANSFORMSRC | Regexp src to transform display value. (security risk!!!)                        |                                             |
 |                | TRANSFORMDST | Regexp dst to transform display value. (security risk!!!)                        |                                             |
+|                | WARNING      | Threshold warning                                                                | 80                                          |
+|                | CRITICAL     | Threshold critical                                                               | 90                                          |
+|                | EXTRAOPTIONS |                                                                                  | --filter-perfdata='storage.space|used|free' |
 
 </TabItem>
 <TabItem value="Disk-Generic-Name" label="Disk-Generic-Name">
 
 | Mandatory      | Macro        | Description                                                                      | Default                                     |
 |:---------------|:-------------|:---------------------------------------------------------------------------------|:--------------------------------------------|
-|                | WARNING      | Threshold warning                                                                | 80                                          |
-|                | CRITICAL     | Threshold critical                                                               | 90                                          |
-|                | EXTRAOPTIONS |                                                                                  | --filter-perfdata='storage.space|used|free' |
 |                | DISKNAME     | Set the storage (number expected) ex: 1, 2,... (empty means 'check all storage') |                                             |
 |                | TRANSFORMSRC | Regexp src to transform display value. (security risk!!!)                        |                                             |
 |                | TRANSFORMDST | Regexp dst to transform display value. (security risk!!!)                        |                                             |
+|                | WARNING      | Threshold warning                                                                | 80                                          |
+|                | CRITICAL     | Threshold critical                                                               | 90                                          |
+|                | EXTRAOPTIONS |                                                                                  | --filter-perfdata='storage.space|used|free' |
 
 </TabItem>
 <TabItem value="Disk-Global" label="Disk-Global">
@@ -399,11 +400,11 @@ apt install centreon-plugin-operatingsystems-linux-snmp
 | Mandatory      | Macro        | Description                                                                      | Default                                               |
 |:---------------|:-------------|:---------------------------------------------------------------------------------|:------------------------------------------------------|
 |                | FILTER       | Set the storage (number expected) ex: 1, 2,... (empty means 'check all storage') | .*                                                    |
+|                | TRANSFORMSRC | Regexp src to transform display value. (security risk!!!)                        |                                                       |
+|                | TRANSFORMDST | Regexp dst to transform display value. (security risk!!!)                        |                                                       |
 |                | WARNING      | Threshold warning                                                                | 80                                                    |
 |                | CRITICAL     | Threshold critical                                                               | 90                                                    |
 |                | EXTRAOPTIONS |                                                                                  | --verbose --filter-perfdata='storage.space|used|free' |
-|                | TRANSFORMSRC | Regexp src to transform display value. (security risk!!!)                        |                                                       |
-|                | TRANSFORMDST | Regexp dst to transform display value. (security risk!!!)                        |                                                       |
 
 </TabItem>
 <TabItem value="Disk-IO" label="Disk-IO">
@@ -412,8 +413,8 @@ apt install centreon-plugin-operatingsystems-linux-snmp
 |:---------------|:--------------|:--------------------------------------------------------------------------------|:--------|
 |                | DISKNAME      | Set the device (number expected) ex: 1, 2,... (empty means 'check all devices') |         |
 |                | WARNINGREAD   |                                                                                 |         |
-|                | WARNINGWRITE  |                                                                                 |         |
 |                | CRITICALREAD  |                                                                                 |         |
+|                | WARNINGWRITE  |                                                                                 |         |
 |                | CRITICALWRITE |                                                                                 |         |
 |                | EXTRAOPTIONS  |                                                                                 |         |
 
@@ -422,11 +423,11 @@ apt install centreon-plugin-operatingsystems-linux-snmp
 
 | Mandatory      | Macro        | Description                                                                           | Default                                            |
 |:---------------|:-------------|:--------------------------------------------------------------------------------------|:---------------------------------------------------|
-|                | CRITICAL     | Threshold critical in percent                                                         | 90                                                 |
-|                | EXTRAOPTIONS |                                                                                       | --verbose                                          |
 |                | FILTER       | Set the disk path (number expected) ex: 1, 2,... (empty means 'check all disks path') | .*                                                 |
-|                | WARNING      | Threshold warning in percent                                                          | 80                                                 |
 |                | FILTERDEVICE | Filter devices by name (regexp)                                                       | ^(?!(tmpfs|devpts|none|proc|sysfs|sunrpc|\/\/.*)$) |
+|                | CRITICAL     | Threshold critical in percent                                                         | 90                                                 |
+|                | WARNING      | Threshold warning in percent                                                          | 80                                                 |
+|                | EXTRAOPTIONS |                                                                                       | --verbose                                          |
 
 </TabItem>
 <TabItem value="Load" label="Load">
@@ -434,8 +435,8 @@ apt install centreon-plugin-operatingsystems-linux-snmp
 | Mandatory      | Macro        | Description                          | Default |
 |:---------------|:-------------|:-------------------------------------|:--------|
 |                | CRITICAL     | Threshold critical (1min,5min,15min) | 6,5,4   |
-|                | EXTRAOPTIONS |                                      |         |
 |                | WARNING      | Threshold warning (1min,5min,15min)  | 4,3,2   |
+|                | EXTRAOPTIONS |                                      |         |
 
 </TabItem>
 <TabItem value="Memory" label="Memory">
@@ -443,35 +444,36 @@ apt install centreon-plugin-operatingsystems-linux-snmp
 | Mandatory      | Macro        | Description | Default |
 |:---------------|:-------------|:------------|:--------|
 |                | CRITICAL     |             | 90      |
-|                | EXTRAOPTIONS |             |         |
 |                | WARNING      |             | 80      |
+|                | EXTRAOPTIONS |             |         |
 
 </TabItem>
 <TabItem value="Ntp" label="Ntp">
 
-| Mandatory      | Macro    | Description                                                                                                     | Default |
-|:---------------|:---------|:----------------------------------------------------------------------------------------------------------------|:--------|
-|                | WARNING  | Time offset warning threshold (in seconds)                                                                      | -1:1    |
-|                | CRITICAL | Time offset critical Threshold (in seconds)                                                                     | -2:2    |
-|                | NTPADDR  | Set the ntp hostname (if not set, localtime is used)                                                            |         |
-|                | NTPPORT  | Set the ntp port (Default: 123)                                                                                 |         |
-|                | TIMEZONE | Set the timezone of distant server. For Windows, you need to set it. Can use format: 'Europe/London' or '+0100' |         |
+| Mandatory      | Macro        | Description                                                                                                     | Default |
+|:---------------|:-------------|:----------------------------------------------------------------------------------------------------------------|:--------|
+|                | NTPADDR      | Set the ntp hostname (if not set, localtime is used)                                                            |         |
+|                | NTPPORT      | Set the ntp port (Default: 123)                                                                                 |         |
+|                | TIMEZONE     | Set the timezone of distant server. For Windows, you need to set it. Can use format: 'Europe/London' or '+0100' |         |
+|                | WARNING      | Time offset warning threshold (in seconds)                                                                      | -1:1    |
+|                | CRITICAL     | Time offset critical Threshold (in seconds)                                                                     | -2:2    |
+|                | EXTRAOPTIONS | Any extra option you may want to add to the command line (eg. a --verbose flag)                                 |         |
 
 </TabItem>
 <TabItem value="Packet-Errors-Generic-Id" label="Packet-Errors-Generic-Id">
 
 | Mandatory      | Macro              | Description                                                                         | Default |
 |:---------------|:-------------------|:------------------------------------------------------------------------------------|:--------|
-|                | CRITICALINDISCARD  |                                                                                     |         |
-|                | CRITICALINERROR    |                                                                                     |         |
-|                | CRITICALOUTDISCARD |                                                                                     |         |
-|                | CRITICALOUTERROR   |                                                                                     |         |
-|                | EXTRAOPTIONS       |                                                                                     |         |
 |                | INTERFACEID        | Set the interface (number expected) ex: 1,2,... (empty means 'check all interface') |         |
+|                | CRITICALINDISCARD  |                                                                                     |         |
 |                | WARNINGINDISCARD   |                                                                                     |         |
+|                | CRITICALINERROR    |                                                                                     |         |
 |                | WARNINGINERROR     |                                                                                     |         |
+|                | CRITICALOUTDISCARD |                                                                                     |         |
 |                | WARNINGOUTDISCARD  |                                                                                     |         |
+|                | CRITICALOUTERROR   |                                                                                     |         |
 |                | WARNINGOUTERROR    |                                                                                     |         |
+|                | EXTRAOPTIONS       |                                                                                     |         |
 
 </TabItem>
 <TabItem value="Packet-Errors-Generic-Name" label="Packet-Errors-Generic-Name">
@@ -481,41 +483,42 @@ apt install centreon-plugin-operatingsystems-linux-snmp
 |                | INTERFACENAME      | Set the interface (number expected) ex: 1,2,... (empty means 'check all interface') | .*      |
 |                | WARNINGINDISCARD   |                                                                                     |         |
 |                | CRITICALINDISCARD  |                                                                                     |         |
-|                | WARNINGOUTDISCARD  |                                                                                     |         |
-|                | CRITICALOUTDISCARD |                                                                                     |         |
 |                | WARNINGINERROR     |                                                                                     |         |
 |                | CRITICALINERROR    |                                                                                     |         |
+|                | WARNINGOUTDISCARD  |                                                                                     |         |
+|                | CRITICALOUTDISCARD |                                                                                     |         |
 |                | WARNINGOUTERROR    |                                                                                     |         |
 |                | CRITICALOUTERROR   |                                                                                     |         |
+|                | EXTRAOPTIONS       | Any extra option you may want to add to the command line (eg. a --verbose flag)     |         |
 
 </TabItem>
 <TabItem value="Packet-Errors-Global" label="Packet-Errors-Global">
 
 | Mandatory      | Macro              | Description                                                                                                                                                                          | Default   |
 |:---------------|:-------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------|
-|                | CRITICALINDISCARD  |                                                                                                                                                                                      |           |
-|                | CRITICALINERROR    |                                                                                                                                                                                      |           |
-|                | CRITICALOUTDISCARD |                                                                                                                                                                                      |           |
-|                | CRITICALOUTERROR   |                                                                                                                                                                                      |           |
-|                | EXTRAOPTIONS       |                                                                                                                                                                                      | --verbose |
 |                | FILTER             | Set the interface (number expected) ex: 1,2,... (empty means 'check all interface')                                                                                                  | .*        |
+|                | CRITICALINDISCARD  |                                                                                                                                                                                      |           |
 |                | WARNINGINDISCARD   |                                                                                                                                                                                      |           |
+|                | CRITICALINERROR    |                                                                                                                                                                                      |           |
 |                | WARNINGINERROR     |                                                                                                                                                                                      |           |
+|                | CRITICALOUTDISCARD |                                                                                                                                                                                      |           |
 |                | WARNINGOUTDISCARD  |                                                                                                                                                                                      |           |
+|                | CRITICALOUTERROR   |                                                                                                                                                                                      |           |
 |                | WARNINGOUTERROR    |                                                                                                                                                                                      |           |
 |                | CRITICALSTATUS     | Set critical threshold for status (Default: '%{admstatus} eq "up" and %{opstatus} ne "up"'). Can used special variables like: %{admstatus}, %{opstatus}, %{duplexstatus}, %{display} |           |
+|                | EXTRAOPTIONS       |                                                                                                                                                                                      | --verbose |
 
 </TabItem>
 <TabItem value="Process-Generic" label="Process-Generic">
 
 | Mandatory      | Macro        | Description                                    | Default |
 |:---------------|:-------------|:-----------------------------------------------|:--------|
-|                | CRITICAL     | Threshold critical of matching processes count | 1:      |
-|                | EXTRAOPTIONS |                                                |         |
 |                | PROCESSARGS  | Filter process arguments                       |         |
 |                | PROCESSNAME  | Filter process name                            |         |
 |                | PROCESSPATH  | Filter process path                            |         |
+|                | CRITICAL     | Threshold critical of matching processes count | 1:      |
 |                | WARNING      | Threshold warning of matching processes count  |         |
+|                | EXTRAOPTIONS |                                                |         |
 
 </TabItem>
 <TabItem value="Swap" label="Swap">
@@ -523,28 +526,29 @@ apt install centreon-plugin-operatingsystems-linux-snmp
 | Mandatory      | Macro        | Description | Default |
 |:---------------|:-------------|:------------|:--------|
 |                | CRITICAL     |             | 30      |
-|                | EXTRAOPTIONS |             |         |
 |                | WARNING      |             | 10      |
+|                | EXTRAOPTIONS |             |         |
 
 </TabItem>
 <TabItem value="Tcpcon-Generic" label="Tcpcon-Generic">
 
-| Mandatory      | Macro    | Description                              | Default |
-|:---------------|:---------|:-----------------------------------------|:--------|
-|                | WARNING  | Threshold warning for total connections  |         |
-|                | CRITICAL | Threshold critical for total connections |         |
+| Mandatory      | Macro        | Description                                                                     | Default |
+|:---------------|:-------------|:--------------------------------------------------------------------------------|:--------|
+|                | WARNING      | Threshold warning for total connections                                         |         |
+|                | CRITICAL     | Threshold critical for total connections                                        |         |
+|                | EXTRAOPTIONS | Any extra option you may want to add to the command line (eg. a --verbose flag) |         |
 
 </TabItem>
 <TabItem value="Traffic-Generic-Id" label="Traffic-Generic-Id">
 
 | Mandatory      | Macro        | Description                                                                         | Default |
 |:---------------|:-------------|:------------------------------------------------------------------------------------|:--------|
-|                | CRITICALIN   |                                                                                     | 90      |
-|                | CRITICALOUT  |                                                                                     | 90      |
-|                | EXTRAOPTIONS |                                                                                     |         |
 |                | INTERFACEID  | Set the interface (number expected) ex: 1,2,... (empty means 'check all interface') |         |
+|                | CRITICALIN   |                                                                                     | 90      |
 |                | WARNINGIN    |                                                                                     | 80      |
+|                | CRITICALOUT  |                                                                                     | 90      |
 |                | WARNINGOUT   |                                                                                     | 80      |
+|                | EXTRAOPTIONS |                                                                                     |         |
 
 </TabItem>
 <TabItem value="Traffic-Generic-Name" label="Traffic-Generic-Name">
@@ -556,27 +560,29 @@ apt install centreon-plugin-operatingsystems-linux-snmp
 |                | CRITICALIN    |                                                                                     | 90      |
 |                | WARNINGOUT    |                                                                                     | 80      |
 |                | CRITICALOUT   |                                                                                     | 90      |
+|                | EXTRAOPTIONS  | Any extra option you may want to add to the command line (eg. a --verbose flag)     |         |
 
 </TabItem>
 <TabItem value="Traffic-Global" label="Traffic-Global">
 
 | Mandatory      | Macro          | Description                                                                                                                                                                          | Default   |
 |:---------------|:---------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------|
-|                | CRITICALIN     |                                                                                                                                                                                      | 90        |
-|                | CRITICALOUT    |                                                                                                                                                                                      | 90        |
-|                | EXTRAOPTIONS   |                                                                                                                                                                                      | --verbose |
 |                | FILTER         | Set the interface (number expected) ex: 1,2,... (empty means 'check all interface')                                                                                                  | .*        |
+|                | CRITICALIN     |                                                                                                                                                                                      | 90        |
 |                | WARNINGIN      |                                                                                                                                                                                      | 80        |
+|                | CRITICALOUT    |                                                                                                                                                                                      | 90        |
 |                | WARNINGOUT     |                                                                                                                                                                                      | 80        |
 |                | CRITICALSTATUS | Set critical threshold for status (Default: '%{admstatus} eq "up" and %{opstatus} ne "up"'). Can used special variables like: %{admstatus}, %{opstatus}, %{duplexstatus}, %{display} |           |
+|                | EXTRAOPTIONS   |                                                                                                                                                                                      | --verbose |
 
 </TabItem>
 <TabItem value="Uptime" label="Uptime">
 
-| Mandatory      | Macro    | Description        | Default |
-|:---------------|:---------|:-------------------|:--------|
-|                | WARNING  | Threshold warning  |         |
-|                | CRITICAL | Threshold critical |         |
+| Mandatory      | Macro        | Description                                                                     | Default |
+|:---------------|:-------------|:--------------------------------------------------------------------------------|:--------|
+|                | WARNING      | Threshold warning                                                               |         |
+|                | CRITICAL     | Threshold critical                                                              |         |
+|                | EXTRAOPTIONS | Any extra option you may want to add to the command line (eg. a --verbose flag) |         |
 
 </TabItem>
 </Tabs>
@@ -602,7 +608,7 @@ running the following command:
 The expected command output is shown below:
 
 ```bash
-OK:   | 'cpu.utilization.percentage'=2%;;;0;;;;100;  'core.cpu.utilization.percentage'=34%;;;0;;;;100;  
+OK:   | 'cpu.utilization.percentage'=76%;;;0;;;;100;  'core.cpu.utilization.percentage'=92%;;;0;;;;100;  
 ```
 
 ### Available modes

@@ -228,18 +228,17 @@ apt install centreon-plugin-network-aruba-cppm-snmp
 
 | Mandatory      | Macro           | Description                                | Default   |
 |:---------------|:----------------|:-------------------------------------------|:----------|
-|                | EXTRAOPTIONS    |                                            | --verbose |
-|                | WARNINGCORE     | Warning thresholds for each CPU core       |           |
-|                | CRITICALCORE    | Critical thresholds for each CPU core      |           |
 |                | WARNINGAVERAGE  | Warning threshold average CPU utilization  |           |
 |                | CRITICALAVERAGE | Critical threshold average CPU utilization |           |
+|                | WARNINGCORE     | Warning thresholds for each CPU core       |           |
+|                | CRITICALCORE    | Critical thresholds for each CPU core      |           |
+|                | EXTRAOPTIONS    |                                            | --verbose |
 
 </TabItem>
 <TabItem value="Disks" label="Disks">
 
 | Mandatory      | Macro                  | Description                                       | Default   |
 |:---------------|:-----------------------|:--------------------------------------------------|:----------|
-|                | EXTRAOPTIONS           |                                                   | --verbose |
 |                | FILTERNAME             | Filter disks by system hostname (can be a regexp) |           |
 |                | WARNINGSPACEUSAGE      |                                                   |           |
 |                | CRITICALSPACEUSAGE     |                                                   |           |
@@ -247,37 +246,37 @@ apt install centreon-plugin-network-aruba-cppm-snmp
 |                | CRITICALSPACEUSAGEFREE |                                                   |           |
 |                | WARNINGSPACEUSAGEPRCT  |                                                   |           |
 |                | CRITICALSPACEUSAGEPRCT |                                                   |           |
+|                | EXTRAOPTIONS           |                                                   | --verbose |
 
 </TabItem>
 <TabItem value="Interfaces" label="Interfaces">
 
 | Mandatory      | Macro              | Description                                                                                                                                                                          | Default                                              |
 |:---------------|:-------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------|
-|                | CRITICALSTATUS     | Set critical threshold for status (Default: '%{admstatus} eq "up" and %{opstatus} ne "up"'). Can used special variables like: %{admstatus}, %{opstatus}, %{duplexstatus}, %{display} | %{admstatus} eq "up" and %{opstatus} !~ /up|dormant/ |
 |                | OIDFILTER          | Choose OID used to filter interface (default: ifName) (values: ifDesc, ifAlias, ifName, IpAddr)                                                                                      | ifname                                               |
 |                | OIDDISPLAY         | Choose OID used to display interface (default: ifName) (values: ifDesc, ifAlias, ifName, IpAddr)                                                                                     | ifname                                               |
-|                | EXTRAOPTIONS       |                                                                                                                                                                                      | --verbose                                            |
 |                | INTERFACENAME      | Set the interface (number expected) ex: 1,2,... (empty means 'check all interface')                                                                                                  |                                                      |
-|                | WARNINGSTATUS      | Set warning threshold for status. Can used special variables like: %{admstatus}, %{opstatus}, %{duplexstatus}, %{display}                                                            |                                                      |
-|                | WARNINGINTRAFFIC   |                                                                                                                                                                                      |                                                      |
-|                | CRITICALINTRAFFIC  |                                                                                                                                                                                      |                                                      |
-|                | WARNINGOUTTRAFFIC  |                                                                                                                                                                                      |                                                      |
-|                | CRITICALOUTTRAFFIC |                                                                                                                                                                                      |                                                      |
 |                | WARNINGINDISCARD   |                                                                                                                                                                                      |                                                      |
 |                | CRITICALINDISCARD  |                                                                                                                                                                                      |                                                      |
-|                | WARNINGOUTDISCARD  |                                                                                                                                                                                      |                                                      |
-|                | CRITICALOUTDISCARD |                                                                                                                                                                                      |                                                      |
 |                | WARNINGINERROR     |                                                                                                                                                                                      |                                                      |
 |                | CRITICALINERROR    |                                                                                                                                                                                      |                                                      |
+|                | WARNINGINTRAFFIC   |                                                                                                                                                                                      |                                                      |
+|                | CRITICALINTRAFFIC  |                                                                                                                                                                                      |                                                      |
+|                | WARNINGOUTDISCARD  |                                                                                                                                                                                      |                                                      |
+|                | CRITICALOUTDISCARD |                                                                                                                                                                                      |                                                      |
 |                | WARNINGOUTERROR    |                                                                                                                                                                                      |                                                      |
 |                | CRITICALOUTERROR   |                                                                                                                                                                                      |                                                      |
+|                | WARNINGOUTTRAFFIC  |                                                                                                                                                                                      |                                                      |
+|                | CRITICALOUTTRAFFIC |                                                                                                                                                                                      |                                                      |
+|                | CRITICALSTATUS     | Set critical threshold for status (Default: '%{admstatus} eq "up" and %{opstatus} ne "up"'). Can used special variables like: %{admstatus}, %{opstatus}, %{duplexstatus}, %{display} | %{admstatus} eq "up" and %{opstatus} !~ /up|dormant/ |
+|                | WARNINGSTATUS      | Set warning threshold for status. Can used special variables like: %{admstatus}, %{opstatus}, %{duplexstatus}, %{display}                                                            |                                                      |
+|                | EXTRAOPTIONS       |                                                                                                                                                                                      | --verbose                                            |
 
 </TabItem>
 <TabItem value="Memory" label="Memory">
 
 | Mandatory      | Macro             | Description                                        | Default   |
 |:---------------|:------------------|:---------------------------------------------------|:----------|
-|                | EXTRAOPTIONS      |                                                    | --verbose |
 |                | FILTERNAME        | Filter memory by system hostname (can be a regexp) |           |
 |                | WARNINGUSAGE      |                                                    |           |
 |                | CRITICALUSAGE     |                                                    |           |
@@ -285,60 +284,61 @@ apt install centreon-plugin-network-aruba-cppm-snmp
 |                | CRITICALUSAGEFREE |                                                    |           |
 |                | WARNINGUSAGEPRCT  |                                                    |           |
 |                | CRITICALUSAGEPRCT |                                                    |           |
+|                | EXTRAOPTIONS      |                                                    | --verbose |
 
 </TabItem>
 <TabItem value="Radius" label="Radius">
 
 | Mandatory      | Macro                           | Description                                        | Default   |
 |:---------------|:--------------------------------|:---------------------------------------------------|:----------|
-|                | EXTRAOPTIONS                    |                                                    | --verbose |
 |                | FILTERNAME                      | Filter radius by system hostname (can be a regexp) |           |
 |                | WARNINGRADIUSPOLICYEVAL         |                                                    |           |
 |                | CRITICALRADIUSPOLICYEVAL        |                                                    |           |
-|                | WARNINGRADIUSREQUESTSTIME       |                                                    |           |
-|                | CRITICALRADIUSREQUESTSTIME      |                                                    |           |
 |                | WARNINGRADIUSREQUESTS           |                                                    |           |
 |                | CRITICALRADIUSREQUESTS          |                                                    |           |
 |                | WARNINGRADIUSREQUESTSFAILED     |                                                    |           |
 |                | CRITICALRADIUSREQUESTSFAILED    |                                                    |           |
 |                | WARNINGRADIUSREQUESTSSUCCEEDED  |                                                    |           |
 |                | CRITICALRADIUSREQUESTSSUCCEEDED |                                                    |           |
+|                | WARNINGRADIUSREQUESTSTIME       |                                                    |           |
+|                | CRITICALRADIUSREQUESTSTIME      |                                                    |           |
+|                | EXTRAOPTIONS                    |                                                    | --verbose |
 
 </TabItem>
 <TabItem value="Repositories" label="Repositories">
 
 | Mandatory      | Macro                     | Description                                                               | Default   |
 |:---------------|:--------------------------|:--------------------------------------------------------------------------|:----------|
-|                | EXTRAOPTIONS              |                                                                           | --verbose |
 |                | FILTERNAME                | Filter authentification repositories by system hostname (can be a regexp) |           |
-|                | WARNINGREQUESTSTIME       |                                                                           |           |
-|                | CRITICALREQUESTSTIME      |                                                                           |           |
 |                | WARNINGREQUESTS           |                                                                           |           |
 |                | CRITICALREQUESTS          |                                                                           |           |
 |                | WARNINGREQUESTSFAILED     |                                                                           |           |
 |                | CRITICALREQUESTSFAILED    |                                                                           |           |
 |                | WARNINGREQUESTSSUCCEEDED  |                                                                           |           |
 |                | CRITICALREQUESTSSUCCEEDED |                                                                           |           |
+|                | WARNINGREQUESTSTIME       |                                                                           |           |
+|                | CRITICALREQUESTSTIME      |                                                                           |           |
+|                | EXTRAOPTIONS              |                                                                           | --verbose |
 
 </TabItem>
 <TabItem value="Tacacs" label="Tacacs">
 
 | Mandatory      | Macro                               | Description                                        | Default   |
 |:---------------|:------------------------------------|:---------------------------------------------------|:----------|
-|                | EXTRAOPTIONS                        |                                                    | --verbose |
 |                | FILTERNAME                          | Filter tacacs by system hostname (can be a regexp) |           |
 |                | WARNINGTACACSAUTHPOLICYEVAL         |                                                    |           |
 |                | CRITICALTACACSAUTHPOLICYEVAL        |                                                    |           |
-|                | WARNINGTACACSAUTHREQUESTSAUTHTIME   |                                                    |           |
-|                | CRITICALTACACSAUTHREQUESTSAUTHTIME  |                                                    |           |
-|                | WARNINGTACACSAUTHREQUESTSTIME       |                                                    |           |
-|                | CRITICALTACACSAUTHREQUESTSTIME      |                                                    |           |
 |                | WARNINGTACACSAUTHREQUESTS           |                                                    |           |
 |                | CRITICALTACACSAUTHREQUESTS          |                                                    |           |
+|                | WARNINGTACACSAUTHREQUESTSAUTHTIME   |                                                    |           |
+|                | CRITICALTACACSAUTHREQUESTSAUTHTIME  |                                                    |           |
 |                | WARNINGTACACSAUTHREQUESTSFAILED     |                                                    |           |
 |                | CRITICALTACACSAUTHREQUESTSFAILED    |                                                    |           |
 |                | WARNINGTACACSAUTHREQUESTSSUCCEEDED  |                                                    |           |
 |                | CRITICALTACACSAUTHREQUESTSSUCCEEDED |                                                    |           |
+|                | WARNINGTACACSAUTHREQUESTSTIME       |                                                    |           |
+|                | CRITICALTACACSAUTHREQUESTSTIME      |                                                    |           |
+|                | EXTRAOPTIONS                        |                                                    | --verbose |
 
 </TabItem>
 </Tabs>

@@ -356,19 +356,21 @@ apt install centreon-plugin-cloud-azure-network-appgateway-api
 |                | CRITICALHEALTHYHOSTCOUNT   |                                                                                          |         |
 |                | WARNINGUNHEALTHYHOSTCOUNT  |                                                                                          |         |
 |                | CRITICALUNHEALTHYHOSTCOUNT | ='2'     Default aggregation: 'average' / 'total', 'minimum' and 'maximum' are     valid |         |
+|                | EXTRAOPTIONS               | Any extra option you may want to add to the command line (eg. a --verbose flag)          |         |
 
 </TabItem>
 <TabItem value="Backend-Status" label="Backend-Status">
 
-| Mandatory      | Macro                  | Description        | Défaut  |
-|:---------------|:-----------------------|:-------------------|:--------|
-|                | TIMEFRAME              |                    | 900     |
-|                | INTERVAL               |                    | PT5M    |
-|                | AGGREGATION            |                    | Total   |
-|                | FILTERMETRIC           |                    |         |
-|                | FILTERDIMENSION        |                    |         |
-|                | WARNINGRESPONSESTATUS  | Warning threshold  |         |
-|                | CRITICALRESPONSESTATUS | Critical threshold |         |
+| Mandatory      | Macro                  | Description                                                                     | Défaut  |
+|:---------------|:-----------------------|:--------------------------------------------------------------------------------|:--------|
+|                | TIMEFRAME              |                                                                                 | 900     |
+|                | INTERVAL               |                                                                                 | PT5M    |
+|                | AGGREGATION            |                                                                                 | Total   |
+|                | FILTERMETRIC           |                                                                                 |         |
+|                | FILTERDIMENSION        |                                                                                 |         |
+|                | WARNINGRESPONSESTATUS  | Warning threshold                                                               |         |
+|                | CRITICALRESPONSESTATUS | Critical threshold                                                              |         |
+|                | EXTRAOPTIONS           | Any extra option you may want to add to the command line (eg. a --verbose flag) |         |
 
 </TabItem>
 <TabItem value="Backend-Time" label="Backend-Time">
@@ -382,51 +384,55 @@ apt install centreon-plugin-cloud-azure-network-appgateway-api
 |                | FILTERDIMENSION               |                                                                                             |         |
 |                | WARNINGCONNECTTIME            |                                                                                             |         |
 |                | CRITICALCONNECTTIME           |                                                                                             |         |
-|                | WARNINGLASTBYTERESPONSETIME   | ='1000'                                                                                     |         |
-|                | CRITICALLASTBYTERESPONSETIME  | ='2000'     Default aggregation: 'average' / 'total', 'minimum' and 'maximum' are     valid |         |
 |                | WARNINGFIRSTBYTERESPONSETIME  |                                                                                             |         |
 |                | CRITICALFIRSTBYTERESPONSETIME |                                                                                             |         |
+|                | WARNINGLASTBYTERESPONSETIME   | ='1000'                                                                                     |         |
+|                | CRITICALLASTBYTERESPONSETIME  | ='2000'     Default aggregation: 'average' / 'total', 'minimum' and 'maximum' are     valid |         |
+|                | EXTRAOPTIONS                  | Any extra option you may want to add to the command line (eg. a --verbose flag)             |         |
 
 </TabItem>
 <TabItem value="Clients-Traffic" label="Clients-Traffic">
 
-| Mandatory      | Macro                        | Description | Défaut  |
-|:---------------|:-----------------------------|:------------|:--------|
-|                | TIMEFRAME                    |             | 900     |
-|                | INTERVAL                     |             | PT5M    |
-|                | AGGREGATION                  |             | Total   |
-|                | FILTERMETRIC                 |             |         |
-|                | FILTERDIMENSION              |             |         |
-|                | WARNINGCLIENTSBYTESRECEIVED  |             |         |
-|                | CRITICALCLIENTSBYTESRECEIVED |             |         |
-|                | WARNINGCLIENTSBYTESSENT      |             |         |
-|                | CRITICALCLIENTSBYTESSENT     |             |         |
+| Mandatory      | Macro                        | Description                                                                     | Défaut  |
+|:---------------|:-----------------------------|:--------------------------------------------------------------------------------|:--------|
+|                | TIMEFRAME                    |                                                                                 | 900     |
+|                | INTERVAL                     |                                                                                 | PT5M    |
+|                | AGGREGATION                  |                                                                                 | Total   |
+|                | FILTERMETRIC                 |                                                                                 |         |
+|                | FILTERDIMENSION              |                                                                                 |         |
+|                | WARNINGCLIENTSBYTESRECEIVED  |                                                                                 |         |
+|                | CRITICALCLIENTSBYTESRECEIVED |                                                                                 |         |
+|                | WARNINGCLIENTSBYTESSENT      |                                                                                 |         |
+|                | CRITICALCLIENTSBYTESSENT     |                                                                                 |         |
+|                | EXTRAOPTIONS                 | Any extra option you may want to add to the command line (eg. a --verbose flag) |         |
 
 </TabItem>
 <TabItem value="Connections" label="Connections">
 
-| Mandatory      | Macro                      | Description        | Défaut  |
-|:---------------|:---------------------------|:-------------------|:--------|
-|                | TIMEFRAME                  |                    | 900     |
-|                | INTERVAL                   |                    | PT5M    |
-|                | AGGREGATION                |                    | Average |
-|                | FILTERMETRIC               |                    |         |
-|                | FILTERDIMENSION            |                    |         |
-|                | WARNINGCURRENTCONNECTIONS  | Warning threshold  |         |
-|                | CRITICALCURRENTCONNECTIONS | Critical threshold |         |
+| Mandatory      | Macro                      | Description                                                                     | Défaut  |
+|:---------------|:---------------------------|:--------------------------------------------------------------------------------|:--------|
+|                | TIMEFRAME                  |                                                                                 | 900     |
+|                | INTERVAL                   |                                                                                 | PT5M    |
+|                | AGGREGATION                |                                                                                 | Average |
+|                | FILTERMETRIC               |                                                                                 |         |
+|                | FILTERDIMENSION            |                                                                                 |         |
+|                | WARNINGCURRENTCONNECTIONS  | Warning threshold                                                               |         |
+|                | CRITICALCURRENTCONNECTIONS | Critical threshold                                                              |         |
+|                | EXTRAOPTIONS               | Any extra option you may want to add to the command line (eg. a --verbose flag) |         |
 
 </TabItem>
 <TabItem value="Gateway-Time" label="Gateway-Time">
 
-| Mandatory      | Macro             | Description        | Défaut  |
-|:---------------|:------------------|:-------------------|:--------|
-|                | TIMEFRAME         |                    | 900     |
-|                | INTERVAL          |                    | PT5M    |
-|                | AGGREGATION       |                    | Average |
-|                | FILTERMETRIC      |                    |         |
-|                | FILTERDIMENSION   |                    |         |
-|                | WARNINGTOTALTIME  | Warning threshold  |         |
-|                | CRITICALTOTALTIME | Critical threshold |         |
+| Mandatory      | Macro             | Description                                                                     | Défaut  |
+|:---------------|:------------------|:--------------------------------------------------------------------------------|:--------|
+|                | TIMEFRAME         |                                                                                 | 900     |
+|                | INTERVAL          |                                                                                 | PT5M    |
+|                | AGGREGATION       |                                                                                 | Average |
+|                | FILTERMETRIC      |                                                                                 |         |
+|                | FILTERDIMENSION   |                                                                                 |         |
+|                | WARNINGTOTALTIME  | Warning threshold                                                               |         |
+|                | CRITICALTOTALTIME | Critical threshold                                                              |         |
+|                | EXTRAOPTIONS      | Any extra option you may want to add to the command line (eg. a --verbose flag) |         |
 
 </TabItem>
 <TabItem value="Health" label="Health">
@@ -434,9 +440,10 @@ apt install centreon-plugin-cloud-azure-network-appgateway-api
 | Mandatory      | Macro          | Description                                                                                                                         | Défaut                       |
 |:---------------|:---------------|:------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------|
 |                | OKSTATUS       | Set ok threshold for status (Default: '%{status} =~ /^Available$/'). Can used special variables like: %{status}, %{summary}         | %{status} =~ /^Available$/   |
-|                | CRITICALSTATUS | Set critical threshold for status (Default: '%{status} =~ /^Unavailable$/'). Can used special variables like: %{status}, %{summary} | %{status} =~ /^Unavailable$/ |
 |                | UNKNOWNSTATUS  | Set unknown threshold for status (Default: '%{status} =~ /^Unknown$/'). Can used special variables like: %{status}, %{summary}      | %{status} =~ /^Unknown$/     |
+|                | CRITICALSTATUS | Set critical threshold for status (Default: '%{status} =~ /^Unavailable$/'). Can used special variables like: %{status}, %{summary} | %{status} =~ /^Unavailable$/ |
 |                | WARNINGSTATUS  | Set warning threshold for status (Default: ''). Can used special variables like: %{status}, %{summary}                              |                              |
+|                | EXTRAOPTIONS   | Any extra option you may want to add to the command line (eg. a --verbose flag)                                                     |                              |
 
 </TabItem>
 <TabItem value="Requests" label="Requests">
@@ -452,19 +459,21 @@ apt install centreon-plugin-cloud-azure-network-appgateway-api
 |                | CRITICALFAILEDREQUESTS | ='2000'     Default aggregation: 'total' / 'average', 'minimum' and 'maximum' are     valid |         |
 |                | WARNINGTOTALREQUESTS   |                                                                                             |         |
 |                | CRITICALTOTALREQUESTS  |                                                                                             |         |
+|                | EXTRAOPTIONS           | Any extra option you may want to add to the command line (eg. a --verbose flag)             |         |
 
 </TabItem>
 <TabItem value="Throughput" label="Throughput">
 
-| Mandatory      | Macro              | Description        | Défaut  |
-|:---------------|:-------------------|:-------------------|:--------|
-|                | TIMEFRAME          |                    | 900     |
-|                | INTERVAL           |                    | PT5M    |
-|                | AGGREGATION        |                    | Average |
-|                | FILTERMETRIC       |                    |         |
-|                | FILTERDIMENSION    |                    |         |
-|                | WARNINGTHROUGHPUT  | Warning threshold  |         |
-|                | CRITICALTHROUGHPUT | Critical threshold |         |
+| Mandatory      | Macro              | Description                                                                     | Défaut  |
+|:---------------|:-------------------|:--------------------------------------------------------------------------------|:--------|
+|                | TIMEFRAME          |                                                                                 | 900     |
+|                | INTERVAL           |                                                                                 | PT5M    |
+|                | AGGREGATION        |                                                                                 | Average |
+|                | FILTERMETRIC       |                                                                                 |         |
+|                | FILTERDIMENSION    |                                                                                 |         |
+|                | WARNINGTHROUGHPUT  | Warning threshold                                                               |         |
+|                | CRITICALTHROUGHPUT | Critical threshold                                                              |         |
+|                | EXTRAOPTIONS       | Any extra option you may want to add to the command line (eg. a --verbose flag) |         |
 
 </TabItem>
 <TabItem value="Units" label="Units">
@@ -476,14 +485,15 @@ apt install centreon-plugin-cloud-azure-network-appgateway-api
 |                | AGGREGATION                  |                                                                                             | Average |
 |                | FILTERMETRIC                 |                                                                                             |         |
 |                | FILTERDIMENSION              |                                                                                             |         |
+|                | WARNINGCAPACITYUNITS         |                                                                                             |         |
+|                | CRITICALCAPACITYUNITS        |                                                                                             |         |
+|                | WARNINGCOMPUTEUNITS          |                                                                                             |         |
+|                | CRITICALCOMPUTEUNITS         | ='2000'     Default aggregation: 'average' / 'total', 'minimum' and 'maximum' are     valid |         |
 |                | WARNINGESTIMATEDBILLEDUNITS  |                                                                                             |         |
 |                | CRITICALESTIMATEDBILLEDUNITS |                                                                                             |         |
 |                | WARNINGFIXEDBILLABLEUNITS    |                                                                                             |         |
 |                | CRITICALFIXEDBILLABLEUNITS   |                                                                                             |         |
-|                | WARNINGCOMPUTEUNITS          |                                                                                             |         |
-|                | CRITICALCOMPUTEUNITS         | ='2000'     Default aggregation: 'average' / 'total', 'minimum' and 'maximum' are     valid |         |
-|                | WARNINGCAPACITYUNITS         |                                                                                             |         |
-|                | CRITICALCAPACITYUNITS        |                                                                                             |         |
+|                | EXTRAOPTIONS                 | Any extra option you may want to add to the command line (eg. a --verbose flag)             |         |
 
 </TabItem>
 </Tabs>
@@ -521,7 +531,7 @@ l'utilisateur **centreon-engine** (`su - centreon-engine`) :
 La commande devrait retourner un message de sortie similaire à :
 
 ```bash
-OK: Unhealthy Host Count Healthy Host Count | 'appgateway.backend.unhealthy.host.count'=87;;;0;;;;;  'appgateway.backend.healthy.host.count'=14;;;0;;;;;  
+OK: Unhealthy Host Count Healthy Host Count | 'appgateway.backend.unhealthy.host.count'=95;;;0;;;;;  'appgateway.backend.healthy.host.count'=36;;;0;;;;;  
 ```
 
 ### Custom modes disponibles

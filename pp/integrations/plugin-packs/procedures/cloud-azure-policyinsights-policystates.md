@@ -159,12 +159,13 @@ in **AZURERESOURCE**
 | Mandatory      | Macro                        | Description                                                                                                                                                                    | Default                               |
 |:---------------|:-----------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------|
 |                | POLICYSTATES                 | The virtual resource under PolicyStates resource type. In a given time range, 'latest' represents the latest policy state(s), whereas 'default' represents all policy state(s) | default                               |
-|                | CRITICALCOMPLIANCESTATE      |                                                                                                                                                                                | %{compliance_state} eq "NonCompliant" |
 |                | RESOURCELOCATION             | Set resource location (Optional)                                                                                                                                               |                                       |
 |                | RESOURCETYPE                 | Set resource type (Optional)                                                                                                                                                   |                                       |
+|                | CRITICALCOMPLIANCESTATE      |                                                                                                                                                                                | %{compliance_state} eq "NonCompliant" |
+|                | WARNINGCOMPLIANCESTATE       |                                                                                                                                                                                |                                       |
 |                | WARNINGNONCOMPLIANTPOLICIES  |                                                                                                                                                                                |                                       |
 |                | CRITICALNONCOMPLIANTPOLICIES |                                                                                                                                                                                |                                       |
-|                | WARNINGCOMPLIANCESTATE       |                                                                                                                                                                                |                                       |
+|                | EXTRAOPTIONS                 | Any extra option you may want to add to the command line (eg. a --verbose flag)                                                                                                |                                       |
 
 ## How to check in the CLI that the configuration is OK and what are the main options for?
 
@@ -195,7 +196,7 @@ running the following command:
 The expected command output is shown below:
 
 ```bash
-OK:   | 'policies.non_compliant.count'=90;;;0;;;;;  
+OK:   | 'policies.non_compliant.count'=24;;;0;;;;;  
 ```
 
 ### Available modes

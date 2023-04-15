@@ -168,17 +168,17 @@ apt install centreon-plugin-applications-monitoring-alyvix-restapi
 | Mandatory      | Macro                       | Description                  | Default              |
 |:---------------|:----------------------------|:-----------------------------|:---------------------|
 |                | FILTERTESTCASE              | Filter on specific test case | .*                   |
-|                | CRITICALTESTCASESTATE       |                              | %{state} eq "FAILED" |
-|                | EXTRAOPTIONS                |                              | --verbose            |
-|                | WARNINGTRANSACTIONSTATE     |                              |                      |
-|                | CRITICALTRANSACTIONSTATE    |                              |                      |
-|                | WARNINGTRANSACTIONDURATION  |                              |                      |
-|                | CRITICALTRANSACTIONDURATION |                              |                      |
 |                | WARNINGTESTCASEDURATION     |                              |                      |
 |                | CRITICALTESTCASEDURATION    |                              |                      |
-|                | WARNINGTESTCASESTATE        |                              |                      |
 |                | WARNINGTESTCASEFRESHNESS    |                              |                      |
 |                | CRITICALTESTCASEFRESHNESS   |                              |                      |
+|                | CRITICALTESTCASESTATE       |                              | %{state} eq "FAILED" |
+|                | WARNINGTESTCASESTATE        |                              |                      |
+|                | WARNINGTRANSACTIONDURATION  |                              |                      |
+|                | CRITICALTRANSACTIONDURATION |                              |                      |
+|                | WARNINGTRANSACTIONSTATE     |                              |                      |
+|                | CRITICALTRANSACTIONSTATE    |                              |                      |
+|                | EXTRAOPTIONS                |                              | --verbose            |
 
 ## How to check in the CLI that the configuration is OK and what are the main options for?
 
@@ -214,7 +214,7 @@ running the following command:
 The expected command output is shown below:
 
 ```bash
-OK:      | 'testcase.duration.milliseconds'=2ms;;;0;;;;;  'testcase.freshness.seconds'=19s;;;0;;;;;  'transaction.duration.milliseconds'=84ms;;;0;;;;;  
+OK:      | 'testcase.duration.milliseconds'=73ms;;;0;;;;;  'testcase.freshness.seconds'=98s;;;0;;;;;  'transaction.duration.milliseconds'=82ms;;;0;;;;;  
 ```
 
 ### Available modes

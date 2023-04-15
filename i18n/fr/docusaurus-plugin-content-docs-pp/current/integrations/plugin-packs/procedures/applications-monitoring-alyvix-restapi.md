@@ -167,17 +167,17 @@ apt install centreon-plugin-applications-monitoring-alyvix-restapi
 | Mandatory      | Macro                       | Description                  | Défaut               |
 |:---------------|:----------------------------|:-----------------------------|:---------------------|
 |                | FILTERTESTCASE              | Filter on specific test case | .*                   |
-|                | CRITICALTESTCASESTATE       |                              | %{state} eq "FAILED" |
-|                | EXTRAOPTIONS                |                              | --verbose            |
-|                | WARNINGTRANSACTIONSTATE     |                              |                      |
-|                | CRITICALTRANSACTIONSTATE    |                              |                      |
-|                | WARNINGTRANSACTIONDURATION  |                              |                      |
-|                | CRITICALTRANSACTIONDURATION |                              |                      |
 |                | WARNINGTESTCASEDURATION     |                              |                      |
 |                | CRITICALTESTCASEDURATION    |                              |                      |
-|                | WARNINGTESTCASESTATE        |                              |                      |
 |                | WARNINGTESTCASEFRESHNESS    |                              |                      |
 |                | CRITICALTESTCASEFRESHNESS   |                              |                      |
+|                | CRITICALTESTCASESTATE       |                              | %{state} eq "FAILED" |
+|                | WARNINGTESTCASESTATE        |                              |                      |
+|                | WARNINGTRANSACTIONDURATION  |                              |                      |
+|                | CRITICALTRANSACTIONDURATION |                              |                      |
+|                | WARNINGTRANSACTIONSTATE     |                              |                      |
+|                | CRITICALTRANSACTIONSTATE    |                              |                      |
+|                | EXTRAOPTIONS                |                              | --verbose            |
 
 ## Comment puis-je tester le plugin et que signifient les options des commandes ?
 
@@ -213,7 +213,7 @@ l'utilisateur **centreon-engine** (`su - centreon-engine`) :
 La commande devrait retourner un message de sortie similaire à :
 
 ```bash
-OK:      | 'testcase.duration.milliseconds'=2ms;;;0;;;;;  'testcase.freshness.seconds'=19s;;;0;;;;;  'transaction.duration.milliseconds'=84ms;;;0;;;;;  
+OK:      | 'testcase.duration.milliseconds'=73ms;;;0;;;;;  'testcase.freshness.seconds'=98s;;;0;;;;;  'transaction.duration.milliseconds'=82ms;;;0;;;;;  
 ```
 
 ### Modes disponibles

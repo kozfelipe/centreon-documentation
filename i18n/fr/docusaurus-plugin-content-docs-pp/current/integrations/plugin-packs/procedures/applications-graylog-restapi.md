@@ -160,12 +160,13 @@ apt install centreon-plugin-applications-graylog-restapi
 <Tabs groupId="sync">
 <TabItem value="Query" label="Query">
 
-| Mandatory      | Macro                | Description                                                  | Défaut  |
-|:---------------|:---------------------|:-------------------------------------------------------------|:--------|
-|                | TIMEFRAME            | Set timeframe in seconds (E.g '300' to check last 5 minutes) | 300     |
-|                | QUERY                | Set a Lucene query                                           |         |
-|                | WARNINGQUERYMATCHES  |                                                              |         |
-|                | CRITICALQUERYMATCHES |                                                              |         |
+| Mandatory      | Macro                | Description                                                                     | Défaut  |
+|:---------------|:---------------------|:--------------------------------------------------------------------------------|:--------|
+|                | TIMEFRAME            | Set timeframe in seconds (E.g '300' to check last 5 minutes)                    | 300     |
+|                | QUERY                | Set a Lucene query                                                              |         |
+|                | WARNINGQUERYMATCHES  |                                                                                 |         |
+|                | CRITICALQUERYMATCHES |                                                                                 |         |
+|                | EXTRAOPTIONS         | Any extra option you may want to add to the command line (eg. a --verbose flag) |         |
 
 </TabItem>
 <TabItem value="System-Notifications" label="System-Notifications">
@@ -174,12 +175,13 @@ apt install centreon-plugin-applications-graylog-restapi
 |:---------------|:----------------------------|:--------------------------------------------------------------------------------------------------------|:--------|
 |                | FILTERSEVERITY              | Filter on specific notification severity. Can be 'normal' or 'urgent'. (Default: both severities shown) |         |
 |                | FILTERNODE                  | Filter notifications by node ID. (Default: all notifications shown)                                     |         |
-|                | WARNINGNOTIFICATIONSTOTAL   |                                                                                                         |         |
-|                | CRITICALNOTIFICATIONSTOTAL  |                                                                                                         |         |
 |                | WARNINGNOTIFICATIONSNORMAL  |                                                                                                         |         |
 |                | CRITICALNOTIFICATIONSNORMAL |                                                                                                         |         |
+|                | WARNINGNOTIFICATIONSTOTAL   |                                                                                                         |         |
+|                | CRITICALNOTIFICATIONSTOTAL  |                                                                                                         |         |
 |                | WARNINGNOTIFICATIONSURGENT  |                                                                                                         |         |
 |                | CRITICALNOTIFICATIONSURGENT |                                                                                                         |         |
+|                | EXTRAOPTIONS                | Any extra option you may want to add to the command line (eg. a --verbose flag)                         |         |
 
 </TabItem>
 </Tabs>
@@ -209,7 +211,7 @@ l'utilisateur **centreon-engine** (`su - centreon-engine`) :
 La commande devrait retourner un message de sortie similaire à :
 
 ```bash
-OK:  | 'graylog.query.match.count'=34;;;0 ;;;;;  
+OK:  | 'graylog.query.match.count'=70;;;0 ;;;;;  
 ```
 
 ### Modes disponibles

@@ -156,12 +156,13 @@ apt install centreon-plugin-cloud-azure-policyinsights-policystates-api
 | Mandatory      | Macro                        | Description                                                                                                                                                                    | Défaut                                |
 |:---------------|:-----------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------|
 |                | POLICYSTATES                 | The virtual resource under PolicyStates resource type. In a given time range, 'latest' represents the latest policy state(s), whereas 'default' represents all policy state(s) | default                               |
-|                | CRITICALCOMPLIANCESTATE      |                                                                                                                                                                                | %{compliance_state} eq "NonCompliant" |
 |                | RESOURCELOCATION             | Set resource location (Optional)                                                                                                                                               |                                       |
 |                | RESOURCETYPE                 | Set resource type (Optional)                                                                                                                                                   |                                       |
+|                | CRITICALCOMPLIANCESTATE      |                                                                                                                                                                                | %{compliance_state} eq "NonCompliant" |
+|                | WARNINGCOMPLIANCESTATE       |                                                                                                                                                                                |                                       |
 |                | WARNINGNONCOMPLIANTPOLICIES  |                                                                                                                                                                                |                                       |
 |                | CRITICALNONCOMPLIANTPOLICIES |                                                                                                                                                                                |                                       |
-|                | WARNINGCOMPLIANCESTATE       |                                                                                                                                                                                |                                       |
+|                | EXTRAOPTIONS                 | Any extra option you may want to add to the command line (eg. a --verbose flag)                                                                                                |                                       |
 
 ## Comment puis-je tester le plugin et que signifient les options des commandes ?
 
@@ -192,7 +193,7 @@ l'utilisateur **centreon-engine** (`su - centreon-engine`) :
 La commande devrait retourner un message de sortie similaire à :
 
 ```bash
-OK:   | 'policies.non_compliant.count'=90;;;0;;;;;  
+OK:   | 'policies.non_compliant.count'=24;;;0;;;;;  
 ```
 
 ### Modes disponibles
